@@ -1,8 +1,8 @@
 {
   "homepage": "https://yourusername.github.io/your-repo-name",
-  "name": "final-project",
-  "main": "src/index.js",
-  "private": true,
+  "name": "Narnia-main",
+  "main": "./",
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -19,6 +19,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@react-three/fiber": "^8.17.14",
+    "@supabase/supabase-js": "^2.48.1",
     "@types/three": "^0.173.0",
     "animate.css": "^4.1.1",
     "aos": "^2.3.4",

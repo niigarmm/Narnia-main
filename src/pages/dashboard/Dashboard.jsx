@@ -5,12 +5,12 @@ import Header from "../../layout/Header";
 import { ModeContext } from "../../context/ModeContext";
 import { useDispatch, useSelector } from "react-redux";
 import slugify from "slugify";
-import { removeProduct } from "../../tools/action/productAction";
+import { removeProductToDatabase } from "../../tools/action/productAction";
 
 const Dashboard = () => {
   const [mode] = useContext(ModeContext);
   const data = useSelector((p) => p.product);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   return (
     <div>
       <div>
@@ -27,7 +27,7 @@ const Dashboard = () => {
                   <div className="image">
                     <p>Image</p>
                   </div>
-                  <div className="title-s">
+                  <div className="title-s first">
                     <p>Title</p>
                   </div>
                   <div className="price">
@@ -39,9 +39,6 @@ const Dashboard = () => {
                   <div className="delete">
                     <p>Delete</p>
                   </div>
-                  <div className="delete">
-                    <p>Admin</p>
-                  </div>
                 </div>
                 {data.map((item, i) => (
                   <div className="body" key={i}>
@@ -50,23 +47,31 @@ const Dashboard = () => {
                       <img src={item.img} alt="" />
                     </div>
                     <div className="title-s">
-                      <p>{item.title}</p>
+                      <p>{item.title.slice(0, 30)}...</p>
                     </div>
                     <div className="price">
                       <p>{item.price}</p>
                     </div>
                     <div className="edit">
                       <button>
-                        <Link to={`/dashboard/edit/${slugify(item.title,{lower:true})}`} style={{'color':'white'}}>Edit</Link>
+                        <Link
+                          to={`/dashboard/edit/${slugify(item.title, {
+                            lower: true,
+                          })}`}
+                          style={{ color: "white" }}
+                        >
+                          Edit
+                        </Link>
                       </button>
                     </div>
                     <div className="delete">
-                      <button onClick={()=>{dispatch(removeProduct(item.id))}}>Delete</button>
-                    </div>
-                    <div className="admin">
-                      <Link to="/admin">
-                        <button> Go admin</button>
-                      </Link>
+                      <button
+                        onClick={() => {
+                          dispatch(removeProductToDatabase(item.id));
+                        }}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 ))}

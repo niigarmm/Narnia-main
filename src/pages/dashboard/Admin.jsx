@@ -3,9 +3,9 @@ import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { ModeContext } from "../../context/ModeContext";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../../tools/action/productAction";
+import { addProductToDatabase } from "../../tools/action/productAction";
 import { Link, useNavigate } from "react-router-dom";
-import  Swal  from "sweetalert2/dist/sweetalert2";
+import Swal from "sweetalert2/dist/sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 
 const Admin = () => {
@@ -37,12 +37,12 @@ const Admin = () => {
       window.location.reload();
     }
   };
-
   const [mode] = useContext(ModeContext);
   const formSubmit = (e) => {
     e.preventDefault();
+    navigate("/dashboard")
     dispatch(
-      addProduct({
+      addProductToDatabase({
         img: imgRef.current.value,
         title: titleRef.current.value,
         price: priceRef.current.value,

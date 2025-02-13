@@ -1,10 +1,10 @@
 import React, { useContext, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Header from "../layout/Header";
-import Footer from "../layout/Footer";
-import { ModeContext } from "../context/ModeContext";
-import { addProduct } from "../tools/action/productAction";
+import Header from "../../layout/Header";
+import Footer from "../../layout/Footer";
+import { ModeContext } from "../../context/ModeContext";
+import {editProductToDatabase } from "../../tools/action/productAction";
 import slugify from "slugify";
 
 const Admin = () => {
@@ -15,18 +15,23 @@ const Admin = () => {
   const authorRef = useRef();
   const catRef = useRef();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [mode] = useContext(ModeContext);
-  const formSubmit = (e) => {
+  const formSubmit = (e, item) => {
     e.preventDefault();
+    navigate("/dashboard");
     dispatch(
-      addProduct({
-        img: imgRef.current.value,
-        title: titleRef.current.value,
-        price: priceRef.current.value,
-        desc: descRef.current.value,
-        author: authorRef.current.value,
-        cat: catRef.current.value,
+      editProductToDatabase({
+        id: filteredData.id,
+        edit: {
+          img: imgRef.current.value,
+          title: titleRef.current.value,
+          price: priceRef.current.value,
+          desc: descRef.current.value,
+          author: authorRef.current.value,
+          cat: catRef.current.value,
+        },
       })
     );
   };
@@ -47,7 +52,7 @@ const Admin = () => {
                 <div className="name">
                   <p>Book's Name:</p>
                   <input
-                    defaultValue={!filteredData ? "" : filteredData.title}
+                    defaultValue={filteredData.title}
                     ref={titleRef}
                     type="text"
                   />
@@ -55,7 +60,7 @@ const Admin = () => {
                 <div className="name">
                   <p>Book's Image Url:</p>
                   <input
-                    defaultValue={!filteredData ? "" : filteredData.img}
+                    defaultValue={filteredData.img}
                     ref={imgRef}
                     type="text"
                   />
@@ -63,20 +68,20 @@ const Admin = () => {
                 <div className="name">
                   <p>Book's Author:</p>
                   <input
-                    defaultValue={!filteredData ? "" : filteredData.author}
+                    defaultValue={filteredData.author}
                     ref={authorRef}
                     type="text"
                   />
                 </div>
                 <div className="d-flex">
-                  <button>Edit Book</button>
+                  <button type="submit">Edit Book</button>
                 </div>
               </div>
               <div className="right-part">
                 <div className="name">
                   <p>Book's Description:</p>
                   <textarea
-                    defaultValue={!filteredData ? "" : filteredData.desc}
+                    defaultValue={filteredData.desc}
                     ref={descRef}
                     name=""
                     id=""
@@ -85,7 +90,7 @@ const Admin = () => {
                 <div className="name">
                   <p>Book's Category:</p>
                   <input
-                    defaultValue={!filteredData ? "" : filteredData.cat}
+                    defaultValue={filteredData.cat}
                     ref={catRef}
                     type="text"
                   />
@@ -93,7 +98,7 @@ const Admin = () => {
                 <div className="name">
                   <p>Book's Price:</p>
                   <input
-                    defaultValue={!filteredData ? "" : filteredData.price}
+                    defaultValue={filteredData.price}
                     ref={priceRef}
                     type="text"
                   />

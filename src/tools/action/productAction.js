@@ -1,26 +1,35 @@
-import { v4 as uuidv4 } from "uuid";
-export const getProduct = () => ({
+import supabase from "../../../utils/supabase";
+
+export const getProduct = (products) => ({
   type: "GET_PRODUCT",
+  products,
 });
-export const addProduct = ({ img, title, price, desc, author, cat }) => ({
-  type: "ADD_PRODUCT",
-  payload: {
-    id: uuidv4(),
-    img,
-    title,
-    price,
-    desc,
-    author,
-    cat,
-  },
-});
+export const addProductToDatabase = async(produt) => {
+  const { data, error } = await supabase.from("narnia-product").insert(produt);
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(data);
+    window.location.assign("/dashboard");
+  }
+};
 
-export const removeProduct = (id) => ({
-  type: "REMOVE_PRODUCT",
-  id,
-});
+export const editProductToDatabase = async(produt) => {
+  const { data, error } = await supabase.from("narnia-product").insert(produt);
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(data);
+    window.location.assign("/dashboard");
+  }
+};
 
-export const editProduct = ({id,edit})=>({
-  type:"EDIT_PRODUCT",
-  id,edit
-})
+export const removeProductToDatabase = async(produt) => {
+  const { data, error } = await supabase.from("narnia-product").insert(produt);
+  if (error) {
+    console.log(error);
+  } else {
+    console.log(data);
+    window.location.assign("/dashboard");
+  }
+};

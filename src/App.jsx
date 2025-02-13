@@ -9,9 +9,10 @@ import ContactUs from "./pages/ContactUs";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Account from "./pages/Account";
+import MoreInformation from "./pages/MoreInfromation";
 import Admin from "./pages/dashboard/Admin";
 import Dashboard from "./pages/dashboard/Dashboard";
-import EditProduct from "./pages/EditProduct";
+import EditProduct from "./pages/dashboard/EditProduct";
 
 function App() {
   const [changeMode] = useContext(ModeContext);
@@ -49,6 +50,7 @@ function App() {
           <Route path="/admin" element={<Admin />}></Route>
           <Route path="/dashboard/edit/:slug" element={<EditProduct />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/more-information" element={<MoreInformation />}></Route>
         </Routes>
       </BrowserRouter>
     </>
