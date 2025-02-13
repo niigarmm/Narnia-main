@@ -1,3 +1,5 @@
+@use "mixin" as *;
+
 .admin {
   .account-card {
     flex-direction: column !important;
@@ -39,7 +41,7 @@
         height: 40px;
         border-radius: 20px;
         background-color: rgba(255, 255, 255, 0.597);
-        color: rgb(130, 126, 126);
+        color: rgb(201, 194, 194);
       }
       div {
         gap: 20px;

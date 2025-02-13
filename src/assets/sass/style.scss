@@ -1,17 +1,17 @@
-@import "mixin";
-@import "header";
-@import "aboutUs";
-@import "animation";
-@import "body-section";
-@import "faq";
-@import "contactUs";
-@import "signup";
-@import "login";
-@import "singleCard";
-@import "account";
-@import "product";
-@import "admin";
-@import "dashboard";
+@use "mixin";
+@use "header";
+@use "aboutUs";
+@use "animation";
+@use "body-section";
+@use "faq";
+@use "contactUs";
+@use "signup";
+@use "login";
+@use "singleCard";
+@use "account";
+@use "product";
+@use "admin";
+@use "dashboard";
 
 
 .up {

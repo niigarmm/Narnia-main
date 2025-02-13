@@ -1,3 +1,5 @@
+@use "mixin" as *;
+
 .dark-contact-container {
   @include darkMode();
   padding-block: 50px;

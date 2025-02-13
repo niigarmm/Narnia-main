@@ -2,12 +2,12 @@ import React from 'react'
 import Header from '../layout/Header'
 import Footer from '../layout/Footer'
 
-const MoreInfromation = ({allitems}) => {
+const MoreInfromation = () => {
   return (
     <div>
       <Header />
       <div className="more-info">
-        <img src={allitems.img} alt="" />
+       hello
       </div>
       <Footer />
     </div>
