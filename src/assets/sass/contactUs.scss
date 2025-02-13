@@ -1,0 +1,167 @@
+.dark-contact-container {
+  @include darkMode();
+  padding-block: 50px;
+  padding-inline: 80px;
+  h1 {
+    color: white;
+  }
+}
+.contact-container {
+  padding-block: 50px;
+  padding-inline: 80px;
+}
+h1 {
+  @include textColor();
+  color: #2c3111;
+  font-size: 60px;
+  font-weight: 800;
+  text-align: left;
+  margin-top: 30px;
+}
+.contact,
+.dark-contact {
+  gap: 80px;
+  display: flex;
+  align-items: flex-start;
+
+  .input {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .input-side {
+      display: flex;
+      margin-top: 30px;
+      gap: 30px;
+      .email,
+      .phone {
+        width: 50%;
+        height: 60px;
+      }
+    }
+    input,
+    textarea {
+      @include input();
+      background-color: #f5bbb9;
+      border-radius: 50px;
+      height: 30px;
+      color: white;
+      border: 1px solid #a26f6d;
+    }
+    input::placeholder,
+    textarea::placeholder {
+      color: white;
+      font-size: 17px;
+    }
+    .name {
+      height: 60px !important;
+    }
+    textarea {
+      min-height: 180px !important;
+      border-radius: 20px;
+      padding-top: 20px;
+    }
+    button {
+      width: 20%;
+      height: 50px;
+      background-color: #f5bbb9;
+      @include input();
+      padding: 0;
+      color: white;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 17px;
+      border: 1px solid #a26f6d;
+      transition: 0.5s;
+    }
+    button:hover {
+      background-color: white;
+      color: #f5bbb9;
+      transition: 0.5s;
+    }
+  }
+}
+.dark-contact {
+  @include darkMode();
+  h1 {
+    color: white !important;
+  }
+  input,
+  textarea,
+  button {
+    background-color: #d77056 !important;
+    border: 1px solid white !important;
+  }
+  button:hover {
+    background-color: #354660 !important;
+    color: white !important;
+  }
+  .card:hover .profile-pic {
+    border: 7px solid #d77056;
+  }
+  .card .bottom {
+    background-color: #d77056;
+  }
+  svg {
+    path {
+      fill: white !important;
+      stroke: white !important;
+    }
+  }
+}
+@media (max-width: 993px) {
+  .contact-container,
+  .dark-contact-container {
+    padding-inline: 20px !important;
+    .contact,.dark-contact{
+      gap: 14px !important;
+    }
+    .input-side {
+      flex-direction: column !important;
+      gap: 10px !important;
+      input {
+        width: 100% !important;
+      }
+    }
+  }
+}
+@media (max-width: 782px) {
+  .contact,
+  .dark-contact {
+    gap: 14px !important;
+  }
+}
+@media (max-width: 740px) {
+  .dark-contact-container,.contact-container{
+    h1{
+      font-size: 30px !important;
+    }
+  }
+  .dark-contact,
+  .contact {
+    .input {
+      width: 100%;
+    }
+  }
+  .card {
+    display: none !important;
+  }
+}
+@media (max-width: 400px) {
+  .dark-contact,
+  .contact {
+    .input {
+      .name {
+        height: 35px !important;
+      }
+      input,
+      button {
+        height: 35px !important;
+        font-size: 13px !important;
+      }
+      input::placeholder {
+        font-size: 13px !important;
+      }
+    }
+  }
+}

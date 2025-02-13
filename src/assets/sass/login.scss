@@ -1,0 +1,53 @@
+.login-container,
+.dark-login-container {
+  .cammon-div {
+    justify-content: start !important;
+    padding-left: 20px;
+    img{
+      margin-right: 20px;
+      margin-left: 0 !important;
+    }
+    .signup-card {
+      position: relative;
+      padding-top: 40px;
+      width: 52%;
+      margin-right: 0 !important;
+      .inputs {
+        margin-top: 30px !important;
+        input {
+          background-color: rgba(255, 255, 255, 0.644) !important;
+          color: #989b32 !important;
+          border: none !important;
+        }
+        .email::placeholder,
+        .pass::placeholder {
+          color: #989b32 !important;
+        }
+        .text {
+          margin-top: 10px !important;
+        }
+        div {
+          .social-m {
+            margin-top: 0px !important;
+          }
+        }
+      }
+    }
+  }
+}
+.dark-login-container {
+  .cammon-div {
+    .signup-card {
+      .inputs {
+        div {
+          .email,.pass {
+            color: #354660 !important;
+          }
+          .email::placeholder,.pass::placeholder {
+            color: #354660 !important;
+          }
+        }
+      }
+    }
+  }
+}

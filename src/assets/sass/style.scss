@@ -1,0 +1,26 @@
+@import "mixin";
+@import "header";
+@import "aboutUs";
+@import "animation";
+@import "body-section";
+@import "faq";
+@import "contactUs";
+@import "signup";
+@import "login";
+@import "singleCard";
+@import "account";
+@import "product";
+@import "admin";
+@import "dashboard";
+
+
+.up {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 1000000000000;
+  background-color: #6d692eb0;
+  border-radius: 100px;
+  padding: 9px;
+  cursor: pointer;
+}

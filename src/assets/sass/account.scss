@@ -1,0 +1,503 @@
+.account,
+.dark-account {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: 60px;
+  padding-inline: 80px;
+  overflow: auto;
+  .account-card {
+    background-color: #e0e0a0bb;
+    height: 100vh;
+    border-radius: 30px;
+    width: 100%;
+    padding-block: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 15px;
+    overflow: hidden;
+
+    .left-part {
+      width: 30%;
+      height: 90vh;
+      display: flex;
+      flex-direction: column;
+      .profil-pic {
+        gap: 30px;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        .avatars {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 20px;
+          img {
+            width: 150px;
+            border-radius: 100px;
+            height: 150px;
+            cursor: pointer;
+          }
+          label {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            p {
+              display: none;
+              position: relative;
+              font-size: 12px;
+              margin-top: 15px !important;
+            }
+          }
+          label:hover p {
+            display: flex;
+          }
+        }
+      }
+      .sections {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        width: 100%;
+        margin-top: 0px;
+        gap: 20px;
+
+        button {
+          padding-left: 30px;
+          text-align: left;
+          border: none;
+          background-color: transparent;
+          width: 80%;
+          height: 50px;
+          transition: 0.2s;
+          border-radius: 0 30px 30px 0;
+        }
+        button:hover {
+          background-color: #434322;
+          transition: 0.2s;
+          h4 {
+            color: white;
+          }
+        }
+        .exit {
+          background-color: #ec504de0;
+          width: 35%;
+          height: 40px;
+          margin-left: 30px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 15px;
+          font-weight: 700;
+          padding: 0 !important;
+        }
+        .exit:hover {
+          background-color: #434322;
+        }
+
+        h4 {
+          font-weight: 400;
+          color: #434322;
+        }
+      }
+    }
+    .con {
+      border-radius: 30px;
+    }
+    #account-section,
+    #wishlist-section,
+    #help-section,
+    #privacy-section {
+      height: 100%;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.715);
+      display: none;
+      overflow: hidden;
+    }
+
+    #account-section.active,
+    #wishlist-section.active,
+    #help-section.active,
+    #privacy-section.active {
+      display: flex;
+      padding-top: 30px;
+      flex-direction: column;
+      padding-inline: 40px;
+      padding-top: 60px;
+      h2 {
+        color: #434322;
+        font-weight: 600;
+        font-size: 40px;
+      }
+    }
+    #account-section.active {
+      .basic-info {
+        display: flex;
+        width: 100%;
+        margin-top: 20px;
+        color: #434322;
+        flex-direction: column;
+        h4 {
+          font-size: 30px;
+          font-weight: 300;
+        }
+        .personal-information {
+          display: flex;
+          flex-direction: column;
+          margin-top: 30px;
+          div {
+            display: flex;
+            padding-right: 50px;
+            justify-content: space-between;
+            border-block: 1px solid rgba(128, 128, 128, 0.4);
+            padding-block: 30px;
+            h5 {
+              font-weight: 600;
+            }
+          }
+        }
+      }
+    }
+    #privacy-section.active {
+      .personal-information {
+        margin-top: 20px;
+        p {
+          font-size: 14px;
+          color: #434322;
+        }
+      }
+    }
+    #help-section.active {
+      overflow-y: auto;
+      .faq {
+        padding: 0 !important;
+        gap: 0 !important;
+        .cards {
+          margin-top: 30px !important;
+          button {
+            margin: 0 !important;
+            .question-cart {
+              margin: 0 !important;
+              margin-bottom: 10px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.dark-account {
+  @include darkMode();
+  .sections {
+    button:hover {
+      background-color: #354660 !important;
+    }
+  }
+  .account-card {
+    background-color: rgba(255, 255, 255, 0.801);
+    .con {
+      background-color: #354660 !important;
+      h2,
+      h5,
+      h4,
+      p {
+        color: white !important;
+      }
+    }
+  }
+}
+@media (max-width: 2050px) {
+  .dark-account,
+  .account {
+    #privacy-section {
+      p {
+        font-size: 20px !important;
+      }
+    }
+  }
+}
+@media (max-width: 1560px) {
+  .dark-account,
+  .account {
+    .account-card {
+      align-items: start !important;
+    }
+    #privacy-section {
+      p {
+        font-size: 14px !important;
+      }
+    }
+  }
+}
+@media (max-width: 1175px) {
+  .dark-account,
+  .account {
+    .account-card {
+      height: auto !important;
+    }
+    .left-part {
+      height: auto !important;
+    }
+    .faq,.dark-faq{
+      max-height: 100vh !important;
+    }
+    .con {
+      max-height: 100vh !important;
+      padding-block: 30px;
+    }
+  }
+}
+@media (max-width: 1020px) {
+  .dark-account,
+  .account {
+    .profil-pic {
+      img {
+        width: 100px !important;
+        height: 100px !important;
+      }
+    }
+  }
+}
+@media (max-width: 992px) {
+  .dark-account,
+  .account {
+    .left-part {
+      button {
+        width: 60% !important;
+      }
+    }
+    padding-inline: 20px !important;
+    .con {
+      padding-block: 20px !important;
+      overflow: auto;
+    }
+    #help-section {
+      .faq,
+      .dark-faq {
+        padding-inline: 20px !important;
+        h1 {
+          margin-left: 0 !important;
+        }
+        button {
+          width: 100% !important;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 885px) {
+  .dark-account,
+  .account {
+    #privacy-section {
+      overflow: auto !important;
+      p {
+        font-size: 12px !important;
+      }
+    }
+    
+    #account-section {
+      overflow: auto !important;
+    }
+    .sections {
+      button:hover {
+        width: 90% !important;
+      }
+    }
+  }
+}
+@media (max-width: 720px) {
+  .dark-account,
+  .account {
+    .account-card {
+      display: flex;
+      align-items: start !important;
+    }
+    .left-part {
+      padding-top: 20px !important;
+      button {
+        height: 40px !important;
+      }
+      .exit {
+        font-size: 12px !important;
+        height: 30px !important;
+      }
+    }
+    .con {
+      padding-top: 40px !important;
+      max-height: 80vh !important;
+      h2 {
+        font-size: 20px !important;
+      }
+      h4 {
+        font-size: 20px !important;
+      }
+    }
+  }
+}
+@media (max-width: 670px) {
+  .dark-account,
+  .account {
+    .left-part {
+      .sections {
+        h4 {
+          font-size: 15px !important;
+        }
+      }
+    }
+    .con {
+      overflow: auto !important;
+      .personal-information {
+        div {
+          h5 {
+            font-size: 15px !important;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 600px) {
+  .dark-account,
+  .account {
+    padding: 10px !important;
+    .account-card {
+      padding: 10px !important;
+      display: flex;
+      align-items: start !important;
+      
+    }
+    .left-part {
+      padding-top: 20px !important;
+      button {
+        height: 40px !important;
+      }
+      .exit {
+        font-size: 12px !important;
+        height: 30px !important;
+      }
+      .profil-pic {
+        .avatars {
+          label {
+            align-items: start !important;
+            gap: 0 !important;
+            p {
+              font-size: 5px !important;
+            }
+            img {
+              margin: 0 !important;
+              width: 70px !important;
+              height: 70px !important;
+            }
+            p {
+              margin: 0 !important;
+              font-size: 10px !important;
+            }
+          }
+        }
+      }
+
+      button {
+        padding-left: 10px !important;
+      }
+      .exit {
+        margin-left: 10px !important;
+      }
+    }
+    .con {
+      padding-inline: 0 !important;
+      padding-left: 10px !important;
+    }
+    #account-section {
+      .personal-information {
+        margin-top: 20px !important ;
+        div {
+          flex-direction: column !important;
+          padding-block: 20px !important;
+          gap: 10px;
+        }
+      }
+    }
+  }
+  .faq {
+    .question-cart {
+      h3 {
+        font-size: 20px !important;
+      }
+      p {
+        font-size: 15px !important;
+      }
+    }
+  }
+}
+
+@media (max-width: 470px) {
+  .account,
+  .dark-account {
+    .left-part {
+      padding-top: 10px !important;
+      .sections {
+        margin-top: 20px !important;
+      }
+      button {
+        height: 25px !important;
+      }
+      .exit {
+        width: 45px !important;
+        height: 25px !important;
+        font-size: 10px !important;
+      }
+      .profil-pic {
+        img {
+          width: 70px !important;
+          height: 70px !important;
+          margin-bottom: 20px;
+        }
+      }
+    }
+    .con {
+      max-height: 66vh !important;
+    }
+
+    #account-section {
+      .basic-info {
+        margin: 0 !important;
+      }
+      .personal-information {
+        margin: 0 !important;
+      }
+      div {
+        padding-block: 10px !important;
+        h5 {
+          font-size: 12px !important;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 386px) {
+  .dark-account,
+  .account {
+    .left-part {
+      width: 40% !important;
+      .sections {
+        margin: 0 !important;
+      }
+      .profil-pic {
+        .avatars {
+          label {
+            padding: 0 !important;
+            p {
+              font-size: 5px !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}
