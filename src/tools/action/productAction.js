@@ -4,7 +4,7 @@ export const getProduct = (products) => ({
   type: "GET_PRODUCT",
   products,
 });
-export const addProductToDatabase = async(produt) => {
+export const addProductToDatabase = async (produt) => {
   const { data, error } = await supabase.from("narnia-product").insert(produt);
   if (error) {
     console.log(error);
@@ -14,8 +14,11 @@ export const addProductToDatabase = async(produt) => {
   }
 };
 
-export const editProductToDatabase = async(produt) => {
-  const { data, error } = await supabase.from("narnia-product").insert(produt);
+export const editProductToDatabase = async (id, product) => {
+  const { data, error } = await supabase
+    .from("narnia-product")
+    .update(product)
+    .eq("id", id);
   if (error) {
     console.log(error);
   } else {
@@ -24,8 +27,11 @@ export const editProductToDatabase = async(produt) => {
   }
 };
 
-export const removeProductToDatabase = async(produt) => {
-  const { data, error } = await supabase.from("narnia-product").insert(produt);
+export const removeProductToDatabase = async (id) => {
+  const { data, error } = await supabase
+    .from("narnia-product")
+    .delete()
+    .eq("id", id);
   if (error) {
     console.log(error);
   } else {

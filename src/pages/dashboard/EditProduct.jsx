@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { ModeContext } from "../../context/ModeContext";
-import {editProductToDatabase } from "../../tools/action/productAction";
+import { editProductToDatabase } from "../../tools/action/productAction";
 import slugify from "slugify";
 
 const Admin = () => {
@@ -14,32 +14,33 @@ const Admin = () => {
   const priceRef = useRef();
   const authorRef = useRef();
   const catRef = useRef();
+  const pagesRef = useRef();
+  const langRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [mode] = useContext(ModeContext);
-  const formSubmit = (e, item) => {
-    e.preventDefault();
-    navigate("/dashboard");
-    dispatch(
-      editProductToDatabase({
-        id: filteredData.id,
-        edit: {
-          img: imgRef.current.value,
-          title: titleRef.current.value,
-          price: priceRef.current.value,
-          desc: descRef.current.value,
-          author: authorRef.current.value,
-          cat: catRef.current.value,
-        },
-      })
-    );
-  };
   const { slug } = useParams();
   const data = useSelector((p) => p.product);
   const filteredData = data.find(
     (p) => slugify(p.title, { lower: true }) === slug
   );
+  const formSubmit = (e) => {
+    e.preventDefault();
+    navigate("/dashboard");
+    dispatch(
+      editProductToDatabase(filteredData.id, {
+        img: imgRef.current.value,
+        title: titleRef.current.value,
+        price: priceRef.current.value,
+        desc: descRef.current.value,
+        author: authorRef.current.value,
+        cat: catRef.current.value,
+        pages: pagesRef.current.value,
+        lang: langRef.current.value,
+      })
+    );
+  };
   return (
     <div>
       <Header />
@@ -73,6 +74,14 @@ const Admin = () => {
                     type="text"
                   />
                 </div>
+                <div className="name">
+                  <p>Book's Pages:</p>
+                  <input
+                    defaultValue={filteredData.pages}
+                    ref={pagesRef}
+                    type="text"
+                  />
+                </div>
                 <div className="d-flex">
                   <button type="submit">Edit Book</button>
                 </div>
@@ -100,6 +109,14 @@ const Admin = () => {
                   <input
                     defaultValue={filteredData.price}
                     ref={priceRef}
+                    type="text"
+                  />
+                </div>
+                <div className="name">
+                  <p>Book's Language:</p>
+                  <input
+                    defaultValue={filteredData.lang}
+                    ref={langRef}
                     type="text"
                   />
                 </div>

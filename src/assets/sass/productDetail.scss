@@ -1,0 +1,41 @@
+@use "mixin" as *;
+.detail-card {
+  display: flex;
+  padding-inline: 80px;
+  padding-block: 40px;
+  .product-detail {
+    display: flex;
+    background-color: #f5bbb981;
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    gap: 30px;
+    .left-part {
+      img {
+        border-radius: 20px;
+        width: 350px;
+      }
+    }
+    .right-part {
+      display: flex;
+      flex-direction: column;
+      h1 {
+        font-size: 35px;
+        margin-top: 10px !important;
+        color: #b07e7c;
+        width: 100%;
+      }
+      .author {
+        p {
+          a {
+            color: #b07e7c;
+          }
+          span {
+            color: rgb(0, 0, 0);
+            font-weight: 100;
+          }
+        }
+      }
+    }
+  }
+}

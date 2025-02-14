@@ -15,6 +15,8 @@ const Admin = () => {
   const priceRef = useRef();
   const authorRef = useRef();
   const catRef = useRef();
+  const langRef = useRef();
+  const pagesRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -48,7 +50,9 @@ const Admin = () => {
         price: priceRef.current.value,
         desc: descRef.current.value,
         author: authorRef.current.value,
+        pages: pagesRef.current.value,
         cat: catRef.current.value,
+        lang: langRef.current.value,
       })
     );
   };
@@ -73,6 +77,10 @@ const Admin = () => {
                   <p>Book's Author:</p>
                   <input ref={authorRef} type="text" />
                 </div>
+                <div className="name">
+                  <p>Book's Pages:</p>
+                  <input ref={pagesRef} type="text" />
+                </div>
                 <div className="d-flex">
                   <button
                     style={{ color: "white" }}
@@ -96,6 +104,10 @@ const Admin = () => {
                 <div className="name">
                   <p>Book's Price:</p>
                   <input ref={priceRef} type="text" />
+                </div>
+                <div className="name">
+                  <p>Book's Language:</p>
+                  <input ref={langRef} type="text" />
                 </div>
                 <button className="dashboard">
                   <Link style={{ color: "white" }} to="/dashboard">
