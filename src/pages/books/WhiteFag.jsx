@@ -1,53 +1,44 @@
-import React, { useContext, useState } from "react";
-import Header from "../layout/Header";
-import Footer from "../layout/Footer";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import slugify from "slugify";
+import React, { useState } from "react";
+import Header from "../../layout/Header";
+import Footer from "../../layout/Footer";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
-import { ModeContext } from "../context/ModeContext";
-import SlickSlider from "../component/SlickSlider";
-
-const ProductDetails = () => {
+const WhiteFag = () => {
   const [value, setValue] = React.useState(1);
-  const [mode] = useContext(ModeContext);
-  const { slug } = useParams();
-  const data = useSelector((p) => p.product);
-  const filteredData = data.find(
-    (p) => slugify(p.title, { lower: true }) === slug
-  );
-
   return (
     <div>
       <Header />
-      <div className={mode == "light" ? "detail-card" : "dark-detail-card"}>
+      <div className="detail-card">
         <div className="product-detail">
           <div className="left-part">
-            <img src={filteredData.img} alt={filteredData.title} />
+            <img
+              src="https://m.media-amazon.com/images/M/MV5BM2JiNjkyM2EtM2MzZS00MDhjLWJiZWYtNDcxOGIwOWM1ZDA5XkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"
+              alt=""
+            />
           </div>
-          <div className="right-part">
-            <h1>{filteredData.title}</h1>
+          <div className="right-part" style={{ width: "70%" }}>
+            <h1>White Fang</h1>
             <div className="author">
               <p>
                 {" "}
-                <span>Author:</span> <Link to=""> {filteredData.author}</Link>
+                <span>Author:</span> <Link to="">Jack London</Link>
               </p>
-            </div>
-            <div className="rating">
-              <Box sx={{ "& > legend": { mt: 2 } }}>
-                <Rating
-                  name="simple-controlled"
-                  value={value}
-                  onChange={(event, newValue) => {
-                    setValue(newValue);
-                  }}
-                />
-              </Box>
+              <div className="rating">
+                <Box sx={{ "& > legend": { mt: 2 } }}>
+                  <Rating
+                    name="simple-controlled"
+                    value={value}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                  />
+                </Box>
+              </div>
             </div>
             <div className="price">
               <div className="price-text">
-                <h1>{filteredData.price}</h1>
+                <h1>18.40</h1>
                 <div>
                   <svg
                     width="30"
@@ -73,8 +64,8 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="buttons">
-              <button class="CartBtn">
+            <div className="buttons" style={{ width: "70%" }}>
+              <button class="CartBtn" style={{ width: "40%" }}>
                 <span class="IconContainer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +79,7 @@ const ProductDetails = () => {
                 </span>
                 <p class="text">Add to Cart</p>
               </button>
-              <button class="CartBtn wish">
+              <button class="CartBtn wish" style={{ width: "50%" }}>
                 <span class="IconContainer">
                   <svg
                     width="38"
@@ -111,21 +102,36 @@ const ProductDetails = () => {
             </div>
             <h3 style={{ color: "#76514f", fontSize: "25px" }}>Description:</h3>
             <div className="desc">
-              <p>{filteredData.desc}</p>
+              <p>
+                White Fang is a novel by American author Jack London (1876–1916)
+                about a wild wolfdog's journey to domestication in Yukon
+                Territory and the Northwest Territories during the 1890s
+                Klondike Gold Rush. First serialized in Outing magazine between
+                May and October 1906, it was published in book form in October
+                1906. It is a companion novel (and a thematic mirror) to
+                London's best-known work, The Call of the Wild (1903), which is
+                about a kidnapped, domesticated dog embracing his wild ancestry
+                to survive and thrive in the wild. Much of White Fang is written
+                from the viewpoint of the titular canine character, enabling
+                London to explore how animals view their world and how they view
+                humans. White Fang examines the violent world of wild animals
+                and the equally violent world of humans. The book also explores
+                complex themes including morality and redemption.
+              </p>
             </div>
             <h3 style={{ color: "#76514f", fontSize: "25px" }}>Book detail:</h3>
             <div className="detail">
               <p>
                 <span>Pages: </span>
-                {filteredData.pages}
+                240
               </p>
               <p>
                 <span>Language: </span>
-                {filteredData.lang}
+                English
               </p>
               <p>
                 <span>Category: </span>
-                {filteredData.cat}
+                Fantasy
               </p>
             </div>
             <div className="back">
@@ -178,10 +184,9 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <SlickSlider />
       <Footer />
     </div>
   );
 };
 
-export default ProductDetails;
+export default WhiteFag;

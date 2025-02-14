@@ -13,6 +13,10 @@ import ProductDetails from "./pages/ProductDetails";
 import Admin from "./pages/dashboard/Admin";
 import Dashboard from "./pages/dashboard/Dashboard";
 import EditProduct from "./pages/dashboard/EditProduct";
+import KingofEnvy from "./pages/books/KingOfEnvy";
+import Alice from "./pages/books/Alice";
+import WhiteFag from "./pages/books/WhiteFag";
+import ScrollToTop from "./component/ScrollToTop";
 
 function App() {
   const [changeMode] = useContext(ModeContext);
@@ -39,6 +43,7 @@ function App() {
         </div>
       </a>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<MainPage />}></Route>
           <Route path="/about" element={<AboutUs />}></Route>
@@ -51,6 +56,9 @@ function App() {
           <Route path="/dashboard/edit/:slug" element={<EditProduct />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/products/:slug" element={<ProductDetails />}></Route>
+          <Route path="/kingOfEnvy" element={<KingofEnvy />}></Route>
+          <Route path="/beauty-ugly" element={<Alice />}></Route>
+          <Route path="/white-fang" element={<WhiteFag />}></Route>
         </Routes>
       </BrowserRouter>
     </>

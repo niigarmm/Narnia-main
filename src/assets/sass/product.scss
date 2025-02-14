@@ -1,7 +1,105 @@
-.product{
+@use "mixin" as *;
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  width: 100%;
+
+  .products,
+  .dark-products {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: row;
     flex-wrap: wrap;
+    padding-block: 50px;
+    padding-top: 50px !important;
+    padding-inline: 80px;
     gap: 30px;
+  }
+  .body-section,
+  .dark-body-section {
+    width: 100%;
+  }
+  .pagination,
+  .dark-pagination {
+    display: flex;
+    padding-block: 40px;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 50px;
+
+    button {
+      height: 25px;
+      width: 25px;
+      color: white;
+      border-radius: 1000px;
+      border: none;
+      font-size: 14px;
+      background-color: #76514f;
+      transition: 0.5s;
+    }
+    button.active {
+      background-color: #d8aaa8;
+      height: 20px;
+      width: 20px;
+      transition: 0.5s;
+      font-size: 12px;
+    }
+  }
+}
+
+.dark-products,
+.dark-pagination {
+  @include darkMode();
+}
+.dark-pagination {
+  button {
+    background-color: #d77056 !important;
+  }
+  button.active {
+    background-color: white !important;
+    color: #76514f;
+  }
+}
+@media (max-width: 992px) {
+  .dark-products,
+  .products {
+    padding-inline: 20px !important;
+  }
+}
+@media (max-width: 717px) {
+  .dark-pagination,
+  .pagination {
+    button {
+      height: 25px !important;
+    }
+    button.active {
+      height: 20px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .product {
+    .dark-products,
+    .products {
+      padding-top: 10px !important;
+    }
+  }
+}
+@media (max-width: 430px) {
+  .dark-products,
+  .products {
+    align-items: center !important;
+    justify-content: center !important;
+  }
 }

@@ -1,53 +1,44 @@
-import React, { useContext, useState } from "react";
-import Header from "../layout/Header";
-import Footer from "../layout/Footer";
-import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import slugify from "slugify";
+import React, { useState } from "react";
+import Header from "../../layout/Header";
+import Footer from "../../layout/Footer";
+import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
-import { ModeContext } from "../context/ModeContext";
-import SlickSlider from "../component/SlickSlider";
-
-const ProductDetails = () => {
+const KingofEnvy = () => {
   const [value, setValue] = React.useState(1);
-  const [mode] = useContext(ModeContext);
-  const { slug } = useParams();
-  const data = useSelector((p) => p.product);
-  const filteredData = data.find(
-    (p) => slugify(p.title, { lower: true }) === slug
-  );
-
   return (
     <div>
       <Header />
-      <div className={mode == "light" ? "detail-card" : "dark-detail-card"}>
+      <div className="detail-card">
         <div className="product-detail">
           <div className="left-part">
-            <img src={filteredData.img} alt={filteredData.title} />
+            <img
+              src="https://mpd-biblio-covers.imgix.net/9781250337788.jpg"
+              alt=""
+            />
           </div>
-          <div className="right-part">
-            <h1>{filteredData.title}</h1>
+          <div className="right-part" style={{ width: "70%" }}>
+            <h1>Beauty Ugly</h1>
             <div className="author">
               <p>
                 {" "}
-                <span>Author:</span> <Link to=""> {filteredData.author}</Link>
+                <span>Author:</span> <Link to="">Alice Feeney</Link>
               </p>
-            </div>
-            <div className="rating">
-              <Box sx={{ "& > legend": { mt: 2 } }}>
-                <Rating
-                  name="simple-controlled"
-                  value={value}
-                  onChange={(event, newValue) => {
-                    setValue(newValue);
-                  }}
-                />
-              </Box>
+              <div className="rating">
+                <Box sx={{ "& > legend": { mt: 2 } }}>
+                  <Rating
+                    name="simple-controlled"
+                    value={value}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                  />
+                </Box>
+              </div>
             </div>
             <div className="price">
               <div className="price-text">
-                <h1>{filteredData.price}</h1>
+                <h1>22.40</h1>
                 <div>
                   <svg
                     width="30"
@@ -73,8 +64,8 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="buttons">
-              <button class="CartBtn">
+            <div className="buttons" style={{ width: "70%" }}>
+              <button class="CartBtn" style={{ width: "40%" }}>
                 <span class="IconContainer">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -88,7 +79,7 @@ const ProductDetails = () => {
                 </span>
                 <p class="text">Add to Cart</p>
               </button>
-              <button class="CartBtn wish">
+              <button class="CartBtn wish" style={{ width: "50%" }}>
                 <span class="IconContainer">
                   <svg
                     width="38"
@@ -111,21 +102,35 @@ const ProductDetails = () => {
             </div>
             <h3 style={{ color: "#76514f", fontSize: "25px" }}>Description:</h3>
             <div className="desc">
-              <p>{filteredData.desc}</p>
+              <p>
+                The million-copy bestselling Queen of Twists Alice Feeney
+                returns with a gripping and deliciously dark thriller about
+                marriage. . . . . . and revenge. Author Grady Green is having
+                the worst best day of his life. Grady calls his wife to share
+                some exciting news as she is driving home. He hears Abby slam on
+                the brakes, get out of the car, then nothing. When he eventually
+                finds her car by the cliff edge the headlights are on, the
+                driver door is open, her phone is still there. . . but his wife
+                has disappeared. A year later, Grady is still overcome with
+                grief and desperate to know what happened to Abby. He can’t
+                sleep, and he can’t write, so he travels to a tiny Scottish
+                island to try to get his life back on track. Then he sees the
+                impossible — a woman who looks exactly like his missing wife.
+              </p>
             </div>
             <h3 style={{ color: "#76514f", fontSize: "25px" }}>Book detail:</h3>
             <div className="detail">
               <p>
                 <span>Pages: </span>
-                {filteredData.pages}
+                540
               </p>
               <p>
                 <span>Language: </span>
-                {filteredData.lang}
+                English
               </p>
               <p>
                 <span>Category: </span>
-                {filteredData.cat}
+                Fantasy
               </p>
             </div>
             <div className="back">
@@ -178,10 +183,9 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <SlickSlider />
       <Footer />
     </div>
   );
 };
 
-export default ProductDetails;
+export default KingofEnvy;
