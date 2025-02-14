@@ -15,7 +15,7 @@ const Dashboard = () => {
     <div>
       <div>
         <Header />
-        <div className={mode === "light" ? "account admin" : "dark-account"}>
+        <div className={mode === "light" ? "account admin" : "dark-account admin"}>
           <div className="account-card">
             <h1>Dashboard</h1>
             <div className="table-section">

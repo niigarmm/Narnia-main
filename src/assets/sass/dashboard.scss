@@ -1,5 +1,7 @@
 @use "mixin" as *;
-
+.admin{
+  flex-direction: column !important;
+}
 .table-section {
   width: 100%;
   display: flex;

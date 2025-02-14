@@ -14,6 +14,8 @@ const Navbar = () => {
     if (user) {
       if (user.email === "admin@gmail.com") {
         navigate("/admin");
+      } else if (user.email) {
+        navigate("/account");
       } else {
         navigate("/dashboard");
       }
