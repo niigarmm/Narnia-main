@@ -12,9 +12,13 @@ import { Provider } from "react-redux";
 import supabase from "../utils/supabase.js";
 
 const store = configureStore();
+const fetchProducts = async () => {
+  const { data } = await supabase.from("narnia-product").select();
+  store.dispatch(getProduct(data));
+};
 
-const { data } = await supabase.from("narnia-product").select();
-store.dispatch(getProduct(data));
+fetchProducts(); 
+
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
