@@ -141,6 +141,53 @@
     transition: 0.5s;
   }
 }
+.single-card {
+  .price {
+    svg {
+      path {
+        fill: #7b413f !important;
+      }
+    }
+  }
+  .add-to-cart {
+    button {
+      background-color: #d89f9d !important;
+    }
+    button:hover {
+      color: #d99f9d !important;
+      background-color: white !important;
+    }
+  }
+  .more-information {
+    color: #7b413f !important;
+  }
+  .more-information:hover {
+    background-color: #7b413f;
+    color: white !important;
+  }
+}
+.dark-single-card {
+  .price {
+    svg {
+      path {
+        fill: white !important;
+      }
+    }
+  }
+  .more-information {
+    color: #7b413f;
+  }
+  .add-to-cart {
+    button:hover {
+      background-color: white !important;
+      color: #354660;
+    }
+  }
+  .more-information:hover {
+    background-color: #7b413f;
+    color: white !important;
+  }
+}
 .dark-single-card {
   background-color: #d77056;
   h1,
@@ -153,13 +200,7 @@
     background-color: #d77056c9;
   }
 }
-.price {
-  svg {
-    path {
-      fill: white !important;
-    }
-  }
-}
+
 .add-to-cart {
   button {
     background-color: #354660 !important;
@@ -377,7 +418,7 @@
     }
   }
 }
-@media(max-width:410px){
+@media (max-width: 410px) {
   .dark-single-card,
   .single-card {
     width: 150px !important;
@@ -391,7 +432,7 @@
     }
   }
 }
-@media(max-width:370px){
+@media (max-width: 370px) {
   .dark-single-card,
   .single-card {
     width: 140px !important;

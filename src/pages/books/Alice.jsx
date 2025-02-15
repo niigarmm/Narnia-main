@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
+import { ModeContext } from "../../context/ModeContext";
 const KingofEnvy = () => {
   const [value, setValue] = React.useState(1);
+  const [mode] = useContext(ModeContext)
   return (
     <div>
       <Header />
-      <div className="detail-card">
+      <div className={mode === "light" ? "detail-card" : "dark-detail-card"}>
         <div className="product-detail">
           <div className="left-part">
             <img

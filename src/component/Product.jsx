@@ -56,7 +56,7 @@ const Product = () => {
                       <rect
                         width="41.3"
                         height="38.6203"
-                        fill="white"
+                        fill="#5d5d29"
                         transform="translate(0.538467)"
                       />
                     </clipPath>

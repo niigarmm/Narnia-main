@@ -160,9 +160,15 @@
     }
   }
 }
+.dark-detail-card{
+  .price{
+    margin-left: 15px;
+  }
+}
 .detail-card {
   .price {
     margin-top: 0px;
+    margin-left: 15px;
     .price-text {
       display: flex;
       align-items: center;

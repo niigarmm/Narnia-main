@@ -1,5 +1,4 @@
 @use "mixin" as *;
-
 .light-con,
 .dark-con {
   padding-block: 80px;
@@ -73,7 +72,7 @@
       margin: 0;
     }
     .inner-cont {
-      width: 80%;
+      width: 100%;
       height: auto;
       padding-block: 50px;
       background-color: #e0e0a063;
