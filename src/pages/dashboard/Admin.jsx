@@ -42,7 +42,7 @@ const Admin = () => {
   const [mode] = useContext(ModeContext);
   const formSubmit = (e) => {
     e.preventDefault();
-    navigate("/dashboard")
+    navigate("/dashboard");
     dispatch(
       addProductToDatabase({
         img: imgRef.current.value,
@@ -63,58 +63,56 @@ const Admin = () => {
         <div className="account-card">
           <h1>Add Book</h1>
           <form onSubmit={formSubmit}>
-            <div className="information">
-              <div className="left-part">
-                <div className="name">
-                  <p>Book's Name:</p>
-                  <input ref={titleRef} type="text" />
-                </div>
-                <div className="name">
-                  <p>Book's Image Url:</p>
-                  <input ref={imgRef} type="text" />
-                </div>
-                <div className="name">
-                  <p>Book's Author:</p>
-                  <input ref={authorRef} type="text" />
-                </div>
-                <div className="name">
-                  <p>Book's Pages:</p>
-                  <input ref={pagesRef} type="text" />
-                </div>
-                <div className="d-flex">
-                  <button
-                    style={{ color: "white" }}
-                    onClick={handleLogout}
-                    className="exit"
-                  >
-                    Log out
-                  </button>
-                  <button>Add Book</button>
-                </div>
-              </div>
-              <div className="right-part">
-                <div className="name">
-                  <p>Book's Description:</p>
-                  <textarea ref={descRef} name="" id=""></textarea>
-                </div>
-                <div className="name">
-                  <p>Book's Category:</p>
-                  <input ref={catRef} type="text" />
-                </div>
-                <div className="name">
-                  <p>Book's Price:</p>
-                  <input ref={priceRef} type="text" />
-                </div>
-                <div className="name">
-                  <p>Book's Language:</p>
-                  <input ref={langRef} type="text" />
-                </div>
-                <button className="dashboard">
-                  <Link style={{ color: "white" }} to="/dashboard">
-                    Go to dashboard
-                  </Link>
-                </button>
-              </div>
+            <div className="name">
+              <p>Book's Name:</p>
+              <input ref={titleRef} type="text" />
+            </div>
+            <div className="name">
+              <p>Book's Image Url:</p>
+              <input ref={imgRef} type="text" />
+            </div>
+            <div className="name">
+              <p>Book's Author:</p>
+              <input ref={authorRef} type="text" />
+            </div>
+            <div className="name">
+              <p>Book's Pages:</p>
+              <input ref={pagesRef} type="text" />
+            </div>
+
+            <div className="name">
+              <p>Book's Description:</p>
+              <textarea ref={descRef} name="" id=""></textarea>
+            </div>
+            <div className="name">
+              <p>Book's Category:</p>
+              <input ref={catRef} type="text" />
+            </div>
+            <div className="name">
+              <p>Book's Price:</p>
+              <input ref={priceRef} type="text" />
+            </div>
+            <div className="name">
+              <p>Book's Language:</p>
+              <input ref={langRef} type="text" />
+            </div>
+            <div className="button-trio">
+              <button>Add Book</button>
+              <button className="dashboard">
+                <Link
+                  style={{ color: "white", textDecoration: "none" }}
+                  to="/dashboard"
+                >
+                  Go to dashboard
+                </Link>
+              </button>
+              <button
+                style={{ color: "white" }}
+                onClick={handleLogout}
+                className="exit"
+              >
+                Log out
+              </button>
             </div>
           </form>
         </div>

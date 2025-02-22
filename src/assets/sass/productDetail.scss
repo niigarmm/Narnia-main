@@ -36,6 +36,7 @@
       flex-direction: column;
       overflow: auto;
       max-height: 527px;
+      overflow: auto;
       .rating {
         margin-top: 10px;
       }
@@ -168,7 +169,6 @@
 .detail-card {
   .price {
     margin-top: 0px;
-    margin-left: 15px;
     .price-text {
       display: flex;
       align-items: center;
@@ -206,7 +206,8 @@
       button {
         background-color: #354660 !important;
         box-shadow: 10px 5px 10px #d77056 !important;
-        .text {
+        .text,path {
+          stroke: white;
           color: white !important;
         }
       }
@@ -216,6 +217,9 @@
         box-shadow: 10px 4px 20px #a7533d !important;
         .text {
           color: #354660 !important;
+        }
+        path{
+          fill: #354660;
         }
       }
       .wish {
@@ -254,6 +258,45 @@
       span {
         color: white !important;
       }
+    }
+  }
+}
+@media(max-width:1113px){
+  .dark-detail-card,.detail-card{
+    .right-part{
+      h1{
+        font-size: 20px !important;
+      }
+      .buttons{
+        button{
+          height: 30px !important;
+          width: 40% !important;
+          .text{
+            font-size: 13px !important;
+          }
+        }
+      }
+      .back{
+        height: 30px !important;
+        width: 100% !important;
+        .text{
+          font-size: 13px !important;
+        }
+      }
+    }
+  }
+}
+@media(max-width:992px){
+  .dark-detail-card,.detail-card{
+    padding-inline: 20px !important;
+    .left-part{
+      img{
+        width: 300px !important;
+        height: 440px !important;
+      }
+    }
+    .right-part{
+      height: 440px !important;
     }
   }
 }

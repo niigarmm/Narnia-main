@@ -17,6 +17,9 @@ import KingofEnvy from "./pages/books/KingOfEnvy";
 import Alice from "./pages/books/Alice";
 import WhiteFag from "./pages/books/WhiteFag";
 import ScrollToTop from "./component/ScrollToTop";
+import Wishlist from "./pages/Wishlist";
+import AddtoCart from "./pages/AddtoCart";
+import KidsBooks from "./pages/books/KidsBooks";
 
 function App() {
   const [changeMode] = useContext(ModeContext);
@@ -59,6 +62,9 @@ function App() {
           <Route path="/kingOfEnvy" element={<KingofEnvy />}></Route>
           <Route path="/beauty-ugly" element={<Alice />}></Route>
           <Route path="/white-fang" element={<WhiteFag />}></Route>
+          <Route path="/wishlist" element={<Wishlist />}></Route>
+          <Route path="/add-to-cart" element={<AddtoCart />}></Route>
+          <Route path="/kids-books" element={<KidsBooks />}></Route>
         </Routes>
       </BrowserRouter>
     </>

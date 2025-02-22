@@ -1,79 +1,101 @@
 @use "mixin" as *;
 
-.admin {
+.admin,
+.dark-account {
   .account-card {
     flex-direction: column !important;
     align-items: center !important;
     height: auto;
-    padding-bottom: 30px;
+    padding-bottom: 50px !important;
     padding-inline: 40px;
+    gap: 30px;
     h1 {
       font-size: 40px;
     }
+    .button-trio{
+      display: flex;
+      gap: 40px;
+      button{
+        width: 40%;
+      }
+    }
     form {
       width: 100%;
-    }
-  }
-  .information {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 40px;
-    .left-part,
-    .right-part {
-      height: auto;
-      gap: 30px;
-      width: 40%;
-      p {
-        color: #434322;
-      }
-      .exit{
-        background-color: rgb(242, 113, 113) !important;
-      }
-      input,
-      textarea,
-      button {
-        border: none;
-        margin-top: 20px;
-        width: 100%;
-        padding-left: 10px;
-        height: 40px;
-        border-radius: 20px;
-        background-color: rgba(255, 255, 255, 0.597);
-        color: rgb(201, 194, 194);
-      }
-      div {
-        gap: 20px;
-        button {
-          width: 50%;
-          color: white;
-          padding: 0;
-          background-color: #434322;
-        }
-      }
-    }
-    .right-part {
-      width: 40% !important;
-      gap: 30px !important;
       display: flex;
       flex-direction: column;
-      .dashboard {
-        width: 50%;
-        color: white;
-        padding: 0;
-        background-color: #434322;
-        a{
-            text-decoration: none;
-        }
+      gap: 30px;
+    }
+  }
+
+  p {
+    color: #434322;
+  }
+  .exit {
+    background-color: rgb(242, 113, 113) !important;
+  }
+  input,
+  textarea,
+  button {
+    border: none;
+    margin-top: 20px;
+    width: 100%;
+    padding-left: 10px;
+    height: 40px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.597);
+    color: rgb(201, 194, 194);
+  }
+  div {
+    gap: 20px;
+    button {
+      width: 50%;
+      color: white;
+      padding: 0;
+      background-color: #434322;
+    }
+  }
+}
+.dashboard {
+  width: 90%;
+  color: white;
+  padding: 0;
+  background-color: #434322;
+  a {
+    text-decoration: none;
+  }
+}
+textarea {
+  outline: none;
+  min-height: 40px;
+  overflow: hidden;
+  max-height: 100px;
+  overflow-y: scroll;
+}
+
+@media (max-width: 561px) {
+  .dark-account,
+  .admin {
+    .button-trio{
+      gap: 10px !important;
+      button{
+        font-size: 13px !important ;
       }
-      textarea {
-        outline: none;
-        min-height: 40px;
-        overflow: hidden;
-        padding-top: 8px;
-        max-height: 100px;
-        overflow-y: scroll;
+    }
+  }
+}
+@media (max-width: 412px) {
+  .dark-account,
+  .admin {
+    h1{
+      font-size: 30px !important;
+    }
+    .account-card{
+      padding-bottom: 20px !important;
+    }
+    .button-trio{
+      gap: 10px !important;
+      button{
+        font-size: 13px !important ;
       }
     }
   }

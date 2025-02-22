@@ -6,7 +6,7 @@
   height: 674px;
   bottom: 0;
   width: 250px;
-  transition: 0.5s;
+  transition: 0.5s !important;
   background-color: #ffd7d682;
   border-radius: 20px;
   position: relative;
@@ -166,7 +166,10 @@
     color: white !important;
   }
 }
+
+
 .dark-single-card {
+  transition: .5s;
   .price {
     svg {
       path {
@@ -213,9 +216,8 @@
   height: 700px;
 }
 
-.single-card:hover,
 .dark-single-card:hover {
-  bottom: 30px;
+  bottom: 20px;
   transition: 0.5s;
   .see {
     background-color: #d77056;
@@ -223,6 +225,18 @@
   }
   .like {
     background-color: #d77056;
+    transition: 0.3s;
+  }
+}
+.single-card:hover {
+  bottom: 20px;
+  transition: 0.5s;
+  .see {
+    background-color: #d89f9d;
+    transition: 0.4s;
+  }
+  .like {
+    background-color: #d89f9d;
     transition: 0.3s;
   }
 }

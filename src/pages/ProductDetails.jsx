@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import { useSelector } from "react-redux";
@@ -8,30 +8,64 @@ import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import { ModeContext } from "../context/ModeContext";
 import SlickSlider from "../component/SlickSlider";
+import { filterProps } from "framer-motion";
+import { getProduct } from "../tools/action/productAction";
+import store from "../tools/store/configureStore";
+import supabase from "../../utils/supabase";
+import { useWishlist } from "react-use-wishlist";
+import "animate.css";
 
 const ProductDetails = () => {
   const [value, setValue] = React.useState(1);
   const [mode] = useContext(ModeContext);
   const { slug } = useParams();
+  const [product, setProduct] = useState(null);
   const data = useSelector((p) => p.product);
-  const filteredData = data.find(
-    (p) => slugify(p.title, { lower: true }) === slug
-  );
+  const { inWishlist, addWishlistItem, removeWishlistItem } = useWishlist();
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data, error } = await supabase.from("narnia-product").select();
+      if (!error && data) {
+        store.dispatch(getProduct(data));
+      }
+    };
+
+    if (data.length === 0) {
+      fetchProducts();
+    }
+  }, [data.length]);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const foundProduct = data.find(
+        (p) => slugify(p.title, { lower: true }) === slug
+      );
+      setProduct(foundProduct || null);
+    }
+  }, [slug, data]);
+
+  if (!product) {
+    return <p>Loading...</p>;
+  }
   return (
     <div>
       <Header />
-      <div className={mode == "light" ? "detail-card" : "dark-detail-card"}>
+      <div className={mode == "light" ? "detail-card " : "dark-detail-card "}>
         <div className="product-detail">
           <div className="left-part">
-            <img src={filteredData.img} alt={filteredData.title} />
+            <img
+              src={product?.img}
+              className="animate__animated animate__flipInY"
+              alt={product?.title}
+            />
           </div>
-          <div className="right-part">
-            <h1>{filteredData.title}</h1>
-            <div className="author">
+          <div className="right-part ">
+            <h1>{product?.title}</h1>
+            <div className="author animate__animated animate__fadeInUp">
               <p>
                 {" "}
-                <span>Author:</span> <Link to=""> {filteredData.author}</Link>
+                <span>Author:</span> <Link to=""> {product?.author}</Link>
               </p>
             </div>
             <div className="rating">
@@ -45,9 +79,9 @@ const ProductDetails = () => {
                 />
               </Box>
             </div>
-            <div className="price">
+            <div className="price animate__animated animate__fadeInUp">
               <div className="price-text">
-                <h1>{filteredData.price}</h1>
+                <h1>{product?.price}</h1>
                 <div>
                   <svg
                     width="30"
@@ -73,7 +107,7 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-            <div className="buttons">
+            <div className="buttons animate__animated animate__fadeInUp">
               <button class="CartBtn">
                 <span class="IconContainer">
                   <svg
@@ -88,7 +122,14 @@ const ProductDetails = () => {
                 </span>
                 <p class="text">Add to Cart</p>
               </button>
-              <button class="CartBtn wish">
+              <button
+                class="CartBtn wish"
+                onClick={() =>
+                  inWishlist(product?.id)
+                    ? removeWishlistItem(product?.id)
+                    : addWishlistItem(product)
+                }
+              >
                 <span class="IconContainer">
                   <svg
                     width="38"
@@ -110,22 +151,22 @@ const ProductDetails = () => {
               </button>
             </div>
             <h3 style={{ color: "#76514f", fontSize: "25px" }}>Description:</h3>
-            <div className="desc">
-              <p>{filteredData.desc}</p>
+            <div className="desc animate__animated animate__fadeInUp">
+              <p>{product?.desc}</p>
             </div>
             <h3 style={{ color: "#76514f", fontSize: "25px" }}>Book detail:</h3>
             <div className="detail">
               <p>
                 <span>Pages: </span>
-                {filteredData.pages}
+                {product?.pages}
               </p>
               <p>
                 <span>Language: </span>
-                {filteredData.lang}
+                {product?.lang}
               </p>
               <p>
                 <span>Category: </span>
-                {filteredData.cat}
+                {product?.cat}
               </p>
             </div>
             <div className="back">

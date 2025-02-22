@@ -1,7 +1,6 @@
 @use "mixin" as *;
 .header,
 .dark-header {
-  transition: 0.5s;
   .upper-container {
     @include middle();
     overflow: hidden;
@@ -45,12 +44,32 @@
       animation-play-state: paused;
     }
   }
+  .spacer{
+    height: 120px;
+  }
+  .fixed {
+    position: fixed;
+    height: 90px !important;
+    top: 0;
+    transition: .5s;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.292);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
   .middle-container {
     @include flex();
     @include border();
+    
+    transition: all 0.3s ease-in-out;
     .menu-container {
       display: none;
     }
+   
+
     height: 120px;
     padding-inline: 80px;
     justify-content: space-between;
@@ -114,7 +133,6 @@
         }
         .close {
           background-color: transparent;
-          
         }
 
         .darkmode,
@@ -175,11 +193,32 @@
     }
   }
 }
+.dark-header {
+  .wishlist-icon {
+    .bag {
+      path {
+        stroke: none !important;
+        fill: white !important;
+      }
+    }
+  }
+}
+.wishlist-icon {
+  .bag {
+    path {
+      fill: #6d692e !important;
+    }
+  }
+}
+
 body.no-scroll {
   overflow: hidden;
 }
 .dark-header {
   @include darkMode();
+  .wish-count {
+    background-color: #d77056;
+  }
   .upper-container {
     background-color: #d77056;
     transition: 0.5s;
@@ -393,6 +432,13 @@ body.no-scroll {
                 color: white;
               }
             }
+          }
+        }
+        .bags{
+          fill: white !important;
+          path{
+            stroke: none !important;
+            fill: white !important;
           }
         }
         svg {

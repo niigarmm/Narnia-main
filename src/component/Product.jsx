@@ -1,21 +1,85 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import SingleCard from "./SingleCard";
-import { useSelector } from "react-redux";
 import KingOfEnvy from "../assets/images/KingofEnvy.png";
 import Beautifulugly from "../assets/images/beautifulUgly.png";
 import WhiteFang from "../assets/images/whiteFang.png";
+import { Range } from "react-range";
+import { useSelector } from "react-redux";
 import { ModeContext } from "../context/ModeContext";
 import Aos from "aos";
+import "animate.css";
+import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 const Product = () => {
+  const [mode] = useContext(ModeContext);
+  const [stepValue, setStepValue] = useState(10);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [language, setLanguge] = useState([]);
+  const [selectedLanguage, setSelectedLanguage] = useState("");
   const data = useSelector((p) => p.product);
+  const [openCat, setOpenCat] = useState(false);
+  const [sortOrder, setSortOrder] = useState("asc");
+  const [openLang, setOpenLang] = useState(false);
+  const [openAfromZ, setOpenAfromZ] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [values, setValues] = useState([0, 100]); // Slider için başlangıç değeri
+  const [minPrice, setMinPrice] = useState(0); // Minimum fiyat
+  const [maxPrice, setMaxPrice] = useState(100); // Maksimum fiyat
+
   const itemsPerPage = 8;
+  useEffect(() => {
+    setCategories([...new Set(data.map((item) => item.cat))]);
+    setLanguge([...new Set(data.map((item) => item.lang))]);
+  }, [data]);
+
+  const filteredData = useMemo(() => {
+    return data
+      .filter(
+        (p) =>
+          (selectedCategory === "" || p.cat === selectedCategory) &&
+          (selectedLanguage === "" || p.lang === selectedLanguage) &&
+          p.price >= values[0] &&
+          p.price <= values[1]
+      )
+      .sort((a, b) => {
+        if (sortOrder === "asc") {
+          return a.title.localeCompare(b.title);
+        } else {
+          return b.title.localeCompare(a.title);
+        }
+      });
+  }, [data, selectedCategory, selectedLanguage, values, sortOrder]);
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(data.length / itemsPerPage);
-  const [mode] = useContext(ModeContext);
+  const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value), setOpenCat(false);
+  };
+  const handleLanguageChange = (e) => {
+    setSelectedLanguage(e.target.value), setOpenLang(false);
+  };
+  const handleAfromZChange = (e) => {
+    setSortOrder(e.target.value);
+    setOpenAfromZ(false);
+  };
+
+  useEffect(() => {
+    const prices = data.map((p) => p.price);
+    const min = Math.min(...prices);
+    const max = Math.max(...prices);
+    setMinPrice(min);
+    setMaxPrice(max);
+    setValues([min, max]);
+  }, [data]);
+  const handlePriceChange = (newRange) => {
+    setValues(newRange);
+  };
   useEffect(() => {
     Aos.init({
       duration: 1200,
@@ -165,28 +229,234 @@ const Product = () => {
           </div>
         </div>
       </div>
-      <div className={mode === "light" ?"products" : "dark-products"} ref={productsRef}>
-        {currentItems.map((item) => (
-          <SingleCard allitems={item} key={item.id} />
-        ))}
-      </div>
-      <div className={mode=== "light" ? "pagination" : "dark-pagination"}>
-        {[...Array(totalPages)].map((_, index) => (
-          <Link to="#product">
+      <div
+        className={mode === "light" ? "category-items" : "dark-category-items"}
+      >
+        <div className="d-flex" style={{ gap: "30px" }}>
+          <div>
             <button
-              key={index + 1}
-              onClick={() =>
-                setCurrentPage(
-                  index + 1,
-                  productsRef.current.scrollIntoView({ behavior: "smooth" })
-                )
-              }
-              className={currentPage === index + 1 ? "active" : ""}
+              className="catt"
+              onClick={() => {
+                setOpenCat(!openCat);
+                setOpenLang(false);
+                setOpenAfromZ(false);
+              }}
             >
-              {index + 1}
+              Category
+              <FontAwesomeIcon
+                icon={faCaretDown}
+                style={{ color: "#5d5d29" }}
+                className="arrow"
+              />
             </button>
-          </Link>
-        ))}
+            <div className="animated">
+              <AnimatePresence>
+                {openCat && (
+                  <motion.div
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="opened-cat absolute left-0 mt-2 w-48 bg-white shadow-md rounded p-2"
+                  >
+                    <button
+                      onClick={() => {
+                        setOpenCat(false);
+                        setSelectedCategory("");
+                        setSelectedLanguage("");
+                        setSortOrder("");
+                      }}
+                    >
+                      All
+                    </button>
+                    {categories.map((item, index) => (
+                      <button
+                        onClick={handleCategoryChange}
+                        key={index}
+                        value={item}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+          <div>
+            <button
+              className="catt lang-btn"
+              onClick={() => {
+                setOpenLang(!openLang);
+                setOpenCat(false);
+                setOpenAfromZ(false);
+              }}
+            >
+              Language
+              <FontAwesomeIcon
+                icon={faCaretDown}
+                style={{ color: "#5d5d29" }}
+                className="arrow"
+              />
+            </button>
+            <div>
+              <AnimatePresence>
+                {openLang && (
+                  <motion.div
+                    initial={{ y: -20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: -20, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="opened-cat lang absolute left-0 mt-2 w-48 bg-white shadow-md rounded p-2"
+                  >
+                    <button
+                      onClick={() => {
+                        setSelectedLanguage(""), setOpenLang(false);
+                      }}
+                    >
+                      All
+                    </button>
+                    {language.map((item, index) => (
+                      <button
+                        key={index}
+                        value={item}
+                        onClick={handleLanguageChange}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+          <div>
+            <button
+              className="catt lang-btn"
+              onClick={() => {
+                setOpenAfromZ(!openAfromZ);
+                setOpenCat(false);
+                setOpenLang(false);
+              }}
+            >
+              A from Z
+              <FontAwesomeIcon
+                icon={faCaretDown}
+                style={{ color: "#5d5d29" }}
+                className="arrow"
+              />
+            </button>
+            <AnimatePresence>
+              {openAfromZ && (
+                <motion.div
+                  initial={{ y: -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="opened-cat lang absolute left-0 mt-2 w-48 bg-white shadow-md rounded p-2"
+                >
+                  <button value="asc" onClick={handleAfromZChange}>
+                    A from Z
+                  </button>
+                  <button value="desc" onClick={handleAfromZChange}>
+                    Z from A
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        <div className="d-flex" style={{ gap: "30px" }}>
+          <div style={{ padding: "20px" }}>
+            <Range
+              step={stepValue}
+              min={minPrice}
+              max={maxPrice}
+              values={values}
+              onChange={handlePriceChange}
+              renderTrack={({ props, children }) => (
+                <div
+                  {...props}
+                  
+                  style={{
+                    ...props.style,
+                    height: "6px",
+                    width: "100%",
+                    backgroundColor: "#ddd",
+                    borderRadius: "5px",
+                  }}
+                >
+                  {children}
+                </div>
+              )}
+              renderThumb={({ props }) => (
+                <div
+                  {...props}
+                  className="track"
+                  style={{
+                    ...props.style,
+                    height: "20px",
+                    width: "20px",
+                    borderRadius: "50%",
+                    backgroundColor: "#5d5d29",
+                    border: "2px solid #fff",
+                  }}
+                />
+              )}
+            />
+            <div>
+              <p style={{ color: "#5d5d29" }} className="range">
+                Selected Price Range:{" "}
+                <span>
+                  {" "}
+                  {values[0]}$ - {values[1]}$
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={mode === "light" ? " products bottom-category" : "dark-products dark-bottom"}>
+        <div>
+          {currentItems.length === 0 ? (
+            <div className="not-found">
+              <img
+                src="https://i.pinimg.com/originals/8a/cb/19/8acb194578c6487798c0bc97e1e0c7b0.gif"
+                alt=""
+              />
+              <h2> Book not found</h2>
+            </div>
+          ) : (
+            <div
+              className={mode === "light" ? "products" : "dark-products"}
+              ref={productsRef}
+            >
+              {currentItems.map((item) => (
+                <SingleCard allitems={item} key={item.id} />
+              ))}
+            </div>
+          )}
+
+          <div className={mode === "light" ? "pagination" : "dark-pagination"}>
+            {[...Array(totalPages)].map((_, index) => (
+              <Link to="#product">
+                <button
+                  key={index + 1}
+                  onClick={() =>
+                    setCurrentPage(
+                      index + 1,
+                      productsRef.current.scrollIntoView({ behavior: "smooth" })
+                    )
+                  }
+                  className={currentPage === index + 1 ? "active" : ""}
+                >
+                  {index + 1}
+                </button>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

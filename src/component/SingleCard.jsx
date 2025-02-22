@@ -1,66 +1,111 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import slugify from "slugify";
 import { ModeContext } from "../context/ModeContext";
+import { useWishlist } from "react-use-wishlist";
+import { useCart } from "react-use-cart";
 
 const SingleCard = ({ allitems }) => {
   const [mode] = useContext(ModeContext);
+  const { addItem } = useCart();
+  const { inWishlist, addWishlistItem, removeWishlistItem } = useWishlist();
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [added, setAdded] = useState(false);
+  useEffect(() => {
+    const loggedUser = localStorage.getItem("activeUser");
+    if (loggedUser) {
+      setUser(JSON.parse(loggedUser));
+    }
+  }, []);
+  const handleClick = () => {
+    if (user) {
+      addItem(allitems);
+      setAdded(true);
+    } else {
+      navigate("/signUp");
+    }
+  };
+
   return (
-    <div className={mode === "light" ? "single-card" : "dark-single-card"}>
-      <Link
-        to={`/products/${slugify(allitems.title, { lower: true })}`}
-        style={{ textDecoration: "none" }}
-      >
-        <div className="like">
-          <Link to="/more-information">
-            <button style={{ border: "none", backgroundColor: "transparent" }}>
-              <svg
-                width={21}
-                height={19}
-                viewBox="0 0 21 19"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.0942 17.2088C10.7684 17.3138 10.2317 17.3138 9.90585 17.2088C7.12669 16.3425 0.916687 12.7288 0.916687 6.60377C0.916687 3.90002 3.30294 1.71252 6.24502 1.71252C7.98919 1.71252 9.5321 2.48252 10.5 3.67252C11.4679 2.48252 13.0204 1.71252 14.755 1.71252C17.6971 1.71252 20.0834 3.90002 20.0834 6.60377C20.0834 12.7288 13.8734 16.3425 11.0942 17.2088Z"
-                  stroke="white"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </Link>
-        </div>
-        <div className="see">
-          <button
-            style={{
-              border: "none",
-              backgroundColor: "transparent",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+    <div className={mode === "light" ? "single-card " : "dark-single-card"} data-aos="zoom-in">
+      <div className="like">
+        <button
+          style={{ border: "none", backgroundColor: "transparent" }}
+          onClick={() =>
+            inWishlist(allitems.id)
+              ? removeWishlistItem(allitems.id)
+              : addWishlistItem(allitems)
+          }
+        >
+          {inWishlist(allitems.id) ? (
             <svg
               width={21}
-              height={15}
-              viewBox="0 0 21 15"
+              height={19}
+              viewBox="0 0 21 19"
+              fill="white"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.0942 17.2088C10.7684 17.3138 10.2317 17.3138 9.90585 17.2088C7.12669 16.3425 0.916687 12.7288 0.916687 6.60377C0.916687 3.90002 3.30294 1.71252 6.24502 1.71252C7.98919 1.71252 9.5321 2.48252 10.5 3.67252C11.4679 2.48252 13.0204 1.71252 14.755 1.71252C17.6971 1.71252 20.0834 3.90002 20.0834 6.60377C20.0834 12.7288 13.8734 16.3425 11.0942 17.2088Z"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          ) : (
+            <svg
+              width={21}
+              height={19}
+              viewBox="0 0 21 19"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M19.4455 6.28354C18.8049 6.61487 18.7165 6.59279 17.9875 5.73121C17.623 5.30046 17.0487 4.77029 16.7063 4.54937L16.0988 4.15179L16.4964 3.77621C17.3248 3.01412 16.5848 2.52812 15.5244 3.12454L14.928 3.45587C14.199 3.19087 12.9287 2.71587 12.1445 2.58337C11.4376 2.46179 11.4818 2.47287 11.4818 2.46179C11.4818 2.47287 11.4818 2.50596 11.526 1.66654C11.548 1.31312 11.283 1.01487 10.9405 0.992788C10.2226 0.937538 9.90229 1.12529 10.0459 1.85429L10.1453 2.32929C10.1453 2.32929 7.91412 2.57229 7.38395 2.63854C6.34562 2.77104 6.26837 2.74895 6.26837 2.32929C6.26837 1.53404 4.19179 1.47879 4.79929 2.63854C4.94295 2.9147 5.03129 3.1577 5.0092 3.19079C4.98712 3.21287 4.61154 3.4117 4.19179 3.62162C3.77212 3.83145 3.08729 4.30637 2.68962 4.65987L1.94962 5.31154L1.20962 4.95804C0.0829526 4.42787 -0.215214 4.83654 0.524786 5.91904C0.911453 6.49337 0.911369 6.49337 0.624203 6.91312C-0.104797 7.95137 0.359036 9.00071 2.41354 10.9778C4.5342 13.0212 9.20645 14.689 10.1564 13.7391C10.4104 13.4851 9.73662 12.6346 9.28379 12.6346C6.1027 12.6346 1.57404 9.63029 2.03795 7.82987C2.60129 5.64287 7.12987 2.7932 12.0893 3.6437C14.9059 4.11862 16.6069 5.47721 17.9102 8.27171C18.1422 8.76871 18.352 9.22162 18.3851 9.26579C18.6502 9.7297 15.1047 11.4638 12.1666 12.3143C11.1725 12.6015 11.051 12.6788 11.051 13.0101C11.051 14.203 13.6688 13.949 15.5244 12.5794C17.6893 10.9889 20.3512 10.039 19.567 8.30479C19.4014 7.92929 19.335 7.63104 19.4234 7.59787C19.9757 7.39912 20.804 6.80262 20.8593 6.5707C20.9698 6.05154 20.2076 5.87487 19.4455 6.28354Z"
-                fill="white"
-                fillOpacity="0.91"
-              />
-              <path
-                d="M14.1767 7.74143C14.1436 6.50434 13.6023 5.36668 12.9286 5.00218C12.6967 4.88068 12.3652 5.02426 12.4867 5.37768C13.1605 7.4211 10.9073 7.63101 10.2335 7.18918C8.63192 6.11776 9.39408 4.9801 10.3992 4.65976C10.9515 4.48301 10.7416 4.10751 9.40508 4.1296C7.21817 4.17376 5.77117 6.02943 5.78217 7.6531C5.79325 9.78485 7.46108 11.9939 10.3329 11.8393C12.9507 11.7178 14.2319 10.1935 14.1767 7.74143Z"
-                fill="white"
-                fillOpacity="0.91"
+                d="M11.0942 17.2088C10.7684 17.3138 10.2317 17.3138 9.90585 17.2088C7.12669 16.3425 0.916687 12.7288 0.916687 6.60377C0.916687 3.90002 3.30294 1.71252 6.24502 1.71252C7.98919 1.71252 9.5321 2.48252 10.5 3.67252C11.4679 2.48252 13.0204 1.71252 14.755 1.71252C17.6971 1.71252 20.0834 3.90002 20.0834 6.60377C20.0834 12.7288 13.8734 16.3425 11.0942 17.2088Z"
+                stroke="white"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
-          </button>
-        </div>
+          )}
+        </button>
+      </div>
+      <div className="see">
+        <button
+          style={{
+            border: "none",
+            backgroundColor: "transparent",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <svg
+            width={21}
+            height={15}
+            viewBox="0 0 21 15"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19.4455 6.28354C18.8049 6.61487 18.7165 6.59279 17.9875 5.73121C17.623 5.30046 17.0487 4.77029 16.7063 4.54937L16.0988 4.15179L16.4964 3.77621C17.3248 3.01412 16.5848 2.52812 15.5244 3.12454L14.928 3.45587C14.199 3.19087 12.9287 2.71587 12.1445 2.58337C11.4376 2.46179 11.4818 2.47287 11.4818 2.46179C11.4818 2.47287 11.4818 2.50596 11.526 1.66654C11.548 1.31312 11.283 1.01487 10.9405 0.992788C10.2226 0.937538 9.90229 1.12529 10.0459 1.85429L10.1453 2.32929C10.1453 2.32929 7.91412 2.57229 7.38395 2.63854C6.34562 2.77104 6.26837 2.74895 6.26837 2.32929C6.26837 1.53404 4.19179 1.47879 4.79929 2.63854C4.94295 2.9147 5.03129 3.1577 5.0092 3.19079C4.98712 3.21287 4.61154 3.4117 4.19179 3.62162C3.77212 3.83145 3.08729 4.30637 2.68962 4.65987L1.94962 5.31154L1.20962 4.95804C0.0829526 4.42787 -0.215214 4.83654 0.524786 5.91904C0.911453 6.49337 0.911369 6.49337 0.624203 6.91312C-0.104797 7.95137 0.359036 9.00071 2.41354 10.9778C4.5342 13.0212 9.20645 14.689 10.1564 13.7391C10.4104 13.4851 9.73662 12.6346 9.28379 12.6346C6.1027 12.6346 1.57404 9.63029 2.03795 7.82987C2.60129 5.64287 7.12987 2.7932 12.0893 3.6437C14.9059 4.11862 16.6069 5.47721 17.9102 8.27171C18.1422 8.76871 18.352 9.22162 18.3851 9.26579C18.6502 9.7297 15.1047 11.4638 12.1666 12.3143C11.1725 12.6015 11.051 12.6788 11.051 13.0101C11.051 14.203 13.6688 13.949 15.5244 12.5794C17.6893 10.9889 20.3512 10.039 19.567 8.30479C19.4014 7.92929 19.335 7.63104 19.4234 7.59787C19.9757 7.39912 20.804 6.80262 20.8593 6.5707C20.9698 6.05154 20.2076 5.87487 19.4455 6.28354Z"
+              fill="white"
+              fillOpacity="0.91"
+            />
+            <path
+              d="M14.1767 7.74143C14.1436 6.50434 13.6023 5.36668 12.9286 5.00218C12.6967 4.88068 12.3652 5.02426 12.4867 5.37768C13.1605 7.4211 10.9073 7.63101 10.2335 7.18918C8.63192 6.11776 9.39408 4.9801 10.3992 4.65976C10.9515 4.48301 10.7416 4.10751 9.40508 4.1296C7.21817 4.17376 5.77117 6.02943 5.78217 7.6531C5.79325 9.78485 7.46108 11.9939 10.3329 11.8393C12.9507 11.7178 14.2319 10.1935 14.1767 7.74143Z"
+              fill="white"
+              fillOpacity="0.91"
+            />
+          </svg>
+        </button>
+      </div>
+      <Link
+        to={`/products/${slugify(allitems.title, { lower: true })}`}
+        style={{ textDecoration: "none" }}
+      >
         <img src={allitems.img} alt={allitems.title} />
         <div className="name">
           <h1>
@@ -98,11 +143,13 @@ const SingleCard = ({ allitems }) => {
             </div>
           </div>
         </div>
-        <div className="add-to-cart">
-          <button>Add to cart</button>
-        </div>
-        <button className="more-information">More Information</button>
       </Link>
+      <div className="add-to-cart">
+        <button onClick={handleClick} className="add-button">
+          Add to cart
+        </button>
+      </div>
+      <button className="more-information">More Information</button>
     </div>
   );
 };

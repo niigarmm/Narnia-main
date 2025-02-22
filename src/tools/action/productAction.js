@@ -4,8 +4,8 @@ export const getProduct = (products) => ({
   type: "GET_PRODUCT",
   products,
 });
-export const addProductToDatabase = async (produt) => {
-  const { data, error } = await supabase.from("narnia-product").insert(produt);
+export const addProductToDatabase = async (product) => {
+  const { data, error } = await supabase.from("narnia-product").insert([product]);
   if (error) {
     console.log(error);
   } else {

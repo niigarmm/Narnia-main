@@ -10,22 +10,25 @@ import configureStore from "./tools/store/configureStore.js";
 import { getProduct } from "./tools/action/productAction.js";
 import { Provider } from "react-redux";
 import supabase from "../utils/supabase.js";
+import store from "./tools/store/configureStore.js";
+import { WishlistProvider } from "react-use-wishlist";
+import { CartProvider } from "react-use-cart";
 
-const store = configureStore();
 const fetchProducts = async () => {
   const { data } = await supabase.from("narnia-product").select();
   store.dispatch(getProduct(data));
 };
 
-fetchProducts(); 
-
+fetchProducts();
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Provider store={store}>
-      <ModeProvider>
-        <App />
-      </ModeProvider>
-    </Provider>
-  </StrictMode>
+  <CartProvider>
+    <WishlistProvider>
+      <Provider store={store}>
+        <ModeProvider>
+          <App />
+        </ModeProvider>
+      </Provider>
+    </WishlistProvider>
+  </CartProvider>
 );
