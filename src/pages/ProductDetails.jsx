@@ -11,7 +11,7 @@ import SlickSlider from "../component/SlickSlider";
 import { filterProps } from "framer-motion";
 import { getProduct } from "../tools/action/productAction";
 import store from "../tools/store/configureStore";
-import supabase from "../../utils/supabase";
+import supabase from "../../utils/supabase.js";
 import { useWishlist } from "react-use-wishlist";
 import "animate.css";
 
