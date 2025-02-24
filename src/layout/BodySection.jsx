@@ -3,19 +3,21 @@ import Product from "../component/Product";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const BodySection = () => {
   var settings = {
-    dots: true,
     infinite: true,
-    speed: 900,
-    slidesToShow: 3,
-    slidesToScroll: 2,
+    speed: 900, 
+    slidesToShow: 3, 
+    slidesToScroll: 1, 
+    autoplay: true, 
+    autoplaySpeed: 2000, 
+    pauseOnHover: true,
   };
+  const navigate = useNavigate();
   return (
     <>
-      <Product />
       <h3 className="kids">Discover Kids Book</h3>
       <Slider {...settings} className="promo">
         <div>
@@ -56,9 +58,14 @@ const BodySection = () => {
         </div>
       </Slider>
       <div className="button">
-        <Link to="/kids-books">
-          <button className="seeMore">See More</button>
-        </Link>
+        <button
+          className="seeMore"
+          onClick={() => {
+            navigate("/kids-books");
+          }}
+        >
+          See More
+        </button>
       </div>
     </>
   );

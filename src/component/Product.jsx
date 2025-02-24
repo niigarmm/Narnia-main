@@ -12,7 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
-const Product = () => {
+const Product = ({ filtered }) => {
   const [mode] = useContext(ModeContext);
   const [stepValue, setStepValue] = useState(10);
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -25,9 +25,10 @@ const Product = () => {
   const [openLang, setOpenLang] = useState(false);
   const [openAfromZ, setOpenAfromZ] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [values, setValues] = useState([0, 100]); // Slider için başlangıç değeri
-  const [minPrice, setMinPrice] = useState(0); // Minimum fiyat
-  const [maxPrice, setMaxPrice] = useState(100); // Maksimum fiyat
+  const [values, setValues] = useState([0, 100]); 
+  const [minPrice, setMinPrice] = useState(0); 
+  const [maxPrice, setMaxPrice] = useState(100); 
+  const [keyword, setKeyword] = useState("");
 
   const itemsPerPage = 8;
   useEffect(() => {
@@ -36,22 +37,31 @@ const Product = () => {
   }, [data]);
 
   const filteredData = useMemo(() => {
-    return data
+    let result = filtered.length > 0 ? filtered : data;
+    result = result
       .filter(
         (p) =>
+          p.title?.toLowerCase().includes(keyword.toLowerCase()) &&
           (selectedCategory === "" || p.cat === selectedCategory) &&
           (selectedLanguage === "" || p.lang === selectedLanguage) &&
           p.price >= values[0] &&
           p.price <= values[1]
       )
-      .sort((a, b) => {
-        if (sortOrder === "asc") {
-          return a.title.localeCompare(b.title);
-        } else {
-          return b.title.localeCompare(a.title);
-        }
-      });
-  }, [data, selectedCategory, selectedLanguage, values, sortOrder]);
+      .sort((a, b) =>
+        sortOrder === "asc"
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title)
+      );
+    return result;
+  }, [
+    data,
+    filtered,
+    selectedCategory,
+    selectedLanguage,
+    values,
+    sortOrder,
+    keyword,
+  ]);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -378,7 +388,6 @@ const Product = () => {
               renderTrack={({ props, children }) => (
                 <div
                   {...props}
-                  
                   style={{
                     ...props.style,
                     height: "6px",
@@ -417,7 +426,13 @@ const Product = () => {
           </div>
         </div>
       </div>
-      <div className={mode === "light" ? " products bottom-category" : "dark-products dark-bottom"}>
+      <div
+        className={
+          mode === "light"
+            ? " products bottom-category"
+            : "dark-products dark-bottom"
+        }
+      >
         <div>
           {currentItems.length === 0 ? (
             <div className="not-found">

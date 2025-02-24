@@ -4,6 +4,7 @@ import slugify from "slugify";
 import { ModeContext } from "../context/ModeContext";
 import { useWishlist } from "react-use-wishlist";
 import { useCart } from "react-use-cart";
+import Aos from "aos";
 
 const SingleCard = ({ allitems }) => {
   const [mode] = useContext(ModeContext);
@@ -26,9 +27,18 @@ const SingleCard = ({ allitems }) => {
       navigate("/signUp");
     }
   };
+  useEffect(() => {
+    Aos.init({
+      duration: 1200,
+      once: false,
+      offset: 100,
+    });
+  }, []);
 
   return (
-    <div className={mode === "light" ? "single-card " : "dark-single-card"} data-aos="zoom-in">
+    <div
+      className={mode === "light" ? "single-card " : "dark-single-card"}
+    >
       <div className="like">
         <button
           style={{ border: "none", backgroundColor: "transparent" }}
@@ -145,8 +155,8 @@ const SingleCard = ({ allitems }) => {
         </div>
       </Link>
       <div className="add-to-cart">
-        <button onClick={handleClick} className="add-button">
-          Add to cart
+        <button onClick={handleClick} className="add-button" disabled={added}>
+        {added ? "Added" : "Add to Cart"}
         </button>
       </div>
       <button className="more-information">More Information</button>

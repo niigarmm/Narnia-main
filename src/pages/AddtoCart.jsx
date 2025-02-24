@@ -215,7 +215,9 @@ const AddtoCart = () => {
             <p>{total.toFixed(2)}</p>
           </div>
           <div>
-            <button className="buy ">Formalize The Order</button>
+            <Link to="/formalize-order">
+              <button className="buy ">Formalize The Order</button>
+            </Link>
             <Link to="/">
               <button className="buy back">Back to home</button>
             </Link>

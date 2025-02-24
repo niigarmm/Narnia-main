@@ -1,6 +1,6 @@
 @use "mixin" as *;
 .product{
-  .products{
+  .products,.dark-products{
     padding-top: 0 !important;
   }
 }
@@ -87,9 +87,9 @@ select{
     align-items: center;
     justify-content: space-between;
     padding-inline: 10px;
-    border-radius: 5px;
+    border-radius: 50px;
     margin-bottom: 10px;
-    border: 1px solid #5d5d29;
+    border: 1px solid #5d5d2952;
     color: #5d5d29;
   }
 

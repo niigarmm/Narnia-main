@@ -20,6 +20,8 @@ import ScrollToTop from "./component/ScrollToTop";
 import Wishlist from "./pages/Wishlist";
 import AddtoCart from "./pages/AddtoCart";
 import KidsBooks from "./pages/books/KidsBooks";
+import FormalizeOrder from "./pages/FormalizeOrder";
+import Blog from "./pages/Blog";
 
 function App() {
   const [changeMode] = useContext(ModeContext);
@@ -65,6 +67,8 @@ function App() {
           <Route path="/wishlist" element={<Wishlist />}></Route>
           <Route path="/add-to-cart" element={<AddtoCart />}></Route>
           <Route path="/kids-books" element={<KidsBooks />}></Route>
+          <Route path="/formalize-order" element={<FormalizeOrder />}></Route>
+          <Route path="/blog" element={<Blog />}></Route>
         </Routes>
       </BrowserRouter>
     </>

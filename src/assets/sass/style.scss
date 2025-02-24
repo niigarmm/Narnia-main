@@ -15,7 +15,9 @@
 @use "productDetail";
 @use "addtocart";
 @use "bodySection";
-/* Custom Slider Style */
+@use "kidsBook";
+@use "formalizeOrder";
+@use "blog";
 .kids-cat{
   padding-inline: 80px;
 }
@@ -77,4 +79,7 @@
 .dark-empty-title {
   color: white;
   transition: 0.5s;
+}
+.link{
+  flex-direction: row !important;
 }

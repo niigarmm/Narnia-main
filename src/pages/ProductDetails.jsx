@@ -7,7 +7,6 @@ import slugify from "slugify";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
 import { ModeContext } from "../context/ModeContext";
-import SlickSlider from "../component/SlickSlider";
 import { filterProps } from "framer-motion";
 import { getProduct } from "../tools/action/productAction";
 import store from "../tools/store/configureStore";
@@ -219,7 +218,6 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
-      <SlickSlider />
       <Footer />
     </div>
   );

@@ -69,7 +69,7 @@ const Wishlist = () => {
         >
           {items.map((item) => (
             <div
-              className={mode === "light" ? "single-card" : "dark-single-card"}
+              className={mode === "light" ? "single-card single-wishlist" : "dark-single-card"}
               key={item.id}
             >
               <div className="like">
@@ -151,6 +151,7 @@ const Wishlist = () => {
               <Link
                 to={`/products/${slugify(item.title, { lower: true })}`}
                 style={{ textDecoration: "none" }}
+                className="link"
               >
                 <img src={item.img} alt={item.title} />
                 <div className="name">
