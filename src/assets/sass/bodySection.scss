@@ -3,8 +3,57 @@
   text-align: center;
   font-weight: 700;
   font-family: "poppins", serif;
-  margin-top: 40px;
   font-size: 40px;
+}
+.light-kids,
+.dark-kids {
+  padding-block: 40px;
+  padding-inline: 80px;
+  .promo {
+    display: flex !important;
+    width: 100% !important;
+    padding-top: 50px;
+    overflow: hidden;
+    height: 80vh;
+    .slick-dots {
+      width: 90% !important;
+      display: none !important;
+    }
+    img {
+      border-radius: 20px;
+      margin-left: 10px !important;
+      cursor: pointer;
+    }
+
+    .promo-item {
+      display: flex !important;
+    }
+  }
+  .promo {
+    img {
+      width: 315px;
+      height: 330px;
+    }
+  }
+}
+.dark-kids {
+  background-color: #354660;
+  padding-inline: 80px;
+  .promo {
+    img {
+      width: 315px;
+      height: 330px;
+    }
+  }
+  h3 {
+    color: white;
+  }
+  .button {
+    button {
+      color: white;
+      border: 1px solid white;
+    }
+  }
 }
 .button {
   display: flex;
@@ -13,7 +62,6 @@
   height: 30px;
   width: 100%;
   margin-top: -20px;
-  margin-bottom: 30px;
 }
 .seeMore {
   background-color: transparent;
@@ -27,29 +75,149 @@
   transition: 0.5s;
   z-index: 1000000;
 }
-.promo {
-  display: flex !important;
-  padding-inline: 80px;
-  width: 100% !important;
-  padding-top: 50px;
-  gap: 20px !important;
-  overflow: hidden;
-  height: 80vh;
-  div {
-    margin-left: 20px;
+@media (max-width: 1142px) {
+  .light-kids,
+  .dark-kids {
+    .promo {
+      height: 450px !important;
+    }
+    .slick-track {
+      display: flex !important;
+      gap: 20px !important;
+    }
   }
-  .slick-dots {
-    width: 90% !important;
-    display: none !important; 
+}
+@media (max-width: 1070px) {
+  .light-kids,
+  .dark-kids {
+    .seeMore {
+      margin-top: 90px;
+      margin-bottom: 30px;
+    }
+    .slick-track {
+      gap: 50px !important;
+    }
+    .button {
+      margin-bottom: 50px;
+    }
+    .promo {
+      gap: 0px !important;
+      margin-bottom: 30px;
+      height: auto !important;
+      div {
+        margin: 0 !important;
+      }
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    }
   }
-  img {
-    width: 100%;
-    height: 330px;
-    border-radius: 20px;
-    margin-left: 10px !important;
-    cursor: pointer;
+}
+@media (max-width: 992px) {
+  .light-kids,
+  .dark-kids {
+    padding-inline: 20px !important;
+    img {
+      margin: 0 !important;
+    }
   }
-  .promo-item {
-    display: flex !important;
+  .slick-track {
+    gap: 70px !important;
+  }
+}
+
+@media (max-width: 810px) {
+  .promo {
+    height: 400px !important;
+    div {
+      margin-left: 40px !important;
+    }
+  }
+}
+@media (max-width: 720px) {
+  .kids {
+    font-size: 25px;
+  }
+  .promo {
+    height: 270px !important;
+    div {
+      margin: 0 !important;
+    }
+    img {
+      width: 170px !important;
+      height: 170px !important;
+    }
+  }
+}
+@media (max-width: 550px) {
+  .promo {
+    height: 230px !important;
+    img {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  .button {
+    button {
+      font-size: 13px !important;
+      width: 100px;
+    }
+  }
+}
+@media (max-width: 500px) {
+  .light-kids,
+  .dark-kids {
+    .slick-track {
+      width: 3000px !important;
+    }
+    .promo {
+      div {
+        margin-left: 30px !important;
+      }
+    }
+  }
+}
+@media (max-width: 470px) {
+  .light-kids,
+  .dark-kids {
+    .slick-track {
+      display: flex !important;
+      gap: 20px !important;
+    }
+  }
+}
+@media (max-width: 432px) {
+  .light-kids,
+  .dark-kids {
+    .slick-track {
+      gap: 140px !important;
+    }
+    .promo {
+      height: auto !important;
+      img {
+        width: 220px;
+        height: 220px;
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  .light-kids,
+  .dark-kids {
+    .slick-track {
+      gap: 20px !important;
+    }
+    .promo {
+      height: auto !important;
+      div {
+        margin: 0 !important;
+        width: max-content !important;
+      }
+      img {
+        width: 220px;
+        height: 220px;
+      }
+    }
   }
 }

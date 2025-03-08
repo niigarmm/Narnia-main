@@ -79,7 +79,6 @@ const Admin = () => {
               <p>Book's Pages:</p>
               <input ref={pagesRef} type="text" />
             </div>
-
             <div className="name">
               <p>Book's Description:</p>
               <textarea ref={descRef} name="" id=""></textarea>

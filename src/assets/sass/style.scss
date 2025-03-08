@@ -18,8 +18,12 @@
 @use "kidsBook";
 @use "formalizeOrder";
 @use "blog";
-.kids-cat{
+.kids-cat {
   padding-inline: 80px;
+}
+.dark-not-found,
+.not-found {
+  width: 100%;
 }
 .up {
   position: fixed;
@@ -80,6 +84,6 @@
   color: white;
   transition: 0.5s;
 }
-.link{
+.link {
   flex-direction: row !important;
 }

@@ -1,4 +1,10 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import Header from "../../layout/Header";
 import Footer from "../../layout/Footer";
 import { useSelector } from "react-redux";
@@ -7,12 +13,14 @@ import firstPromo from "../../assets/images/promoVideo1.mp4";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import CanvasKid from "../../component/CanvasKid";
 import "animate.css";
+import { ModeContext } from "../../context/ModeContext";
+import { Link } from "react-router-dom";
 
 const KidsBooks = () => {
   const [kidsBook, setKidsBook] = useState([]);
   const data = useSelector((p) => p.product);
+  const [mode] = useContext(ModeContext);
   const settings = {
     infinite: true,
     speed: 1200,
@@ -27,7 +35,7 @@ const KidsBooks = () => {
   }, [data]);
 
   return (
-    <div className="kids-book">
+    <div className={mode === "light" ? "kids-book" : "dark-kids-book"}>
       <Header />
       <div className="bottom-category">
         <div className="promo-video">
@@ -78,15 +86,78 @@ const KidsBooks = () => {
             ))
           )}
         </Slider>
-        <div className="painting">
-          <h2
-            className="animate__animated animate__pulse animate__infinite"
-            style={{ animationDuration: "3s" }}
-          >
-            Here’s a new challenge for kids! Let’s see how many of you can
-            complete this drawing without using an eraser.{" "}
-          </h2>
-          <CanvasKid />
+        <div className="free-pdf">
+          <h1>Free Kid's Book Pdf</h1>
+          <div className="free-books">
+            <div>
+              <img
+                src="https://api.bookbotkids.workers.dev/books/f60ac1f9-e513-433f-a640-6cbdf028cd98/cover.jpg"
+                alt=""
+              />
+              <div className="hidden-part">
+                <p>Magnet Magic!</p>
+                <p>Categories: Life</p>
+                <p>Pages: 12</p>
+                <button>
+                  <Link
+                    to="https://api.bookbotkids.workers.dev/books/f60ac1f9-e513-433f-a640-6cbdf028cd98/Magnet%20Magic!.pdf"
+                    target="blank"
+                  >
+                    Read Now
+                  </Link>
+                </button>
+              </div>
+            </div>
+            <div>
+              <img
+                src="https://api.bookbotkids.workers.dev/books/7b866aa0-32dd-11eb-85df-f1b21128a838/cover.jpg"
+                alt=""
+              />
+              <div className="hidden-part">
+                <p>A Mess!</p>
+                <p>Categories: Life</p>
+                <p>Pages: 8</p>
+                <button>
+                  <Link to="https://api.bookbotkids.workers.dev/books/7b866aa0-32dd-11eb-85df-f1b21128a838/A%20Mess!.pdf" target="blank">
+                    Read Now
+                  </Link>
+                </button>
+              </div>
+            </div>
+            <div>
+              <img
+                src="https://api.bookbotkids.workers.dev/books/3674f6ec-545e-467d-bbae-cc3187b1500b/cover.jpg"
+                alt=""
+              />
+              <div className="hidden-part">
+                <p>Ballerina!</p>
+                <p>Categories: Life</p>
+                <p>Pages: 6</p>
+                <button>
+                  <Link to="https://api.bookbotkids.workers.dev/books/3674f6ec-545e-467d-bbae-cc3187b1500b/Ballerina.pdf" target="blank">
+                    Read Now
+                  </Link>
+                </button>
+              </div>
+            </div>
+            <div>
+              <img
+                src="https://api.bookbotkids.workers.dev/books/694045ae-d957-4857-84a4-df37c2f78516/cover.jpg"
+                alt=""
+              />
+              <div className="hidden-part">
+                <p>Dragon School</p>
+                <p>Categories: Adventure</p>
+                <p>Pages: 14</p>
+                <button>
+                  <Link to="https://api.bookbotkids.workers.dev/books/694045ae-d957-4857-84a4-df37c2f78516/Dragon%20School.pdf" target="blank">
+                    Read Now
+                  </Link>
+                </button>
+              </div>
+            </div>
+          </div>
+          <button className="discover">Discover More</button>
         </div>
       </div>
       <Footer />

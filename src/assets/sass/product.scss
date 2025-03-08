@@ -1,26 +1,27 @@
 @use "mixin" as *;
-.product{
-  .products,.dark-products{
-    padding-top: 0 !important;
+.product {
+  .products,
+  .dark-products {
+    padding-top: 20px !important;
+    // padding-inline: 80px !important;
   }
 }
 .products,
 .dark-products {
-  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 30px;
 }
-.range{
+.range {
   margin-top: 10px !important;
-  span{
+  span {
     font-weight: 700;
     margin-left: 10px;
   }
 }
-select{
-  outline: none
+select {
+  outline: none;
 }
 .dark-bottom {
   @include darkMode();
@@ -46,20 +47,19 @@ select{
       color: white !important;
     }
   }
-  .opened-cat{
+  .opened-cat {
     background-color: #354660 !important;
     box-shadow: 0px 0px 10px 5px #28354a;
-    button{
+    button {
       color: white !important;
     }
   }
-
 }
-.dark-category-items{
-  .track{
+.dark-category-items {
+  .track {
     background-color: #d77056 !important;
   }
-  .range{
+  .range {
     color: #d77056 !important;
   }
 }
@@ -138,15 +138,13 @@ select{
   align-items: center;
   justify-content: center;
   transition: 0.5s;
-  width: 100%;
-  
+
   .bottom-category,
   .dark-bottom {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding-inline: 80px;
-    position: relative;
     gap: 30px;
   }
 
@@ -183,7 +181,7 @@ select{
     }
   }
 }
-.products{
+.products {
   padding-top: 50px;
 }
 
@@ -200,13 +198,67 @@ select{
     color: #76514f;
   }
 }
-@media (max-width: 992px) {
+@media (max-width: 1235px) {
   .dark-products,
   .products {
-    padding-inline: 20px !important;
+    align-items: center;
+    justify-content: center;
+  }
+  .line {
+    width: 250px !important;
+  }
+  .range {
+    span {
+      margin-left: 40px;
+    }
   }
 }
+@media (max-width: 992px) {
+  .products,.dark-products{
+    padding-inline: 10px !important;
+  }
+  .line {
+    width: 160px !important;
+  }
+  .range {
+    font-size: 12px !important;
+    span {
+      font-size: 12px !important;
+      margin-left: 20px !important;
+    }
+  }
+  .category-items,.dark-category-items {
+    padding-inline: 20px !important;
+    .catt {
+      width: 100px !important;
+      font-size: 14px;
+      height: 30px;
+    }
+    
+    .lang-btn {
+      width: 110px !important;
+    }
+    .opened-cat {
+      width: 100px !important;
+      button {
+        font-size: 13px;
+        padding: 0 !important;
+      }
+    }
+  }
+}
+
 @media (max-width: 717px) {
+  .product {
+    padding: 0 !important;
+  }
+  .dark-products,
+  .products {
+    width: 100% !important;
+    gap: 10px !important;
+  
+  }
+
   .dark-pagination,
   .pagination {
     button {
@@ -219,14 +271,25 @@ select{
       justify-content: center;
     }
   }
+
+  .category-items,.dark-category-items {
+    flex-direction: column;
+  }
+  .range-div {
+    margin-left: 10px;
+  }
 }
 
 @media (max-width: 500px) {
-  .product {
-    .dark-products,
-    .products {
-      padding-top: 10px !important;
+  .category-items,.dark-category-items {
+    .catt {
+      font-size: 12px !important;
+      height: 25px !important;
     }
+  }
+  .dark-products,
+  .products {
+    padding-top: 10px !important;
   }
 }
 @media (max-width: 430px) {
@@ -234,5 +297,41 @@ select{
   .products {
     align-items: center !important;
     justify-content: center !important;
+  }
+}
+@media (max-width: 440px) {
+  .category-items,.dark-category-items {
+    .cammon-div {
+      gap: 10px !important;
+    }
+  }
+}
+@media (max-width: 400px) {
+  .category-items,.dark-category-items {
+    .cammon-div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px !important;
+    }
+  }
+}
+
+@media (max-width: 370px) {
+  .category-items,.dark-category-items{
+    padding-left: 5px !important;
+  }
+
+  .pagination,.dark-pagination{
+    width: 80% !important;
+    button{
+      height: 15px !important;
+      width: 15px !important;
+    }
+  }
+  .dark-products,
+  .products {
+    padding-left: 5px !important;
+    align-items: start !important;
+    justify-content: start !important;
   }
 }

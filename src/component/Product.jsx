@@ -25,9 +25,9 @@ const Product = ({ filtered }) => {
   const [openLang, setOpenLang] = useState(false);
   const [openAfromZ, setOpenAfromZ] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [values, setValues] = useState([0, 100]); 
-  const [minPrice, setMinPrice] = useState(0); 
-  const [maxPrice, setMaxPrice] = useState(100); 
+  const [values, setValues] = useState([0, 100]);
+  const [minPrice, setMinPrice] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(100);
   const [keyword, setKeyword] = useState("");
 
   const itemsPerPage = 8;
@@ -242,7 +242,7 @@ const Product = ({ filtered }) => {
       <div
         className={mode === "light" ? "category-items" : "dark-category-items"}
       >
-        <div className="d-flex" style={{ gap: "30px" }}>
+        <div className="cammon-div d-flex" style={{ gap: "30px" }}>
           <div>
             <button
               className="catt"
@@ -377,9 +377,10 @@ const Product = ({ filtered }) => {
           </div>
         </div>
 
-        <div className="d-flex" style={{ gap: "30px" }}>
-          <div style={{ padding: "20px" }}>
+        <div className="d-flex range-div" style={{ gap: "30px" }}>
+          <div>
             <Range
+            
               step={stepValue}
               min={minPrice}
               max={maxPrice}
@@ -388,6 +389,7 @@ const Product = ({ filtered }) => {
               renderTrack={({ props, children }) => (
                 <div
                   {...props}
+                  className="line"
                   style={{
                     ...props.style,
                     height: "6px",
@@ -414,9 +416,9 @@ const Product = ({ filtered }) => {
                 />
               )}
             />
-            <div>
+            <div className="range-text">
               <p style={{ color: "#5d5d29" }} className="range">
-                Selected Price Range:{" "}
+                Price Range:{" "}
                 <span>
                   {" "}
                   {values[0]}$ - {values[1]}$
@@ -435,7 +437,7 @@ const Product = ({ filtered }) => {
       >
         <div>
           {currentItems.length === 0 ? (
-            <div className="not-found">
+            <div className={mode === "light" ? "not-found" : "dark-not-fount"}>
               <img
                 src="https://i.pinimg.com/originals/8a/cb/19/8acb194578c6487798c0bc97e1e0c7b0.gif"
                 alt=""

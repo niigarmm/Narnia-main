@@ -48,84 +48,70 @@ const Admin = () => {
         <div className="account-card">
           <h1>Edit Book</h1>
           <form onSubmit={formSubmit}>
-            <div className="information">
-              <div className="left-part">
-                <div className="name">
-                  <p>Book's Name:</p>
-                  <input
-                    defaultValue={filteredData.title}
-                    ref={titleRef}
-                    type="text"
-                  />
-                </div>
-                <div className="name">
-                  <p>Book's Image Url:</p>
-                  <input
-                    defaultValue={filteredData.img}
-                    ref={imgRef}
-                    type="text"
-                  />
-                </div>
-                <div className="name">
-                  <p>Book's Author:</p>
-                  <input
-                    defaultValue={filteredData.author}
-                    ref={authorRef}
-                    type="text"
-                  />
-                </div>
-                <div className="name">
-                  <p>Book's Pages:</p>
-                  <input
-                    defaultValue={filteredData.pages}
-                    ref={pagesRef}
-                    type="text"
-                  />
-                </div>
-                <div className="d-flex">
-                  <button type="submit">Edit Book</button>
-                </div>
-              </div>
-              <div className="right-part">
-                <div className="name">
-                  <p>Book's Description:</p>
-                  <textarea
-                    defaultValue={filteredData.desc}
-                    ref={descRef}
-                    name=""
-                    id=""
-                  ></textarea>
-                </div>
-                <div className="name">
-                  <p>Book's Category:</p>
-                  <input
-                    defaultValue={filteredData.cat}
-                    ref={catRef}
-                    type="text"
-                  />
-                </div>
-                <div className="name">
-                  <p>Book's Price:</p>
-                  <input
-                    defaultValue={filteredData.price}
-                    ref={priceRef}
-                    type="text"
-                  />
-                </div>
-                <div className="name">
-                  <p>Book's Language:</p>
-                  <input
-                    defaultValue={filteredData.lang}
-                    ref={langRef}
-                    type="text"
-                  />
-                </div>
-                <button className="dashboard">
-                  <Link style={{ color: "white" }} to="/dashboard">
-                    Go to dashboard
-                  </Link>
-                </button>
-              </div>
+            <div className="name">
+              <p>Book's Name:</p>
+              <input
+                defaultValue={filteredData.title}
+                ref={titleRef}
+                type="text"
+              />
+            </div>
+            <div className="name">
+              <p>Book's Image Url:</p>
+              <input defaultValue={filteredData.img} ref={imgRef} type="text" />
+            </div>
+            <div className="name">
+              <p>Book's Author:</p>
+              <input
+                defaultValue={filteredData.author}
+                ref={authorRef}
+                type="text"
+              />
+            </div>
+            <div className="name">
+              <p>Book's Pages:</p>
+              <input
+                defaultValue={filteredData.pages}
+                ref={pagesRef}
+                type="text"
+              />
+            </div>
+            <div className="name">
+              <p>Book's Description:</p>
+              <textarea
+                defaultValue={filteredData.desc}
+                ref={descRef}
+                name=""
+                id=""
+              ></textarea>
+            </div>
+            <div className="name">
+              <p>Book's Category:</p>
+              <input defaultValue={filteredData.cat} ref={catRef} type="text" />
+            </div>
+            <div className="name">
+              <p>Book's Price:</p>
+              <input
+                defaultValue={filteredData.price}
+                ref={priceRef}
+                type="text"
+              />
+            </div>
+            <div className="name">
+              <p>Book's Language:</p>
+              <input
+                defaultValue={filteredData.lang}
+                ref={langRef}
+                type="text"
+              />
+            </div>
+            <div className="button-trio">
+              <button className="dashboard">
+                <Link style={{ color: "white" }} to="/dashboard">
+                  Go to dashboard
+                </Link>
+              </button>
+              <button type="submit">Edit Book</button>
             </div>
           </form>
         </div>

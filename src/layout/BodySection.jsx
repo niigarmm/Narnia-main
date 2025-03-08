@@ -4,28 +4,37 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { ModeContext } from "../context/ModeContext";
 
 const BodySection = () => {
-  var settings = {
+  const [mode] = useContext(ModeContext);
+  const settings = {
     infinite: true,
-    speed: 900, 
-    slidesToShow: 3, 
-    slidesToScroll: 1, 
-    autoplay: true, 
-    autoplaySpeed: 2000, 
+    speed: 900,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
     pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 500,
+        settings: {
+          slidesToShow: 1,
+        },
+        breakpoint:992,
+        settings:{
+          slidesToShow:2
+        }
+      },
+    ],
   };
   const navigate = useNavigate();
   return (
-    <>
+    <div className={mode=== "light" ? "light-kids" : "dark-kids"}>
       <h3 className="kids">Discover Kids Book</h3>
-      <Slider {...settings} className="promo">
-        <div>
-          <img
-            src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/3d6de0205254017.66e6e2e018cc3.gif"
-            alt=""
-          />
-        </div>
+      <Slider {...settings} className="promo" key={window.innerWidth}>
         <div>
           <img
             src="https://images.squarespace-cdn.com/content/v1/5d1fb0876f941b0001d27ee6/1655147878985-5VSYG4QC446U5X0KRVXE/LetsCelebrate-Playing_3.gif?format=1000w"
@@ -46,12 +55,6 @@ const BodySection = () => {
         </div>
         <div>
           <img
-            src="https://commoncircus.com.au/cdn/shop/products/FD43963F-E03E-40C0-A797-C23DCD759350_1_105_c.jpg?v=1662519704&width=2000"
-            alt=""
-          />
-        </div>
-        <div>
-          <img
             src="https://images.squarespace-cdn.com/content/v1/5d1fb0876f941b0001d27ee6/1655226991923-3V3DEVHH788S12UDPVT8/LetsCelebrate-FavoriteFoods_2.gif?format=1000w"
             alt=""
           />
@@ -67,7 +70,7 @@ const BodySection = () => {
           See More
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
