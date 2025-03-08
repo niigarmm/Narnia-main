@@ -7,7 +7,6 @@ import Aos from "aos";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import { ModeContext } from "../context/ModeContext";
-
 const Account = ({ email }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
