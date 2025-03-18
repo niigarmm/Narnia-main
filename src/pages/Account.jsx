@@ -7,6 +7,11 @@ import Aos from "aos";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
 import { ModeContext } from "../context/ModeContext";
+import Wishlist from "./Wishlist";
+import SingleCard from "../component/SingleCard";
+import { useWishlist } from "react-use-wishlist";
+import { useCart } from "react-use-cart";
+import { useTranslation } from "react-i18next";
 const Account = ({ email }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -14,6 +19,7 @@ const Account = ({ email }) => {
     email: "",
     avatar: "",
   });
+  const {t} = useTranslation();
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("login");
     if (!isLoggedIn) {
@@ -70,7 +76,7 @@ const Account = ({ email }) => {
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
-  
+
   useEffect(() => {
     Aos.init({
       duration: 1200,
@@ -80,12 +86,30 @@ const Account = ({ email }) => {
   }, []);
 
   const [mode] = useContext(ModeContext);
-  
+  const {
+    isWishlistEmpty,
+    items,
+    removeWishlistItem,
+    inWishlist,
+    clearWishlist,
+    addWishlistItem,
+  } = useWishlist();
+  const { addItem } = useCart();
+  const handleClick = () => {
+    if (user) {
+      addItem(allitems);
+      setAdded(true);
+    } else {
+      navigate("/signUp");
+    }
+  };
 
   return (
     <>
       <Header />
-      <div className={mode === "light" ? "account" : "dark-account"}>
+      <div
+        className={mode === "light" ? "hesab account" : "hesab dark-account"}
+      >
         <div className="account-card">
           <div className="left-part">
             <div className="profil-pic">
@@ -111,23 +135,23 @@ const Account = ({ email }) => {
             </div>
             <div className="sections">
               <button onClick={() => handleSectionChange("account-section")}>
-                <h4>Account</h4>
+                <h4>{t("Account")}</h4>
               </button>
               <button onClick={() => handleSectionChange("wishlist-section")}>
-                <h4>Wishlist</h4>
+                <h4>{t("Wishlist")}</h4>
               </button>
               <button onClick={() => handleSectionChange("privacy-section")}>
-                <h4>Privacy</h4>
+                <h4>{t("Privacy")}</h4>
               </button>
               <button onClick={() => handleSectionChange("help-section")}>
-                <h4>Help</h4>
+                <h4>{t("Help")}</h4>
               </button>
               <button
                 style={{ color: "white" }}
                 onClick={handleLogout}
                 className="exit"
               >
-                Log out
+                {t("Logout")}
               </button>
             </div>
           </div>
@@ -137,12 +161,12 @@ const Account = ({ email }) => {
               activeSection === "account-section" ? "active" : ""
             }`}
           >
-            <h2>Account Setting</h2>
+            <h2>{t("AccountSetting")}</h2>
             <div className="basic-info animate__animated animate__slideInUp">
               <h4>Basic Info</h4>
               <div className="personal-information">
                 <div>
-                  <h5>Name:</h5>
+                  <h5>{t("name")}:</h5>
                   <h5>{user.name}</h5>
                 </div>
                 <div>
@@ -150,7 +174,7 @@ const Account = ({ email }) => {
                   <h5>{user.email}</h5>
                 </div>
                 <div>
-                  <h5>Password:</h5>
+                  <h5>{t("password")}:</h5>
                   <h5>{user.password}</h5>
                 </div>
               </div>
@@ -162,7 +186,66 @@ const Account = ({ email }) => {
               activeSection === "wishlist-section" ? "active" : ""
             }`}
           >
-            <h2>Wishlist Section</h2>
+            <h2>{t("WishlistSection")}</h2>
+            {isWishlistEmpty ? (
+              <div
+                className={
+                  mode === "light"
+                    ? "d-flex align-items-center justify-content-center p-4 light-wish"
+                    : "d-flex align-items-center justify-content-center p-4 dark-wish"
+                }
+                style={{ flexDirection: "column", gap: "30px" }}
+              >
+                <img
+                  src="https://i.pinimg.com/originals/93/23/1e/93231e82891d91eb0cf5baa402a9e45a.gif"
+                  alt=""
+                />
+                <h3
+                  className={
+                    mode === "light" ? "empty-title" : "dark-empty-title"
+                  }
+                >
+                  {t("empty")}
+                </h3>
+                <Link to="/">
+                  {" "}
+                  <button
+                    className={
+                      mode === "light" ? "back-home" : "dark-back-home"
+                    }
+                  >
+                    {t("back")}
+                  </button>
+                </Link>{" "}
+              </div>
+            ) : (
+              <div>
+                <div
+                  className={
+                    mode === "light" ? "clear-button" : "dark-clear-button"
+                  }
+                >
+                  <button
+                    className="clear"
+                    onClick={() =>
+                      items.forEach((item) => removeWishlistItem(item.id))
+                    }
+                  >
+                    Clear Wishlist
+                  </button>
+                </div>
+                <div
+                  className={
+                    mode === "light" ? "products wish-product" : "dark-products"
+                  }
+                >
+                  {items.map((item) => (
+                    <SingleCard allitems={item} key={item.id} />
+                  ))}
+                </div>
+              </div>
+            )}
+            <div></div>
           </div>
           <div
             id="privacy-section"
@@ -170,38 +253,10 @@ const Account = ({ email }) => {
               activeSection === "privacy-section" ? "active" : ""
             }`}
           >
-            <h2>Privacy Section</h2>
+            <h2>{t("PrivacySection")}</h2>
             <div className="personal-information animate__animated animate__slideInUp">
               <p>
-                <b>Privacy Policy</b> <br /> At Narnia, we value your privacy
-                and are committed to protecting your personal information. This
-                policy explains how we collect, use, and safeguard your data
-                when you visit our website. <br /> Information We Collect <br />{" "}
-                When you browse our website or make a purchase, we may collect
-                certain information, including: Your name, email address, and
-                contact details Shipping and billing addresses Payment details
-                (processed securely through third-party payment gateways)
-                Purchase history and preferences IP address and browsing
-                behavior for website analytics <br />
-                <b>How We Use Your Information </b>
-                <br /> We use your data to: Process and fulfill your orders
-                Provide customer support and respond to inquiries Improve our
-                website, services, and product offerings Send promotional emails
-                (only if you subscribe) Prevent fraud and ensure website
-                security <br />
-                <b> Data Protection & Security </b>
-                <br /> We take appropriate security measures to protect your
-                personal data from unauthorized access, alteration, or
-                disclosure. Our website uses encryption and secure payment
-                methods to safeguard your sensitive information. <br />
-                <b>Your Rights</b>
-                <br /> You have the right to: Access, update, or delete your
-                personal information Opt out of marketing emails at any time
-                Request information about how we process your data For any
-                questions or requests regarding your privacy, please{" "}
-                <Link to="/contactUs">contact us</Link>. By using our website,
-                you agree to our privacy policy. We may update this policy
-                periodically, so we encourage you to review it regularly.
+                {t("parg5")}
               </p>
             </div>
           </div>
@@ -211,8 +266,10 @@ const Account = ({ email }) => {
               activeSection === "help-section" ? "active" : ""
             }`}
           >
-            <h2>Help Section</h2>
-           
+            <h2>{t("HelpCenter")}</h2>
+            <p className="mt-5">
+             {t("parg6")}
+            </p>
           </div>
         </div>
       </div>

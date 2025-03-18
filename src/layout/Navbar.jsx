@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import { useWishlist } from "react-use-wishlist";
@@ -12,6 +13,7 @@ const Navbar = () => {
       setUser(JSON.parse(loggedUser));
     }
   }, []);
+  const { t, i18n } = useTranslation();
   const handleUserClick = () => {
     if (user) {
       if (user.email === "admin@gmail.com") {
@@ -59,7 +61,7 @@ const Navbar = () => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link to="/" className="nav-link active" aria-current="page">
-                  Home
+                 {t("home")}
                 </Link>
               </li>
               <li className="nav-item">
@@ -68,12 +70,12 @@ const Navbar = () => {
                   className="nav-link active about"
                   aria-current="page"
                 >
-                  About Us
+                 {t("about")}
                 </Link>
               </li>
               <li className="nav-item">
                 <Link to="/faq" className="nav-link active" aria-current="page">
-                  FAQ
+                  {t("faq")}
                 </Link>
               </li>
               <li className="nav-item">
@@ -82,7 +84,7 @@ const Navbar = () => {
                   className="nav-link active"
                   aria-current="page"
                 >
-                  Contact Us
+                  {t("contact")}
                 </Link>
               </li>
             </ul>

@@ -44,14 +44,14 @@
       animation-play-state: paused;
     }
   }
-  .spacer{
+  .spacer {
     height: 120px;
   }
   .fixed {
     position: fixed;
     height: 90px !important;
     top: 0;
-    transition: .5s;
+    transition: 0.5s;
     left: 0;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.292);
@@ -63,12 +63,12 @@
   .middle-container {
     @include flex();
     @include border();
-    
+    z-index: 100000000;
+
     transition: all 0.3s ease-in-out;
     .menu-container {
       display: none;
     }
-   
 
     height: 120px;
     padding-inline: 80px;
@@ -114,6 +114,23 @@
         padding-inline: 7px;
         border-radius: 50px;
         cursor: pointer;
+        .lang-btn.active {
+          background-color: #5d5d29;
+          color: white;
+          font-size: 16px;
+          font-weight: 500;
+          width: 38px;
+          height: 38px;
+          border-radius: 100px;
+          transition: 0.5s;
+          @include flex();
+          transition: 0.5s;
+        }
+
+        .lang-btn:not(.active) {
+          background-color: transparent;
+          color: #5d5d29;
+        }
 
         .lightmode,
         .en,
@@ -151,6 +168,7 @@
       .lang {
         background-color: #5d5d2944;
         font-family: "Poppins", serif;
+        padding-inline: 10px;
         .en {
           background-color: #5d5d29;
           color: white;
@@ -269,10 +287,10 @@ body.no-scroll {
       }
       .lang {
         background-color: #f9f0df88;
-        .en {
+        .lang-btn.active {
           background-color: #89484a;
         }
-        .az {
+        .lang-btn:not(.active){
           color: #89484a;
         }
       }
@@ -434,9 +452,9 @@ body.no-scroll {
             }
           }
         }
-        .bags{
+        .bags {
           fill: white !important;
-          path{
+          path {
             stroke: none !important;
             fill: white !important;
           }

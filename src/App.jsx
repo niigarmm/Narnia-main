@@ -22,6 +22,7 @@ import AddtoCart from "./pages/AddtoCart";
 import KidsBooks from "./pages/books/KidsBooks";
 import FormalizeOrder from "./pages/FormalizeOrder";
 import Blog from "./pages/Blog";
+import Authors from "./pages/Authors";
 
 function App() {
   const [changeMode] = useContext(ModeContext);
@@ -51,6 +52,7 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<MainPage />}></Route>
+          <Route path="/author" element={<Authors />}></Route>
           <Route path="/about" element={<AboutUs />}></Route>
           <Route path="/faq" element={<FAQ />}></Route>
           <Route path="/contactUs" element={<ContactUs />}></Route>

@@ -10,10 +10,12 @@ import "../assets/sass/animation.scss";
 import FaberCastell from "../assets/images/faber-castell.png";
 import AppleBook from "../assets/images/apple-book.png";
 import BarnesNoble from "../assets/images/barnes-noble.png";
+import { useTranslation } from "react-i18next";
 
 const AboutUs = () => {
   const [changeMode] = useContext(ModeContext);
-
+  const { t, i18n } = useTranslation();
+  const amountText = "$35 million";
   useEffect(() => {
     AOS.init({
       duration: 1200,
@@ -28,19 +30,8 @@ const AboutUs = () => {
       <div className={changeMode === "light" ? "light-con" : "dark-con"}>
         <div className="about">
           <div className="text-side">
-            <h1 data-aos="fade-up">About Us</h1>
-            <p data-aos="fade-up">
-              Welcome to Narnia Bookstore! Established in 2020, we are a
-              passionate team dedicated to bringing the magic of reading to
-              every book lover. At Narnia, we offer a carefully curated
-              selection of books from a wide range of genres, ensuring that
-              there's something for everyone. Since our founding, we have built
-              strong partnerships with renowned publishers and companies,
-              allowing us to provide the latest bestsellers, timeless classics,
-              and hidden gems. Whether you're an avid reader or just starting
-              your journey, Narnia Bookstore is your ultimate destination for
-              all things literature.
-            </p>
+            <h1 data-aos="fade-up">{t("about")}</h1>
+            <p data-aos="fade-up">{t("prag")}</p>
           </div>
           <div>
             <img
@@ -56,8 +47,7 @@ const AboutUs = () => {
           </div>
         </div>
         <div className="middle-cont">
-          Since 2020, we've raised more than <span>  $35 million  </span> for
-          independent bookstores.
+          <p>{t("since")}</p>
         </div>
         <div
           className="main-container"
@@ -74,16 +64,9 @@ const AboutUs = () => {
                 data-aos="fade-up"
               />
               <div className="text-side">
-                <h1 data-aos="fade-up-right">What are we selling?</h1>
+                <h1 data-aos="fade-up-right">{t("what")}</h1>
                 <p data-aos="fade-up">
-                  At Narnia Bookstore, we pride ourselves on offering a diverse
-                  selection of books for all tastes. Whether you’re seeking the
-                  thrill of a gripping thriller, the mystery of a detective
-                  novel, the emotional depth of a drama, or the enchanting
-                  adventures of fantasy, we have something to spark your
-                  imagination. Our collection also includes a wide variety of
-                  children's books, designed to inspire young readers and
-                  nurture their love for stories
+                  {t("parg2")}
                 </p>
               </div>
             </div>
@@ -96,7 +79,7 @@ const AboutUs = () => {
             data-aos="fade-up"
             data-aos-duration="3000"
           >
-            Our Collaborations:
+            {t("col")}
           </h1>
           <div className="info-section">
             <div
@@ -138,10 +121,7 @@ const AboutUs = () => {
                       alt=""
                     />
                     <p>
-                      By partnering with Amazon Kindle, we are stepping into the
-                      world of digital books. Our website aims to provide book
-                      lovers with an easy and fast reading experience with its
-                      vast collection of books.{" "}
+                     {t("amazon")}{" "}
                     </p>
                   </div>
                 </div>
@@ -183,8 +163,7 @@ const AboutUs = () => {
                   <div className="title">
                     <img src={FaberCastell} alt="" className="faber" />
                     <p>
-                      Faber-Castell and our platform proudly collaborate to
-                      bring high-quality stationery products to our customers.
+                      {t("faber")}
                     </p>
                   </div>
                 </div>
@@ -226,10 +205,7 @@ const AboutUs = () => {
                   <div className="title">
                     <img src={AppleBook} className="apple" />
                     <p>
-                      Our collaboration with Apple Books brings a new dimension
-                      to reading by combining technology and literature.
-                      Together, we aim to provide readers with seamless access
-                      to a vast collection of digital books
+                     {t("apple")}
                     </p>
                   </div>
                 </div>
@@ -271,9 +247,7 @@ const AboutUs = () => {
                   <div className="title">
                     <img src={BarnesNoble} alt="" className="faber" />
                     <p>
-                      Partnering with Barnes & Noble will allow us to offer an
-                      extensive collection of digital books to our customers.
-                      With Google Books’ vast library and easy accessibility
+                      {t("barnes")}
                     </p>
                   </div>
                 </div>

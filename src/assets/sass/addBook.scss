@@ -1,0 +1,67 @@
+.admin {
+  .account-card {
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    h1 {
+      color: #ffd4d3;
+    }
+  }
+  form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .name {
+    width: 80%;
+    input,
+    textarea {
+      background-color: #ffd4d345;
+      color: #66691f;
+    }
+    textarea {
+      padding-top: 9px;
+    }
+  }
+}
+.button-trio {
+  width: 70% !important;
+  button {
+    position: relative;
+    bottom: 0;
+    transition: 0.5s;
+  }
+  .exit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    gap: 10px;
+  }
+  .add-book {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 700;
+    background-color: #c98482;
+  }
+  .dashboard {
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 700;
+    }
+    img {
+      width: 28px;
+      height: 28px;
+    }
+  }
+  button:hover {
+    position: relative;
+    bottom: 10px;
+    transition: 0.5s;
+  }
+}

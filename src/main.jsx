@@ -13,6 +13,10 @@ import supabase from "../utils/supabase.js";
 import store from "./tools/store/configureStore.js";
 import { WishlistProvider } from "react-use-wishlist";
 import { CartProvider } from "react-use-cart";
+import "./i18n"; // i18n faylını daxil et
+import { I18nextProvider } from "react-i18next";
+import i18n from "./i18n";
+import { getAuthors } from "./tools/action/authorAction.js";
 
 const fetchProducts = async () => {
   const { data } = await supabase.from("narnia-product").select();
@@ -21,14 +25,17 @@ const fetchProducts = async () => {
 
 fetchProducts();
 
+
 createRoot(document.getElementById("root")).render(
-  <CartProvider>
-    <WishlistProvider>
-      <Provider store={store}>
-        <ModeProvider>
-          <App />
-        </ModeProvider>
-      </Provider>
-    </WishlistProvider>
-  </CartProvider>
+  <I18nextProvider i18n={i18n}>
+    <CartProvider>
+      <WishlistProvider>
+        <Provider store={store}>
+          <ModeProvider>
+            <App />
+          </ModeProvider>
+        </Provider>
+      </WishlistProvider>
+    </CartProvider>
+  </I18nextProvider>
 );

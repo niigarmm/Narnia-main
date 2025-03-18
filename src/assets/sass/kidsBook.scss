@@ -4,8 +4,23 @@
 .animate__animated.animate__slideInRight {
   --animate-duration: 3s !important;
 }
+
 .dark-kids-book {
   background-color: #354660;
+  .discover{
+    color: white;
+    border: 1px solid white !important;
+  }
+  .discover:hover{
+    background-color: white !important; 
+    color: #354660 !important;
+  }
+  .free-pdf {
+    h1 {
+      color: white;
+    }
+  }
+
   .promo-video {
     h1,
     p {
@@ -28,19 +43,19 @@
     border-radius: 30px;
     background-color: transparent;
     border: 1px solid #3e3e1a;
-    transition: .5s;
-
+    transition: 0.5s;
   }
-  .discover:hover{
+  .discover:hover {
     background-color: #3e3e1a;
     color: white;
-    transition: .5s;
+    transition: 0.5s;
   }
   .free-pdf {
     display: flex;
     align-items: center;
     flex-direction: column;
     padding-bottom: 40px;
+    padding-top: 50px;
     gap: 40px;
     h1 {
       font-size: 30px;
@@ -151,64 +166,7 @@
     }
   }
 }
-.canvas-kids {
-  margin-top: 50px;
-  .save {
-    background-color: #3e3e1a;
-    padding: 0 !important;
-    margin-left: 20px;
-  }
-  .save:hover {
-    background-color: white;
-    color: #3e3e1a;
-    border: 1px solid #3e3e1a;
-    transition: 0.5s;
-  }
-  .clear {
-    padding: 0 !important;
-    transition: 0.5s;
-  }
-  label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #3e3e1a;
-    font-weight: 600;
-    font-size: 20px !important;
-    margin-bottom: 30px;
-    input {
-      height: 30px;
-      width: 30px;
-      border: none;
-      border-radius: 100px;
-      margin-left: 10px;
-      cursor: pointer;
-    }
-  }
 
-  .stage {
-    border: none !important;
-  }
-}
-
-.kids-slider {
-  height: auto;
-  margin-top: 90px;
-  padding-block: 40px !important;
-  gap: 0px !important;
-  padding-inline: 80px;
-  overflow: hidden;
-  img {
-    margin: 0 !important;
-  }
-  .single-card:hover,
-  .dark-single-card:hover {
-    bottom: 0 !important;
-  }
-  .add-to-cart {
-    margin: 0 !important;
-  }
-}
 .seeMore span {
   pointer-events: auto !important;
 }

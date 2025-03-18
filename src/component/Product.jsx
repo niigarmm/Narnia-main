@@ -12,6 +12,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { useTranslation } from "react-i18next";
 const Product = ({ filtered }) => {
   const [mode] = useContext(ModeContext);
   const [stepValue, setStepValue] = useState(10);
@@ -29,6 +30,7 @@ const Product = ({ filtered }) => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(100);
   const [keyword, setKeyword] = useState("");
+  const { t, i18n } = useTranslation();
 
   const itemsPerPage = 8;
   useEffect(() => {
@@ -106,10 +108,10 @@ const Product = ({ filtered }) => {
             <div className="left-section">
               <div className="author">
                 <h1 className="">King of Envy</h1>
-                <span className="">by</span>
+                <span className="">{t("by")}</span>
               </div>
               <h4 className="">Ana Huag</h4>
-              <div className="price">
+              <div className="price" style={{ "justify-content": "start" }}>
                 <h1 className="">16</h1>
                 <svg
                   viewBox="0 0 42 39"
@@ -138,7 +140,7 @@ const Product = ({ filtered }) => {
                 </svg>
               </div>
               <Link to="/kingOfEnvy">
-                <button className="">More Information</button>
+                <button className="">{t("more")}</button>
               </Link>
             </div>
             <div className="right-section  ">
@@ -150,7 +152,7 @@ const Product = ({ filtered }) => {
               <div className="left-section ">
                 <div className="author">
                   <h1 className="">Beautiful ugly</h1>
-                  <span>by</span>
+                  <span>{t("by")}</span>
                 </div>
                 <h4 className="">Alice Freeney</h4>
                 <div className="price">
@@ -184,7 +186,7 @@ const Product = ({ filtered }) => {
                   </svg>
                 </div>
                 <Link to="/beauty-ugly">
-                  <button className="">More Information</button>
+                  <button className="">{t("more")}</button>
                 </Link>
               </div>
               <div className="right-section ">
@@ -195,7 +197,7 @@ const Product = ({ filtered }) => {
               <div className="left-section  ">
                 <div className="author">
                   <h1 className="">White Fang</h1>
-                  <span>by</span>
+                  <span>{t("by")}</span>
                 </div>
                 <h4 className="">Jack London</h4>
                 <div className="price">
@@ -229,7 +231,7 @@ const Product = ({ filtered }) => {
                   </svg>
                 </div>
                 <Link to="/white-fang">
-                  <button className="">More Information</button>
+                  <button className="">{t("more")}</button>
                 </Link>
               </div>
               <div className="right-section ">
@@ -252,7 +254,7 @@ const Product = ({ filtered }) => {
                 setOpenAfromZ(false);
               }}
             >
-              Category
+              {t("cat")}
               <FontAwesomeIcon
                 icon={faCaretDown}
                 style={{ color: "#5d5d29" }}
@@ -277,7 +279,7 @@ const Product = ({ filtered }) => {
                         setSortOrder("");
                       }}
                     >
-                      All
+                      {t("all")}
                     </button>
                     {categories.map((item, index) => (
                       <button
@@ -302,7 +304,7 @@ const Product = ({ filtered }) => {
                 setOpenAfromZ(false);
               }}
             >
-              Language
+              {t("lang")}
               <FontAwesomeIcon
                 icon={faCaretDown}
                 style={{ color: "#5d5d29" }}
@@ -349,7 +351,7 @@ const Product = ({ filtered }) => {
                 setOpenLang(false);
               }}
             >
-              A from Z
+             {t("afromz")}
               <FontAwesomeIcon
                 icon={faCaretDown}
                 style={{ color: "#5d5d29" }}
@@ -366,10 +368,10 @@ const Product = ({ filtered }) => {
                   className="opened-cat lang absolute left-0 mt-2 w-48 bg-white shadow-md rounded p-2"
                 >
                   <button value="asc" onClick={handleAfromZChange}>
-                    A from Z
+                  {t("afromz")}
                   </button>
                   <button value="desc" onClick={handleAfromZChange}>
-                    Z from A
+                  {t("zfroma")}
                   </button>
                 </motion.div>
               )}
@@ -380,7 +382,6 @@ const Product = ({ filtered }) => {
         <div className="d-flex range-div" style={{ gap: "30px" }}>
           <div>
             <Range
-            
               step={stepValue}
               min={minPrice}
               max={maxPrice}
@@ -438,11 +439,13 @@ const Product = ({ filtered }) => {
         <div>
           {currentItems.length === 0 ? (
             <div className={mode === "light" ? "not-found" : "dark-not-fount"}>
-              <img
-                src="https://i.pinimg.com/originals/8a/cb/19/8acb194578c6487798c0bc97e1e0c7b0.gif"
-                alt=""
-              />
-              <h2> Book not found</h2>
+              <div>
+                <img
+                  src="https://i.pinimg.com/originals/8a/cb/19/8acb194578c6487798c0bc97e1e0c7b0.gif"
+                  alt=""
+                />
+                <h2>{t("not")}</h2>
+              </div>
             </div>
           ) : (
             <div

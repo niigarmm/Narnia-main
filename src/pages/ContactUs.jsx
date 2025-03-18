@@ -4,9 +4,11 @@ import Footer from "../layout/Footer";
 import "../assets/sass/contactCard.scss";
 import { ModeContext } from "../context/ModeContext";
 import "animate.css";
+import { useTranslation } from "react-i18next";
 
 const ContactUs = () => {
   const [mode] = useContext(ModeContext);
+  const {t} = useTranslation()
   return (
     <div>
       <Header />
@@ -16,7 +18,7 @@ const ContactUs = () => {
         }
       >
         <h1 className="animate__animated animate__slideInUp animate__slow">
-          Contact Us
+          {t("contact")}
         </h1>
         <div className={mode === "light" ? "contact" : "dark-contact"}>
           <div className="input">
@@ -28,22 +30,22 @@ const ContactUs = () => {
               />
               <input
                 type="text"
-                placeholder="Phone"
+                placeholder={t("phone")}
                 className="phone animate__animated animate__slideInUp animate__slow"
               />
             </div>
             <input
               type="text"
-              placeholder="Name"
+              placeholder={t("name")}
               className="name animate__animated animate__slideInUp animate__slow"
             />
             <textarea
               name=""
               id=""
-              placeholder="Message"
+              placeholder={t("message")}
               className="message animate__animated animate__slideInUp animate__slow"
             ></textarea>
-            <button>Send</button>
+            <button>{t("send")}</button>
           </div>
           <div className="right-side">
             <div className="card animate__animated animate__slideInUp animate__slow">

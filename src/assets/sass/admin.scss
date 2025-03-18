@@ -1,7 +1,6 @@
 @use "mixin" as *;
 
-.admin,
-.dark-account {
+.admin {
   .account-card {
     flex-direction: column !important;
     align-items: center !important;
@@ -12,10 +11,10 @@
     h1 {
       font-size: 40px;
     }
-    .button-trio{
+    .button-trio {
       display: flex;
       gap: 40px;
-      button{
+      button {
         width: 40%;
       }
     }
@@ -56,16 +55,15 @@
     }
   }
 }
-.dark-account{
-  .account-card{
+.dark-account {
+  .account-card {
     background-color: rgba(255, 255, 255, 0.594);
-    .button-trio{
-      button{
-        @include darkMode()
+    .button-trio {
+      button {
+        @include darkMode();
       }
     }
   }
-
 }
 .dashboard {
   width: 90%;
@@ -87,9 +85,9 @@ textarea {
 @media (max-width: 561px) {
   .dark-account,
   .admin {
-    .button-trio{
+    .button-trio {
       gap: 10px !important;
-      button{
+      button {
         font-size: 13px !important ;
       }
     }
@@ -98,15 +96,15 @@ textarea {
 @media (max-width: 412px) {
   .dark-account,
   .admin {
-    h1{
+    h1 {
       font-size: 30px !important;
     }
-    .account-card{
+    .account-card {
       padding-bottom: 20px !important;
     }
-    .button-trio{
+    .button-trio {
       gap: 10px !important;
-      button{
+      button {
         font-size: 13px !important ;
       }
     }

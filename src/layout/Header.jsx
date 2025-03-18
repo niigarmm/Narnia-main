@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ModeContext } from "../context/ModeContext";
 import { AnimatePresence, motion } from "framer-motion";
-
 import Navbar from "./Navbar";
 import "animate.css";
+import { useTranslation } from "react-i18next";
 const Header = ({ searchTerm, setSearchTerm }) => {
   const [stopAnimation, setStopAnimation] = useState(false);
   const [changeMode, setChangeMode] = useContext(ModeContext);
@@ -12,6 +12,11 @@ const Header = ({ searchTerm, setSearchTerm }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isFixed, setIsFixed] = useState(false);
+  const { t, i18n } = useTranslation();
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    localStorage.setItem("language", lng);
+  };
 
   useEffect(() => {
     const loggedUser = localStorage.getItem("registeredUsers");
@@ -78,25 +83,26 @@ const Header = ({ searchTerm, setSearchTerm }) => {
       >
         <div className={`scroll-element ${stopAnimation ? "paused" : ""}`}>
           <p>
-            <span>20%</span> discount on Saturdays and Sundays
+            <span>20%</span>
+            {t("upper-head")}
           </p>
           <p>
-            <span>20%</span> discount on Saturdays and Sundays
+            <span>20%</span> {t("upper-head")}
           </p>
           <p>
-            <span>20%</span> discount on Saturdays and Sundays
+            <span>20%</span> {t("upper-head")}
           </p>
           <p>
-            <span>20%</span> discount on Saturdays and Sundays
+            <span>20%</span> {t("upper-head")}
           </p>
           <p>
-            <span>20%</span> discount on Saturdays and Sundays
+            <span>20%</span> {t("upper-head")}
           </p>
           <p>
-            <span>20%</span> discount on Saturdays and Sundays
+            <span>20%</span> {t("upper-head")}
           </p>
           <p>
-            <span>20%</span> discount on Saturdays and Sundays
+            <span>20%</span> {t("upper-head")}
           </p>
         </div>
       </div>
@@ -343,7 +349,7 @@ const Header = ({ searchTerm, setSearchTerm }) => {
         <div className="search-part">
           <input
             type="text"
-            placeholder="Search..."
+            placeholder={t("search")}
             value={searchTerm}
             onChange={handleSearchChange}
           />
@@ -409,10 +415,16 @@ const Header = ({ searchTerm, setSearchTerm }) => {
             </div>
           </div>
           <div className="lang">
-            <div className="en">
+            <div
+              className={`lang-btn en ${i18n.language === "en" ? "active" : ""}`}
+              onClick={() => changeLanguage("en")}
+            >
               <p>EN</p>
             </div>
-            <div className="az">
+            <div
+              className={`lang-btn az ${i18n.language === "az" ? "active" : ""}`}
+              onClick={() => changeLanguage("az")}
+            >
               <p>AZ</p>
             </div>
           </div>

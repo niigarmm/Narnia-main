@@ -194,6 +194,16 @@
     }
   }
 }
+
+#wishlist-section{
+  overflow: auto !important;
+  padding-bottom: 20px;
+}
+.hesab{
+  .clear-button,.dark-clear-button{
+    padding: 0 !important;
+  }  
+}
 .dark-account {
   @include darkMode();
   .sections {
@@ -507,7 +517,8 @@
   color: #434322;
   font-family: "KoHo", serif;
 }
-.back-home,.dark-back-home {
+.back-home,
+.dark-back-home {
   border: none;
   padding: 5px;
   border-radius: 20px;
@@ -517,32 +528,33 @@
   bottom: 0;
   transition: 0.5s;
   background-color: white;
-  color: #434322 ;
+  color: #434322;
   border: 2px solid #434322;
 }
-.back-home:hover,.dark-back-home:hover {
+.back-home:hover,
+.dark-back-home:hover {
   position: relative;
   bottom: 15px;
   transition: 0.5s;
   background-color: #434322;
   color: white;
 }
-.dark-back-home{
+.dark-back-home {
   background-color: #354660;
   border: 2px solid white;
   color: white;
 }
-.dark-back-home:hover{
+.dark-back-home:hover {
   background-color: white;
   color: #354660;
   border: 2px solid #354660;
 }
 
-.dark-wish{
+.dark-wish {
   width: 100%;
   height: auto;
   background-color: #354660;
 }
-.wish-product{
+.wish-product {
   padding-inline: 80px;
 }

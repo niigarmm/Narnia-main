@@ -1,18 +1,68 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import slugify from "slugify";
 import { ModeContext } from "../context/ModeContext";
 import { useWishlist } from "react-use-wishlist";
 import { useCart } from "react-use-cart";
 import Aos from "aos";
+import ProductDetails from "../pages/ProductDetails";
+import { useSelector } from "react-redux";
+import { getProduct } from "../tools/action/productAction";
+import supabase from "../../utils/supabase";
+import Box from "@mui/material/Box";
+import Rating from "@mui/material/Rating";
 
 const SingleCard = ({ allitems }) => {
   const [mode] = useContext(ModeContext);
   const { addItem } = useCart();
   const { inWishlist, addWishlistItem, removeWishlistItem } = useWishlist();
   const navigate = useNavigate();
+  const [openPop, setOpenPop] = useState(false);
   const [user, setUser] = useState(null);
+  const [value, setValue] = React.useState(1);
+  const { slug } = useParams();
+  const [product, setProduct] = useState(null);
+  const data = useSelector((p) => p.product);
   const [added, setAdded] = useState(false);
+  const [animation, setAnimation] = useState("animate__zoomIn");
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data, error } = await supabase.from("narnia-product").select();
+      if (!error && data) {
+        store.dispatch(getProduct(data));
+      }
+    };
+
+    if (data.length === 0) {
+      fetchProducts();
+    }
+  }, [data.length]);
+  useEffect(() => {
+    if (openPop) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [openPop]);
+  const handleClose = () => {
+    setAnimation("animate__zoomOut");
+
+    setTimeout(() => {
+      setOpenPop(false);
+      setAnimation("animate__zoomIn");
+    }, 500);
+  };
+  useEffect(() => {
+    if (data.length > 0) {
+      const foundProduct = data.find(
+        (p) => slugify(p.title, { lower: true }) === slug
+      );
+      setProduct(foundProduct || null);
+    }
+  }, [slug, data]);
   useEffect(() => {
     const loggedUser = localStorage.getItem("activeUser");
     if (loggedUser) {
@@ -89,6 +139,9 @@ const SingleCard = ({ allitems }) => {
             display: "flex",
             alignItems: "center",
           }}
+          onClick={() => {
+            setOpenPop(!openPop);
+          }}
         >
           <svg
             width={21}
@@ -110,6 +163,72 @@ const SingleCard = ({ allitems }) => {
           </svg>
         </button>
       </div>
+      {openPop && (
+        <div className={mode === "light" ? "pop-up" : "dark-pop-up"}>
+          <div className={`pop-cart animate__animated ${animation}`}>
+            <div className="left-part">
+              <img src={allitems.img} alt={allitems.title} />
+            </div>
+            <div className="right-part">
+              <h1>{allitems.title}</h1>
+              <div className="author animate__animated animate__fadeInUp">
+                <p>
+                  {" "}
+                  <span>Author:</span> <Link to=""> {allitems.author}</Link>
+                </p>
+              </div>
+              <div className="rating">
+                <Box sx={{ "& > legend": { mt: 2 } }}>
+                  <Rating
+                    name="simple-controlled"
+                    value={value}
+                    onChange={(event, newValue) => {
+                      setValue(newValue);
+                    }}
+                  />
+                </Box>
+              </div>
+              <button onClick={handleClose} className="close">
+                X
+              </button>
+              <div className="desc">
+                <p>{allitems.desc}</p>
+              </div>
+              <div className="pop-price animate__animated animate__fadeInUp">
+                <div className="price-text">
+                  <h1>Price:{allitems.price}</h1>
+                  <svg
+                    width="30"
+                    height="44"
+                    viewBox="0 0 31 26"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clipPath="url(#clip0_11_777)">
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M22.1993 3.71429C23.1614 3.71391 24.1169 3.84876 25.0263 4.11329C26.1815 4.44944 27.4432 3.93638 27.844 2.96736C28.2447 1.99834 27.6329 0.94029 26.4775 0.604142C25.0799 0.197463 23.6096 -0.0067751 22.1302 0.000171408C22.1004 0.000311437 22.0706 0.000955899 22.0408 0.00210457C18.0823 0.154842 14.357 1.61592 11.6793 4.06588C10.4757 5.16715 9.52776 6.42794 8.86358 7.78394H4.42828C3.20535 7.78394 2.21399 8.6154 2.21399 9.64108C2.21399 10.6667 3.20535 11.4982 4.42828 11.4982H7.79271C7.74242 11.9952 7.72721 12.4967 7.74816 13.0001C7.72721 13.5035 7.7424 14.0048 7.79267 14.5017H4.42828C3.20535 14.5017 2.21399 15.3331 2.21399 16.3588C2.21399 17.3845 3.20535 18.216 4.42828 18.216H8.86338C9.52756 19.5721 10.4755 20.8331 11.6793 21.9343C14.357 24.3843 18.0823 25.8455 22.0408 25.9981C22.0722 25.9994 22.1036 26 22.1351 26.0002C23.9625 26.0054 25.7716 25.6943 27.4494 25.0865C28.572 24.6796 29.0888 23.5866 28.6039 22.6451C28.119 21.7035 26.8156 21.2699 25.693 21.6768C24.589 22.0768 23.3992 22.284 22.1969 22.2859C19.4255 22.1685 16.8198 21.141 14.9438 19.4246C14.5308 19.0467 14.1604 18.642 13.8351 18.216H17.714C18.9369 18.216 19.9283 17.3845 19.9283 16.3588C19.9283 15.3331 18.9369 14.5017 17.714 14.5017H12.2439C12.1762 14.0318 12.1531 13.5551 12.1765 13.0761C12.1789 13.0255 12.1789 12.9748 12.1765 12.9242C12.1531 12.445 12.1762 11.9683 12.244 11.4982H17.714C18.9369 11.4982 19.9283 10.6667 19.9283 9.64108C19.9283 8.6154 18.9369 7.78394 17.714 7.78394H13.8354C14.1606 7.35804 14.5309 6.95355 14.9438 6.57572C16.8203 4.85882 19.427 3.83119 22.1993 3.71429Z"
+                        fill="#b07e7c"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_11_777">
+                        <rect width={31} height={26} fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
+              <Link
+                to={`/products/${slugify(allitems.title, { lower: true })}`}
+              >
+                <button className="detail">More Details</button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
       <div>
         <Link
           className="main-single"
@@ -161,7 +280,9 @@ const SingleCard = ({ allitems }) => {
         <button onClick={handleClick} className="add-button" disabled={added}>
           {added ? "Added" : "Add to Cart"}
         </button>
-        <button className="more-information">More Information</button>
+        <Link to={`/products/${slugify(allitems.title, { lower: true })}`}>
+          <button className="more-information">More Information</button>
+        </Link>
       </div>
     </div>
   );

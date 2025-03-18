@@ -6,9 +6,11 @@ import "aos/dist/aos.css";
 import "animate.css";
 import Aos from "aos";
 import { ModeContext } from "../context/ModeContext";
+import { useTranslation } from "react-i18next";
 
 const FAQ = () => {
   const [openFaq, setOpenFaq] = useState(false);
+  const { t } = useTranslation();
   const faqData = [
     {
       id: 1,
@@ -16,16 +18,9 @@ const FAQ = () => {
       answer: (
         <>
           <span>App</span> <br />
-          You can read ebooks from <Link to="/">Narnia.com</Link> on our
-          dedicated mobile app by first logging in, then tapping the library
-          icon in the menu bar at the bottom of the screen. From there you can
-          tap on an ebook to start reading.
+          {t("faq2")}
           <br />
-          <span> Using a web browser </span> <br /> You can read ebooks from{" "}
-          <Link to="/">Narnia.com</Link> on a web browser by
-          <Link to=""> logging</Link> in to your Narnia.com account and
-          navigating to My Ebook Library via the main account menu. From there,
-          click on an ebook to start reading.
+          <span> {t("web")} </span> <br /> {t("parg3")}
         </>
       ),
     },
@@ -161,7 +156,9 @@ const FAQ = () => {
     <div>
       <Header />
       <div className={mode === "light" ? "faq" : "dark-faq"}>
-        <h1 className="animate__animated animate__slideInUp animate__slow">Top Question</h1>
+        <h1 className="animate__animated animate__slideInUp animate__slow">
+          {t("top")}
+        </h1>
         <div className="cards">
           {faqData.map((item) => (
             <button
