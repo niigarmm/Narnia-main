@@ -20,12 +20,16 @@
 @use "blog";
 @use "addBook";
 @use "author";
+@use "NotFound";
 .kids-cat {
   padding-inline: 80px;
 }
 .dark-not-found,
 .not-found {
   width: 100%;
+}
+#products {
+  scroll-margin-top: 100px; /* Üst boşluq */
 }
 .up {
   position: fixed;

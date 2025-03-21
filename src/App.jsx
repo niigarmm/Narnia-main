@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, } from "react-router-dom";
 import MainPage from "./pages/MainPage";
 import AboutUs from "./pages/AboutUs";
 import "../src/index.css";
@@ -23,6 +23,7 @@ import KidsBooks from "./pages/books/KidsBooks";
 import FormalizeOrder from "./pages/FormalizeOrder";
 import Blog from "./pages/Blog";
 import Authors from "./pages/Authors";
+import NotFound from "./pages/NotFound";
 
 function App() {
   const [changeMode] = useContext(ModeContext);
@@ -68,6 +69,7 @@ function App() {
           <Route path="/white-fang" element={<WhiteFag />}></Route>
           <Route path="/wishlist" element={<Wishlist />}></Route>
           <Route path="/add-to-cart" element={<AddtoCart />}></Route>
+          <Route  path="*"  element={<NotFound />}></Route>
           <Route path="/kids-books" element={<KidsBooks />}></Route>
           <Route path="/formalize-order" element={<FormalizeOrder />}></Route>
           <Route path="/blog" element={<Blog />}></Route>

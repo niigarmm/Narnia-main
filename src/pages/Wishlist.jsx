@@ -75,7 +75,7 @@ const Wishlist = () => {
         </div>
         <div
           className={
-            mode === "light" ? "products wish-product" : "dark-products"
+            mode === "light" ? "products wish-product" : "dark-wish-product dark-products"
           }
         >
           {items.map((item) => (

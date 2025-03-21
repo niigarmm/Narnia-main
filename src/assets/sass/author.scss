@@ -1,4 +1,4 @@
-.authors-div {
+.authors-div,.dark-authors-div {
   padding-inline: 80px;
   display: flex;
   align-items: center;
@@ -7,20 +7,26 @@
   .author-card {
     background-color: #f2f0e6;
     width: 100%;
-    height: 100vh;
+    height: auto;
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-inline: 35px;
-    padding-block: 20px;
+    padding-block: 35px;
     flex-wrap: wrap;
     gap: 20px;
+    .not-found{
+      div{
+        display: flex;
+        flex-direction: column !important;
+      }
+    }
     button {
       border: none;
     }
 
-    img {
+    .first-img {
       height: 230px !important;
       border-radius: 20px;
     }
@@ -31,6 +37,11 @@
       perspective: 1000px;
       font-family: sans-serif;
       cursor: pointer;
+      img{
+        height: 230px;
+        width: 190px;
+        border-radius: 20px;
+      }
     }
 
     .title {
@@ -72,6 +83,12 @@
     }
   }
 }
+.dark-authors-div{
+  background-color: #354660;
+  .author-card{
+    background-color: #f2f0e6b1;
+  }
+}
 .author-pop {
   width: 100vw; /* Tüm ekran genişliği */
   height: 100vh; /* Tüm ekran yüksekliği */
@@ -82,20 +99,90 @@
   align-items: center;
   justify-content: center;
   z-index: 9999999999; /* Yeterince yüksek olmalı */
-  background-color: rgba(0, 0, 0, 0.5); /* Daha koyu arka plan */
+  background-color: rgba(0, 0, 0, 0.048); /* Daha koyu arka plan */
 
   .pop-card {
-    width: 80%;
+    width: 90%;
     height: 90vh;
     background-color: white;
     border-radius: 20px;
     display: flex;
     padding-inline: 20px;
     align-items: center;
-    img {
-      border-radius: 20px;
-      width: 40%;
+    position: relative;
+    .close{
+      position: absolute;
+      top: 20px;
+      background-color: #40420f8a;
+      font-size: 20px;
+      height: 30px;
+      width: 30px;
+      border-radius: 30px;
+      color: #fffefa;
+      font-weight: 600;
+      right: 50px;
+    }
+    .right-part{
       height: 80vh;
+      overflow: auto;
+      padding-left: 30px;
+      padding-right: 20px;
+      .fam-book{
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        .book-list{
+          display: flex;
+          gap: 40px;
+          h3{
+            margin-top: 20px !important;
+            font-size: 14px !important;
+          }
+          
+        }
+        img{
+          width: 180px;
+          margin-top: 30px;
+          height: 250px !important;
+        }
+        h3{
+          font-size: 20px;
+          margin: 0 !important;
+          font-weight: 700;
+          color: #40420f91;
+        }
+        
+      }
+      .year{
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+        gap: 10px;
+        h3{
+          font-size: 20px;
+          margin: 0 !important;
+          font-weight: 700;
+          color: #40420f91;
+        }
+        p{
+          font-size: 20px;
+          font-weight: 700;
+        }
+      }
+      h1{
+        font-size: 30px;
+        margin: 0;
+        margin-bottom: 20px;
+        color: #40420f;
+      }
+      p{
+        color: #565816;
+      }
+    }
+    .author-img {
+      border-radius: 20px;
+      width: 400px !important;
+      height: 85vh;
     }
   }
 }

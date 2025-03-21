@@ -362,7 +362,6 @@ body.no-scroll {
           padding-inline: 30px;
           padding-block: 50px !important;
           padding-top: 90px !important;
-
           background-color: white !important;
           box-shadow: 0px 0px 10px 2px rgb(236, 236, 236);
           border-radius: 0 20px 20px 0;
@@ -444,6 +443,7 @@ body.no-scroll {
         .openMenu {
           background-color: #354660 !important;
           box-shadow: 0px 0px 5px 2px #16202e;
+
           .nav-part {
             ul {
               a {
@@ -452,12 +452,31 @@ body.no-scroll {
             }
           }
         }
+        nav {
+          svg {
+            path {
+              stroke: white !important;
+            }
+          }
+          a {
+            color: white !important;
+          }
+          .bag {
+            path {
+              fill: white !important;
+            }
+          }
+        }
+        .wishlist-icon{
+          margin-left: 20px;
+        }
         .bags {
           fill: white !important;
           path {
             stroke: none !important;
             fill: white !important;
           }
+          margin-left: 20px;
         }
         svg {
           path {

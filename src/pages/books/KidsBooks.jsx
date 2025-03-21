@@ -67,7 +67,7 @@ const KidsBooks = () => {
         <div>
           {kidsBook.length === 0 ? (
             <div className={mode === "light" ? "not-found" : "dark-not-fount"}>
-              <div>
+              <div style={{display:"flex",alignItems:'center',justifyContent:"center",flexDirection:"column",paddingBlock:"50px"}}>
                 <img
                   src="https://i.pinimg.com/originals/8a/cb/19/8acb194578c6487798c0bc97e1e0c7b0.gif"
                   alt=""

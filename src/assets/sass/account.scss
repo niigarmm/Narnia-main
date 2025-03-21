@@ -195,14 +195,15 @@
   }
 }
 
-#wishlist-section{
+#wishlist-section {
   overflow: auto !important;
   padding-bottom: 20px;
 }
-.hesab{
-  .clear-button,.dark-clear-button{
+.hesab {
+  .clear-button,
+  .dark-clear-button {
     padding: 0 !important;
-  }  
+  }
 }
 .dark-account {
   @include darkMode();
@@ -555,6 +556,7 @@
   height: auto;
   background-color: #354660;
 }
-.wish-product {
+.wish-product,
+.dark-wish-product {
   padding-inline: 80px;
 }

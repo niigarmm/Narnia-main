@@ -39,11 +39,21 @@ const Product = ({ filtered }) => {
   }, [data]);
 
   const filteredData = useMemo(() => {
-    let result = filtered.length > 0 ? filtered : data;
+    let result = filtered.length ? filtered : data;
     result = result
+      .filter((p) => {
+        const normalizedTitle = p.title
+          .normalize("NFD") // Türkçe karakterleri düzgün işlemek için
+          .replace(/[\u0300-\u036f]/g, "") // aksanları kaldır
+          .toLowerCase();
+        const normalizedKeyword = keyword
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase();
+        return normalizedTitle.includes(normalizedKeyword);
+      })
       .filter(
         (p) =>
-          p.title?.toLowerCase().includes(keyword.toLowerCase()) &&
           (selectedCategory === "" || p.cat === selectedCategory) &&
           (selectedLanguage === "" || p.lang === selectedLanguage) &&
           p.price >= values[0] &&
@@ -69,7 +79,7 @@ const Product = ({ filtered }) => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-
+  const [openAlert, setOpenAlert] = useState(false);
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value), setOpenCat(false);
   };
@@ -80,7 +90,9 @@ const Product = ({ filtered }) => {
     setSortOrder(e.target.value);
     setOpenAfromZ(false);
   };
-
+  useEffect(() => {
+    setCurrentPage(1); // Arama yapıldığında sayfa başa dönsün
+  }, [keyword]);
   useEffect(() => {
     const prices = data.map((p) => p.price);
     const min = Math.min(...prices);
@@ -351,7 +363,7 @@ const Product = ({ filtered }) => {
                 setOpenLang(false);
               }}
             >
-             {t("afromz")}
+              {t("afromz")}
               <FontAwesomeIcon
                 icon={faCaretDown}
                 style={{ color: "#5d5d29" }}
@@ -368,10 +380,10 @@ const Product = ({ filtered }) => {
                   className="opened-cat lang absolute left-0 mt-2 w-48 bg-white shadow-md rounded p-2"
                 >
                   <button value="asc" onClick={handleAfromZChange}>
-                  {t("afromz")}
+                    {t("afromz")}
                   </button>
                   <button value="desc" onClick={handleAfromZChange}>
-                  {t("zfroma")}
+                    {t("zfroma")}
                   </button>
                 </motion.div>
               )}
@@ -439,7 +451,13 @@ const Product = ({ filtered }) => {
         <div>
           {currentItems.length === 0 ? (
             <div className={mode === "light" ? "not-found" : "dark-not-fount"}>
-              <div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
                 <img
                   src="https://i.pinimg.com/originals/8a/cb/19/8acb194578c6487798c0bc97e1e0c7b0.gif"
                   alt=""
@@ -451,24 +469,27 @@ const Product = ({ filtered }) => {
             <div
               className={mode === "light" ? "products" : "dark-products"}
               ref={productsRef}
+              id="products"
             >
               {currentItems.map((item) => (
-                <SingleCard allitems={item} key={item.id} />
+                <SingleCard
+                  openAlert={openAlert}
+                  setOpenAlert={setOpenAlert}
+                  allitems={item}
+                  key={item.id}
+                />
               ))}
             </div>
           )}
 
           <div className={mode === "light" ? "pagination" : "dark-pagination"}>
             {[...Array(totalPages)].map((_, index) => (
-              <Link to="#product">
+              <Link to="#product" key={index + 1}>
                 <button
-                  key={index + 1}
-                  onClick={() =>
-                    setCurrentPage(
-                      index + 1,
-                      productsRef.current.scrollIntoView({ behavior: "smooth" })
-                    )
-                  }
+                  onClick={() => {
+                    setCurrentPage(index + 1); // Sayfa numarasını güncelle
+                    productsRef.current.scrollIntoView({ behavior: "smooth" }); // Sayfayı kaydır
+                  }}
                   className={currentPage === index + 1 ? "active" : ""}
                 >
                   {index + 1}
@@ -478,6 +499,17 @@ const Product = ({ filtered }) => {
           </div>
         </div>
       </div>
+      {openAlert && (
+        <div className="show-alert animate__animated animate__zoomIn">
+          <div>
+            <img
+              src="https://i.pinimg.com/originals/82/a7/83/82a783353a27abe59feafd40bc686af1.gif"
+              alt=""
+            />
+            <p>Product Added</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

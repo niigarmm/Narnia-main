@@ -2,27 +2,15 @@ import React, { useEffect, useState } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import BodySection from "../layout/BodySection";
-import SingleCard from "../component/SingleCard";
 import Product from "../component/Product";
 import { useSelector } from "react-redux";
 
 const MainPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
-  const data = useSelector((p) => p.product);
-  const [filtered, setFiltered] = useState([]);
-  const filteredBySearchTerm = (searchTerm) => {
-    const filteredProduct = data.filter(
-      (p) =>
-        p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.author.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFiltered(filteredProduct);
-  };
+  const data = useSelector((state) => state.product);
+  const [filtered, setFiltered] = useState(data);
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchTerm(searchTerm);
@@ -32,10 +20,14 @@ const MainPage = () => {
   }, [searchTerm]);
 
   useEffect(() => {
-    if (debouncedSearchTerm) {
-      filteredBySearchTerm(debouncedSearchTerm);
-    } else {
+    if (!debouncedSearchTerm.trim()) {
       setFiltered(data);
+    } else {
+      const filteredProduct = data.filter(
+        (p) =>
+          p.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) 
+      );
+      setFiltered(filteredProduct);
     }
   }, [debouncedSearchTerm, data]);
 

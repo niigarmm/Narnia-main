@@ -146,6 +146,10 @@
         margin-block: 20px;
         display: flex;
         gap: 20px;
+        .add-button{
+          background-color: transparent !important;
+          border: none !important;
+        }
       }
       .detail {
         display: flex;

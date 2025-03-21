@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import slugify from "slugify";
 import { ModeContext } from "../context/ModeContext";
 import { useWishlist } from "react-use-wishlist";
-import { useCart } from "react-use-cart";
 import Aos from "aos";
 import ProductDetails from "../pages/ProductDetails";
 import { useSelector } from "react-redux";
@@ -11,10 +10,11 @@ import { getProduct } from "../tools/action/productAction";
 import supabase from "../../utils/supabase";
 import Box from "@mui/material/Box";
 import Rating from "@mui/material/Rating";
+import { useCart } from "react-use-cart";
 
 const SingleCard = ({ allitems }) => {
   const [mode] = useContext(ModeContext);
-  const { addItem } = useCart();
+  const { addItem, removeItem } = useCart();
   const { inWishlist, addWishlistItem, removeWishlistItem } = useWishlist();
   const navigate = useNavigate();
   const [openPop, setOpenPop] = useState(false);
@@ -23,8 +23,9 @@ const SingleCard = ({ allitems }) => {
   const { slug } = useParams();
   const [product, setProduct] = useState(null);
   const data = useSelector((p) => p.product);
-  const [added, setAdded] = useState(false);
+  const [added, setAdded] = useState("Add to cart");
   const [animation, setAnimation] = useState("animate__zoomIn");
+
   useEffect(() => {
     const fetchProducts = async () => {
       const { data, error } = await supabase.from("narnia-product").select();
@@ -49,7 +50,6 @@ const SingleCard = ({ allitems }) => {
   }, [openPop]);
   const handleClose = () => {
     setAnimation("animate__zoomOut");
-
     setTimeout(() => {
       setOpenPop(false);
       setAnimation("animate__zoomIn");
@@ -70,9 +70,19 @@ const SingleCard = ({ allitems }) => {
     }
   }, []);
   const handleClick = () => {
+    if (!data) return;
     if (user) {
-      addItem(allitems);
-      setAdded(true);
+      if (added === "Add to cart") {
+        setAdded("Added");
+        addItem(allitems);
+        setOpenAlert(true);
+        setTimeout(() => {
+          setOpenAlert(false);
+        }, 1200);
+      } else {
+        removeItem(allitems.id);
+        setAdded("Add to cart");
+      }
     } else {
       navigate("/signUp");
     }
@@ -277,12 +287,20 @@ const SingleCard = ({ allitems }) => {
         </Link>
       </div>
       <div className="buttons-sec">
-        <button onClick={handleClick} className="add-button" disabled={added}>
-          {added ? "Added" : "Add to Cart"}
+        <button
+          onClick={() => {
+            handleClick();
+          }}
+          className="add-button"
+        >
+          {added}
         </button>
-        <Link to={`/products/${slugify(allitems.title, { lower: true })}`}>
-          <button className="more-information">More Information</button>
-        </Link>
+
+        <button className="more-information">
+          <Link style={{textDecoration:"none",color:"#d77056"}} to={`/products/${slugify(allitems.title, { lower: true })}`}>
+            More Information
+          </Link>
+        </button>
       </div>
     </div>
   );
