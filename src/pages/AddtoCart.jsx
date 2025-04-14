@@ -17,21 +17,30 @@ const AddtoCart = () => {
   const [total, setTotal] = useState(cartTotal);
 
   const handleCheckboxChange = (item, checked) => {
+    const itemPrice = item.discount
+      ? (item.price * (item.discount)) / 100
+      : item.price;
+
     setTotal((prevTotal) =>
       checked
-        ? prevTotal + item.price * item.quantity
-        : prevTotal - item.price * item.quantity
+        ? prevTotal + itemPrice * item.quantity
+        : prevTotal - itemPrice * item.quantity
     );
   };
+
   useEffect(() => {
-    const newTotal = items.reduce(
-      (acc, item) => acc + item.price * item.quantity,
-      0
-    );
+    const newTotal = items.reduce((acc, item) => {
+      const itemPrice = item.discount
+        ? (item.price * (item.discount)) / 100
+        : item.price;
+
+      return acc + itemPrice * item.quantity;
+    }, 0);
     setTotal(newTotal);
   }, [items]);
 
   const [mode] = useContext(ModeContext);
+
   if (isEmpty)
     return (
       <>
@@ -127,7 +136,13 @@ const AddtoCart = () => {
                   </div>
                   <div className="price">
                     <div className="price-text">
-                      <h1>{(item.price * item.quantity).toFixed(2)}</h1>
+                      <h1>
+                        {" "}
+                        {(item.discount
+                          ? (item.price * item.quantity * item.discount) / 100
+                          : item.price * item.quantity
+                        ).toFixed(2)}
+                      </h1>
                       <div>
                         <svg
                           width="20"
@@ -182,7 +197,12 @@ const AddtoCart = () => {
               <p>{item.title}</p>
               <div className="price">
                 <div className="price-text">
-                  <h1>{(item.price * item.quantity).toFixed(2)}</h1>
+                  <h1>
+                    {(item.discount
+                      ? (item.price * item.quantity * item.discount) / 100
+                      : item.price * item.quantity
+                    ).toFixed(2)}
+                  </h1>
                   <div>
                     <svg
                       width="20"

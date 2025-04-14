@@ -98,7 +98,7 @@
           align-items: center;
           justify-content: center;
           gap: 10px;
-          img{
+          img {
             width: 22px;
             height: 22px;
           }
@@ -141,6 +141,26 @@
         justify-content: center;
         color: white;
       }
+    }
+  }
+}
+.dark-account {
+  .edit {
+    button {
+      background-color: #354660 !important;
+    }
+  }
+}
+.button-trio {
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    gap: 10px;
+    img {
+      width: 27px !important;
+      height: 27px !important;
     }
   }
 }

@@ -7,12 +7,14 @@ import { Range } from "react-range";
 import { useSelector } from "react-redux";
 import { ModeContext } from "../context/ModeContext";
 import Aos from "aos";
+import Pagination from "@mui/material/Pagination";
 import "animate.css";
 import { AnimatePresence, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import { useTranslation } from "react-i18next";
+import { PaginationItem } from "@mui/material";
 const Product = ({ filtered }) => {
   const [mode] = useContext(ModeContext);
   const [stepValue, setStepValue] = useState(10);
@@ -30,9 +32,10 @@ const Product = ({ filtered }) => {
   const [minPrice, setMinPrice] = useState(0);
   const [maxPrice, setMaxPrice] = useState(100);
   const [keyword, setKeyword] = useState("");
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
+  const [openAlert, setOpenAlert] = useState(false);
+  const [discount,setDiscount] = useState("")
 
-  const itemsPerPage = 8;
   useEffect(() => {
     setCategories([...new Set(data.map((item) => item.cat))]);
     setLanguge([...new Set(data.map((item) => item.lang))]);
@@ -52,6 +55,7 @@ const Product = ({ filtered }) => {
           .toLowerCase();
         return normalizedTitle.includes(normalizedKeyword);
       })
+    
       .filter(
         (p) =>
           (selectedCategory === "" || p.cat === selectedCategory) &&
@@ -59,6 +63,7 @@ const Product = ({ filtered }) => {
           p.price >= values[0] &&
           p.price <= values[1]
       )
+
       .sort((a, b) =>
         sortOrder === "asc"
           ? a.title.localeCompare(b.title)
@@ -73,13 +78,30 @@ const Product = ({ filtered }) => {
     values,
     sortOrder,
     keyword,
+    discount
   ]);
-
+  //pagination:
+  const itemsPerPage = 8;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
-  const [openAlert, setOpenAlert] = useState(false);
+
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value); // Sayfa numarasını güncelle
+    const cardSection = document.getElementById("products"); // Kartların bulunduğu alanın ID'si
+    if (cardSection) {
+      cardSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start", // Üst kısma hizalama
+      });
+    }
+  };
+
+  useEffect(() => {
+    setCurrentPage(1); // Arama yapıldığında sayfa başa dönsün
+  }, [keyword]);
+
+  //category
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value), setOpenCat(false);
   };
@@ -90,9 +112,7 @@ const Product = ({ filtered }) => {
     setSortOrder(e.target.value);
     setOpenAfromZ(false);
   };
-  useEffect(() => {
-    setCurrentPage(1); // Arama yapıldığında sayfa başa dönsün
-  }, [keyword]);
+
   useEffect(() => {
     const prices = data.map((p) => p.price);
     const min = Math.min(...prices);
@@ -389,6 +409,7 @@ const Product = ({ filtered }) => {
               )}
             </AnimatePresence>
           </div>
+         
         </div>
 
         <div className="d-flex range-div" style={{ gap: "30px" }}>
@@ -442,61 +463,104 @@ const Product = ({ filtered }) => {
         </div>
       </div>
       <div
+        id="products"
         className={
           mode === "light"
             ? " products bottom-category"
             : "dark-products dark-bottom"
         }
       >
-        <div>
-          {currentItems.length === 0 ? (
-            <div className={mode === "light" ? "not-found" : "dark-not-fount"}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  flexDirection: "column",
-                }}
-              >
-                <img
-                  src="https://i.pinimg.com/originals/8a/cb/19/8acb194578c6487798c0bc97e1e0c7b0.gif"
-                  alt=""
-                />
-                <h2>{t("not")}</h2>
-              </div>
-            </div>
-          ) : (
+        {currentItems.length === 0 ? (
+          <div className={mode === "light" ? "not-found" : "dark-not-fount"}>
             <div
-              className={mode === "light" ? "products" : "dark-products"}
-              ref={productsRef}
-              id="products"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
             >
-              {currentItems.map((item) => (
-                <SingleCard
-                  openAlert={openAlert}
-                  setOpenAlert={setOpenAlert}
-                  allitems={item}
-                  key={item.id}
-                />
-              ))}
+              <img
+                src="https://i.pinimg.com/originals/8a/cb/19/8acb194578c6487798c0bc97e1e0c7b0.gif"
+                alt=""
+              />
+              <h2>{t("not")}</h2>
             </div>
-          )}
-
-          <div className={mode === "light" ? "pagination" : "dark-pagination"}>
-            {[...Array(totalPages)].map((_, index) => (
-              <Link to="#product" key={index + 1}>
-                <button
-                  onClick={() => {
-                    setCurrentPage(index + 1); // Sayfa numarasını güncelle
-                    productsRef.current.scrollIntoView({ behavior: "smooth" }); // Sayfayı kaydır
-                  }}
-                  className={currentPage === index + 1 ? "active" : ""}
-                >
-                  {index + 1}
-                </button>
-              </Link>
+          </div>
+        ) : (
+          <div
+            className={mode === "light" ? "products" : "dark-products"}
+            ref={productsRef}
+            id="products"
+          >
+            {currentItems.map((item) => (
+              <SingleCard
+                openAlert={openAlert}
+                setOpenAlert={setOpenAlert}
+                allitems={item}
+                key={item.id}
+              />
             ))}
           </div>
+        )}
+
+        <div className={mode === "light" ? "pagination" : "dark-pagination"}>
+          <Pagination
+            count={Math.ceil(filteredData.length / itemsPerPage)}
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+            siblingCount={0}
+            boundaryCount={1}
+            sx={{
+              "& .MuiPaginationItem-root": {
+                backgroundColor: "#004B870D",
+                color: "black",
+              },
+              "& .MuiPaginationItem-root.Mui-selected": {
+                backgroundColor: "#e2a29f",
+                color: "white",
+              },
+              "& .MuiPaginationItem-previousNext": {
+                backgroundColor: "transparent",
+                "&:hover": {
+                  backgroundColor: "transparent",
+                },
+              },
+            }}
+            renderItem={(item) => (
+              <PaginationItem
+                {...item}
+                onClick={(e) => {
+                  if (item.page && item.type === "page") {
+                    console.log(`Clicked on page ${item.page}`);
+                  }
+                  item.onClick?.(e); // keep default behavior working
+                }}
+                slots={{
+                  previous: () => (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M15 7L9 12L15 17"
+                        stroke="black"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ),
+                  next: () => (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M9 7L15 12L9 17"
+                        stroke="black"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  ),
+                }}
+              />
+            )}
+          />
         </div>
       </div>
       {openAlert && (

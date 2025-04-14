@@ -12,11 +12,16 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { ModeContext } from "../context/ModeContext";
 import Footer from "../layout/Footer";
+import { useTranslation } from "react-i18next";
 const SignUp = () => {
   const [hidePlaceholder, setHidePlaceholder] = useState(false);
   const [hidePassword, setHidePassword] = useState(false);
   const [hideName, setHideName] = useState(false);
   const [mode] = useContext(ModeContext);
+  const [showPass, setShowPass] = useState(false);
+  const { t } = useTranslation();
+  const [emptySection, setEmptySection] = useState(false);
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -31,11 +36,7 @@ const SignUp = () => {
     e.preventDefault();
 
     if (!user.name || !user.email || !user.password) {
-      Swal.fire({
-        title: "Please fill the gap!",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      setEmptySection(true);
     } else {
       const registeredUsers =
         JSON.parse(localStorage.getItem("registeredUsers")) || [];
@@ -54,7 +55,6 @@ const SignUp = () => {
         window.location.assign("/login");
       }
     }
-    
   };
 
   return (
@@ -71,14 +71,14 @@ const SignUp = () => {
           />
           <div className="signup-card animate__animated animate__slideInLeft">
             <div className="inputs">
-              <h3>Create account</h3>
+              <h3>{t("create")}</h3>
               <form style={{ width: "100%" }} onSubmit={registerSubmit}>
                 <div>
                   <input
                     type="text"
                     name="name"
                     onChange={handleChange}
-                    placeholder={hideName ? "" : "full name"}
+                    placeholder={hideName ? "" : t("full")}
                     onFocus={() => setHideName(true)}
                     onBlur={() => setHideName(false)}
                   />
@@ -90,20 +90,37 @@ const SignUp = () => {
                     onFocus={() => setHidePlaceholder(true)}
                     onBlur={() => setHidePlaceholder(false)}
                   />
-                  <input
-                    type="password"
-                    name="password"
-                    id=""
-                    onChange={handleChange}
-                    placeholder={hidePassword ? "" : "password"}
-                    onFocus={() => setHidePassword(true)}
-                    onBlur={() => setHidePassword(false)}
-                  />
+                  <div className="pass">
+                    <input
+                      type={showPass === false ? "password" : "text"}
+                      name="password"
+                      id=""
+                      onChange={handleChange}
+                      placeholder={hidePassword ? "" : t("password")}
+                      onFocus={() => setHidePassword(true)}
+                      onBlur={() => setHidePassword(false)}
+                    />
+                    <img
+                      onClick={() => {
+                        setShowPass(!showPass);
+                      }}
+                      style={{
+                        position: "absolute",
+                        width: "20px",
+                        height: "20px",
+                      }}
+                      src={
+                        showPass === false
+                          ? "https://img.icons8.com/ios-glyphs/30/FFFFFF/invisible.png"
+                          : "https://img.icons8.com/ios-glyphs/30/FFFFFF/visible--v1.png"
+                      }
+                    />
+                  </div>
                   <button class="btn-shine">
-                    <span>Create account</span>
+                    <span>{t("create")}</span>
                   </button>
                   <div className="bottom-part">
-                    <p>or sign up with</p>
+                    <p>{t("sign")}</p>
                     <div className="social-m">
                       <div className="google">
                         <FontAwesomeIcon icon={faGoogle} />
@@ -116,7 +133,7 @@ const SignUp = () => {
                       </div>
                     </div>
                     <p className="login">
-                      Have an account? <Link to="/login">Log In</Link>
+                      {t("have")} <Link to="/login">{t("login")}</Link>
                     </p>
                   </div>
                 </div>
@@ -124,6 +141,24 @@ const SignUp = () => {
             </div>
           </div>
         </div>
+        {emptySection && (
+          <div className="wrong-pop">
+            <div className="wrong-card">
+              <img
+                src="https://i.pinimg.com/originals/ea/f6/b7/eaf6b73fc12fa5571ac59e1b325a3ae1.gif"
+                alt=""
+              />
+              <p>Please fill the gap</p>
+              <button
+                onClick={() => {
+                  setEmptySection(false);
+                }}
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </>

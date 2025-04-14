@@ -5,7 +5,8 @@
   font-family: "poppins", serif;
   font-size: 40px;
 }
-.pop-up,.dark-pop-up{
+.pop-up,
+.dark-pop-up {
   z-index: 100000000000000 !important;
 }
 .light-kids,
@@ -14,20 +15,19 @@
   padding-inline: 80px;
   .author-section {
     padding-top: 60px;
-      h1{
-        text-align: center;
-        color: #e0e0a0;
-        font-size: 40px;
+    h1 {
+      text-align: center;
+      color: #e0e0a0;
+      font-size: 40px;
+    }
+    .button {
+      margin-top: 60px;
+    }
+    .authors-slider {
+      img {
+        height: 400px;
       }
-      .button{
-        margin-top: 60px;
-      }
-      .authors-slider{
-        img{
-          height: 350px;
-        }
-      }
-   
+    }
   }
   .video {
     padding-top: 90px;
@@ -249,5 +249,11 @@
         height: 220px;
       }
     }
+  }
+}
+@media (max-width: 360px) {
+  .dark-kids,
+  .kids {
+   
   }
 }

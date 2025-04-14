@@ -28,7 +28,7 @@ select {
 .dark-bottom {
   @include darkMode();
 }
-.dark-not-found{
+.dark-not-found {
   width: 100% !important;
 }
 .not-found {
@@ -167,23 +167,7 @@ select {
     width: 100%;
     padding-bottom: 50px;
 
-    button {
-      height: 25px;
-      width: 25px;
-      color: white;
-      border-radius: 1000px;
-      border: none;
-      font-size: 14px;
-      background-color: #76514f;
-      transition: 0.5s;
-    }
-    button.active {
-      background-color: #d8aaa8;
-      height: 20px;
-      width: 20px;
-      transition: 0.5s;
-      font-size: 12px;
-    }
+ 
   }
 }
 .products {
@@ -219,8 +203,13 @@ select {
   }
 }
 @media (max-width: 992px) {
-  .products,.dark-products{
-    padding-inline: 10px !important;
+  .product,
+  .dark-products {
+    .bottom-category,
+    .dark-bottom {
+     
+      padding-inline: 20px !important;
+    }
   }
   .line {
     width: 160px !important;
@@ -232,14 +221,15 @@ select {
       margin-left: 20px !important;
     }
   }
-  .category-items,.dark-category-items {
+  .category-items,
+  .dark-category-items {
     padding-inline: 20px !important;
     .catt {
       width: 100px !important;
       font-size: 14px;
       height: 30px;
     }
-    
+
     .lang-btn {
       width: 110px !important;
     }
@@ -261,7 +251,9 @@ select {
   .products {
     width: 100% !important;
     gap: 10px !important;
-  
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .dark-pagination,
@@ -277,7 +269,8 @@ select {
     }
   }
 
-  .category-items,.dark-category-items {
+  .category-items,
+  .dark-category-items {
     flex-direction: column;
   }
   .range-div {
@@ -286,7 +279,8 @@ select {
 }
 
 @media (max-width: 500px) {
-  .category-items,.dark-category-items {
+  .category-items,
+  .dark-category-items {
     .catt {
       font-size: 12px !important;
       height: 25px !important;
@@ -305,14 +299,16 @@ select {
   }
 }
 @media (max-width: 440px) {
-  .category-items,.dark-category-items {
+  .category-items,
+  .dark-category-items {
     .cammon-div {
       gap: 10px !important;
     }
   }
 }
 @media (max-width: 400px) {
-  .category-items,.dark-category-items {
+  .category-items,
+  .dark-category-items {
     .cammon-div {
       display: flex;
       flex-wrap: wrap;
@@ -322,20 +318,18 @@ select {
 }
 
 @media (max-width: 370px) {
-  .category-items,.dark-category-items{
-    padding-left: 5px !important;
-  }
 
-  .pagination,.dark-pagination{
+  .pagination,
+  .dark-pagination {
     width: 80% !important;
-    button{
+    button {
       height: 15px !important;
       width: 15px !important;
     }
-  }
+  } 
   .dark-products,
   .products {
-    padding-left: 5px !important;
+    width: 100% !important;
     align-items: start !important;
     justify-content: start !important;
   }

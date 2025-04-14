@@ -64,6 +64,7 @@ const ProductDetails = () => {
       navigate("/signUp");
     }
   };
+  const discountedPrice = (product?.price * product?.discount) / 100;
 
   useEffect(() => {
     if (data.length > 0) {
@@ -110,7 +111,23 @@ const ProductDetails = () => {
             </div>
             <div className="price animate__animated animate__fadeInUp">
               <div className="price-text">
-                <h1>{product?.price}</h1>
+                {product?.discount ? (
+                  <div className="d-flex gap-2 align-items-end">
+                    <div className="d-flex gap-1 align-items-center discount-item">
+                      <h1
+                        style={{
+                          fontSize: "20px",
+                          textDecoration: "line-through",
+                        }}
+                      >
+                        {product?.price}
+                      </h1>
+                    </div>
+                    <h1>{discountedPrice.toString().slice(0, 4)}</h1>
+                  </div>
+                ) : (
+                  <h1>{product?.price}</h1>
+                )}
                 <div>
                   <svg
                     width="30"

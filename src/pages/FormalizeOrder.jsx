@@ -15,10 +15,12 @@ const FormalizeOrder = () => {
     cvc: "",
     focus: "",
   });
+  const { emptyCart } = useCart();
   const [mode] = useContext(ModeContext);
   const { cartTotal } = useCart();
   const [openErrorAlert, setOpenErrorAlert] = useState(false);
   const [openAlert, setOpenAlert] = useState(false);
+  const [wrongCard, setWrongCard] = useState(false);
 
   const handleInputChange = (e) => {
     setCardData({ ...cardData, [e.target.name]: e.target.value });
@@ -37,11 +39,21 @@ const FormalizeOrder = () => {
       !cardData.focus
     ) {
       setOpenErrorAlert(!openErrorAlert);
+    } else if (
+      cardData.number.length !== 16 ||
+      cardData.cvc.length !== 3 ||
+      cardData.expiry.length !== 4 ||
+      isNaN(cardData.number) ||
+      isNaN(cardData.cvc) ||
+      isNaN(cardData.expiry)
+    ) {
+      setWrongCard(!wrongCard);
     } else {
       localStorage.setItem("cardData", JSON.stringify(cardData));
       setOpenAlert(!openAlert);
+      emptyCart();
       setTimeout(() => {
-        navigate("/add-to-cart");
+        navigate("/");
       }, 1000);
     }
   };
@@ -59,31 +71,42 @@ const FormalizeOrder = () => {
         {openErrorAlert && (
           <div className="open-error-alert">
             <div className="animate__animated animate__bounceIn">
-              <button
-                onClick={() => {
-                  setOpenErrorAlert(false);
-                }}
-              >
-                x
-              </button>
               <img
                 src="https://i.pinimg.com/originals/fe/b6/b6/feb6b68d5ffc34b5f5f03f72b035f04e.gif"
                 alt=""
               />
               <p>Please fill the all gap</p>
+              <button
+                onClick={() => {
+                  setOpenErrorAlert(false);
+                }}
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        )}
+        {wrongCard && (
+          <div className="open-error-alert">
+            <div className="animate__animated animate__bounceIn">
+              <img
+                src="https://i.pinimg.com/originals/fe/b6/b6/feb6b68d5ffc34b5f5f03f72b035f04e.gif"
+                alt=""
+              />
+              <p>The card details are incorrect.</p>
+              <button
+                onClick={() => {
+                  setWrongCard(false);
+                }}
+              >
+                Ok
+              </button>
             </div>
           </div>
         )}
         {openAlert && (
           <div className="open-error-alert">
             <div className="animate__animated animate__bounceIn">
-              <button
-                onClick={() => {
-                  setOpenAlert(false);
-                }}
-              >
-                x
-              </button>
               <img
                 src="https://i.pinimg.com/originals/10/ce/4b/10ce4b02c6915c8749579655c1672055.gif"
                 alt=""
@@ -146,7 +169,7 @@ const FormalizeOrder = () => {
             />
           </form>
           <button class="pay-btn" onClick={handleSubmit}>
-            <span class="btn-text" >Pay Now {cartTotal} $</span>
+            <span class="btn-text">Pay Now {cartTotal} $</span>
             <div class="icon-container">
               <div>
                 <svg viewBox="0 0 24 24" className="icon card-icon">
@@ -185,7 +208,6 @@ const FormalizeOrder = () => {
               </div>
             </div>
           </button>
-
         </div>
       </div>
       <Footer />

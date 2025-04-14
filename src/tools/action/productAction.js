@@ -13,7 +13,14 @@ export const addProductToDatabase = async (product) => {
     window.location.assign("/dashboard");
   }
 };
-
+export const fetchProductsFromDatabase = () => async (dispatch) => {
+  const { data, error } = await supabase.from("narnia-product").select("*");
+  if (error) {
+    console.error("Error fetching products:", error);
+  } else {
+    dispatch(getProduct(data)); // Redux’a veriyi kaydet
+  }
+};
 export const editProductToDatabase = async (id, product) => {
   const { data, error } = await supabase
     .from("narnia-product")

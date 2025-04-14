@@ -1,6 +1,7 @@
 @use "mixin" as *;
 
-.admin {
+.admin,
+.dark-admin {
   .account-card {
     flex-direction: column !important;
     align-items: center !important;
@@ -18,11 +19,16 @@
         width: 40%;
       }
     }
-    form {
+    .form {
       width: 100%;
       display: flex;
+      align-items: center;
+      justify-content: center;
       flex-direction: column;
       gap: 30px;
+      .name {
+        width: 100%;
+      }
     }
   }
 
@@ -51,13 +57,22 @@
       width: 50%;
       color: white;
       padding: 0;
-      background-color: #434322;
+      background-color: #bbbb4cb3;
     }
   }
 }
+
 .dark-account {
   .account-card {
     background-color: rgba(255, 255, 255, 0.594);
+    h1 {
+      color: #3546608f !important;
+    }
+    input,
+    textarea {
+      background-color: #3546608f !important;
+      color: white !important;
+    }
     .button-trio {
       button {
         @include darkMode();
@@ -76,10 +91,10 @@
 }
 textarea {
   outline: none;
-  min-height: 40px;
   overflow: hidden;
-  max-height: 100px;
   overflow-y: scroll;
+  max-height: 200px !important;
+  min-height: 100px !important;
 }
 
 @media (max-width: 561px) {

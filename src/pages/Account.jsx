@@ -14,12 +14,20 @@ import { useCart } from "react-use-cart";
 import { useTranslation } from "react-i18next";
 const Account = ({ email }) => {
   const navigate = useNavigate();
+  const [avatar, setAvatar] = useState(null);
+  const [mode] = useContext(ModeContext);
+  const { addItem, emptyCart } = useCart();
+  const [logOutPop, setLogOutPoP] = useState(false);
   const [user, setUser] = useState({
     name: "",
     email: "",
     avatar: "",
   });
-  const {t} = useTranslation();
+  const { isWishlistEmpty, items, removeWishlistItem, emptyWishlist } =
+    useWishlist();
+  const { t } = useTranslation();
+  const [activeSection, setActiveSection] = useState("account-section");
+
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("login");
     if (!isLoggedIn) {
@@ -32,19 +40,13 @@ const Account = ({ email }) => {
     }
   }, [navigate]);
   const handleLogout = () => {
-    const confirmLogout = Swal.fire({
-      title: "Please fill the gap!",
-      text: "Do you want to continue",
-      icon: "error",
-      confirmButtonText: "Cool",
-    });
-    if (confirmLogout) {
-      localStorage.removeItem("login");
-      localStorage.removeItem("activeUser");
-      setUser({ name: "", email: "" });
-      navigate("/login");
-      window.location.reload();
-    }
+    emptyCart();
+    emptyWishlist();
+    localStorage.removeItem("login");
+    localStorage.removeItem("activeUser");
+    setUser({ name: "", email: "" });
+    navigate("/login");
+    window.location.reload();
   };
   const isAdmin = user.email === "nigar03mahmudova@gmail.com";
   const handleAvatarChange = (e) => {
@@ -60,9 +62,6 @@ const Account = ({ email }) => {
     }
   };
 
-  // profile pic
-  const [avatar, setAvatar] = useState(null);
-
   useEffect(() => {
     if (user.email) {
       const storedAvatar = localStorage.getItem(`avatar_${user.email}`);
@@ -72,7 +71,6 @@ const Account = ({ email }) => {
     }
   }, [user.email]);
 
-  const [activeSection, setActiveSection] = useState("account-section");
   const handleSectionChange = (section) => {
     setActiveSection(section);
   };
@@ -85,16 +83,6 @@ const Account = ({ email }) => {
     });
   }, []);
 
-  const [mode] = useContext(ModeContext);
-  const {
-    isWishlistEmpty,
-    items,
-    removeWishlistItem,
-    inWishlist,
-    clearWishlist,
-    addWishlistItem,
-  } = useWishlist();
-  const { addItem } = useCart();
   const handleClick = () => {
     if (user) {
       addItem(allitems);
@@ -148,7 +136,9 @@ const Account = ({ email }) => {
               </button>
               <button
                 style={{ color: "white" }}
-                onClick={handleLogout}
+                onClick={() => {
+                  setLogOutPoP(true);
+                }}
                 className="exit"
               >
                 {t("Logout")}
@@ -234,13 +224,9 @@ const Account = ({ email }) => {
                     Clear Wishlist
                   </button>
                 </div>
-                <div
-                  className={
-                    mode === "light" ? "products wish-product" : "dark-products"
-                  }
-                >
+                <div className="wishlist-cards">
                   {items.map((item) => (
-                    <SingleCard allitems={item} key={item.id} />
+                    <img src={item.img} alt="" />
                   ))}
                 </div>
               </div>
@@ -255,9 +241,7 @@ const Account = ({ email }) => {
           >
             <h2>{t("PrivacySection")}</h2>
             <div className="personal-information animate__animated animate__slideInUp">
-              <p>
-                {t("parg5")}
-              </p>
+              <p>{t("parg5")}</p>
             </div>
           </div>
           <div
@@ -267,11 +251,33 @@ const Account = ({ email }) => {
             }`}
           >
             <h2>{t("HelpCenter")}</h2>
-            <p className="mt-5">
-             {t("parg6")}
-            </p>
+            <p className="mt-5">{t("parg6")}</p>
           </div>
         </div>
+        {logOutPop && (
+          <div className="logout-pop">
+            <div className="logout-card">
+              <img
+                src="https://i.pinimg.com/originals/9b/1b/3b/9b1b3b794dcbadbc72ae6964c24654d3.gif"
+                alt=""
+              />
+              <p>Are you sure?</p>
+              <div className="select">
+                <button className="yes" onClick={handleLogout}>
+                  Yes
+                </button>
+                <button
+                  className="no"
+                  onClick={() => {
+                    setLogOutPoP(false);
+                  }}
+                >
+                  No
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </>

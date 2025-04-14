@@ -22,16 +22,38 @@ const KidsBooks = () => {
   const [kidsBook, setKidsBook] = useState([]);
   const data = useSelector((p) => p.product);
   const [mode] = useContext(ModeContext);
-  const {t} = useTranslation()
+  const { t } = useTranslation();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
+  const [filtered, setFiltered] = useState(data);
 
+  // useEffect(() => {
+  //   const filteredKids = data.filter((p) => p.cat === "Kids");
+  //   setKidsBook(filteredKids);
+  // }, [data]);
   useEffect(() => {
-    const filteredData = data.filter((p) => p.cat === "Kids");
-    setKidsBook(filteredData);
-  }, [data]);
+    const timer = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+  useEffect(() => {
+    const filteredKids = data.filter((p) => p.cat === "Kids");
+
+    if (!debouncedSearchTerm.trim()) {
+      setKidsBook(filteredKids);
+    } else {
+      const filteredProduct = filteredKids.filter((p) =>
+        p.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
+      );
+      setKidsBook(filteredProduct);
+    }
+  }, [debouncedSearchTerm, data]);
 
   return (
     <div className={mode === "light" ? "kids-book" : "dark-kids-book"}>
-      <Header />
+      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <div className="bottom-category">
         <div className="promo-video">
           <video
@@ -54,7 +76,6 @@ const KidsBooks = () => {
               Our carefully curated collection of children's books is designed
               to inspire young minds, nurture creativity, and make learning fun.
             </p>
-            <br />
             <p>
               Whether your child loves fairy tales, thrilling adventures, or
               fascinating facts, we have the perfect book to spark their
@@ -67,7 +88,15 @@ const KidsBooks = () => {
         <div>
           {kidsBook.length === 0 ? (
             <div className={mode === "light" ? "not-found" : "dark-not-fount"}>
-              <div style={{display:"flex",alignItems:'center',justifyContent:"center",flexDirection:"column",paddingBlock:"50px"}}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  paddingBlock: "50px",
+                }}
+              >
                 <img
                   src="https://i.pinimg.com/originals/8a/cb/19/8acb194578c6487798c0bc97e1e0c7b0.gif"
                   alt=""
@@ -78,7 +107,12 @@ const KidsBooks = () => {
           ) : (
             <div
               className={mode === "light" ? "products" : "dark-products"}
-              style={{display:"flex",alignItems:"center",justifyContent:"center"}}
+              id="products"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
               {kidsBook.map((item) => (
                 <SingleCard allitems={item} key={item.id} />
@@ -167,7 +201,6 @@ const KidsBooks = () => {
               </div>
             </div>
           </div>
-          <button className="discover">Discover More</button>
         </div>
       </div>
       <Footer />

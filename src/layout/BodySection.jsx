@@ -8,10 +8,13 @@ import { useContext } from "react";
 import { ModeContext } from "../context/ModeContext";
 import { useTranslation } from "react-i18next";
 import historyBook from "../assets/images/historybook.mp4";
+import { useSelector } from "react-redux";
+import SingleCard from "../component/SingleCard";
 
 const BodySection = () => {
   const [mode] = useContext(ModeContext);
   const { t, i18n } = useTranslation();
+  const data = useSelector((p) => p.product);
 
   const settings = {
     infinite: true,
@@ -29,7 +32,7 @@ const BodySection = () => {
         },
         breakpoint: 992,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 3,
         },
       },
     ],
@@ -160,6 +163,7 @@ const BodySection = () => {
           </button>
         </div>
       </div>
+    
     </div>
   );
 };

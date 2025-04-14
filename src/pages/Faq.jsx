@@ -29,30 +29,17 @@ const FAQ = () => {
       question: "Can I read my ebooks on my Kindle, Kobo, Nook, etc.?",
       answer: (
         <>
-          Ebooks from <Link to="/">Narnia.com</Link> must be read on either our
-          Apple or Android app, or via a web browser, with the exception of
-          DRM-free titles that can be downloaded and transferred to your reader
-          app or device of choice.
+          {t("faq3")}
           <br />
           <br />
-          Users of Android based e ink devices, that have regular access to the
-          Google Play app store (Boox, Meebook, etc), should be able to download
-          and read from our Android app. Mileage may vary depending on the
-          device.
+          {t("faq32")}
         </>
       ),
     },
     {
       id: 3,
       question: "Why can’t I buy ebooks in the app?",
-      answer: (
-        <>
-          Both Apple and Google require app developers who use in-app purchasing
-          to pay around 30% of their earnings from those purchases in fees. We
-          want that money to be used to support local bookstores instead, so
-          this extra step is required.
-        </>
-      ),
+      answer: <>{t("faq4")}</>,
     },
     {
       id: 4,
@@ -60,13 +47,7 @@ const FAQ = () => {
       answer: (
         <>
           <span>Webiste</span> <br />
-          To find ebooks on our website, use our search filters to display
-          ebooks only, or visit our dedicated ebooks page to shop from one of
-          the featured book lists
-          <br />
-          <span> In the app </span> <br /> To find ebooks on our website, use
-          our search filters to display ebooks only, or visit our dedicated
-          ebooks page to shop from one of the featured book lists
+          {t("faq5")}
         </>
       ),
     },
@@ -75,12 +56,7 @@ const FAQ = () => {
       question: "Do I need an account to purchase and read ebooks?",
       answer: (
         <>
-          Yes, purchasing ebooks requires an active account. Any purchased
-          ebooks will appear in that account’s My Ebook Library, accessible via
-          the website or in the Android or Apple apps.
-          <br />
-          You can create an account on the website here:
-          https://bookshop.org/signup.
+         {t("faq6")}
         </>
       ),
     },

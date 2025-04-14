@@ -1,12 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "react-use-cart";
 import { useWishlist } from "react-use-wishlist";
+import { ModeContext } from "../context/ModeContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ email: "" });
+  const [avatar, setAvatar] = useState(null);
+  const [mode] = useContext(ModeContext);
+  useEffect(() => {
+    if (user.email) {
+      const storedAvatar = localStorage.getItem(`avatar_${user.email}`);
+      if (storedAvatar) {
+        setAvatar(storedAvatar);
+      }
+    }
+  }, [user.email, avatar]);
   useEffect(() => {
     const loggedUser = localStorage.getItem("activeUser");
     if (loggedUser) {
@@ -15,18 +26,18 @@ const Navbar = () => {
   }, []);
   const { t, i18n } = useTranslation();
   const handleUserClick = () => {
-    if (user) {
-      if (user.email === "admin@gmail.com") {
-        navigate("/admin");
-      } else if (user.email) {
-        navigate("/account");
-      } else {
-        navigate("/dashboard");
-      }
-    } else {
+    if (!user.email) {
       navigate("/signUp");
+      return;
+    }
+
+    if (user.email === "admin@gmail.com") {
+      navigate("/admin");
+    } else {
+      navigate("/account");
     }
   };
+
   const { totalWishlistItems } = useWishlist();
   const { totalItems } = useCart();
   return (
@@ -61,7 +72,7 @@ const Navbar = () => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link to="/" className="nav-link active" aria-current="page">
-                 {t("home")}
+                  {t("home")}
                 </Link>
               </li>
               <li className="nav-item">
@@ -70,7 +81,7 @@ const Navbar = () => {
                   className="nav-link active about"
                   aria-current="page"
                 >
-                 {t("about")}
+                  {t("about")}
                 </Link>
               </li>
               <li className="nav-item">
@@ -93,22 +104,46 @@ const Navbar = () => {
                 onClick={handleUserClick}
                 style={{ border: "none", backgroundColor: "transparent" }}
               >
-                <svg
-                  width={38}
-                  height={35}
-                  viewBox="0 0 38 35"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M32.3556 32.0833C32.3556 26.4396 26.3057 21.875 18.8571 21.875C11.4085 21.875 5.35852 26.4396 5.35852 32.0833M26.7142 10.2083C26.7142 14.2354 23.1965 17.5 18.8571 17.5C14.5177 17.5 10.9999 14.2354 10.9999 10.2083C10.9999 6.18126 14.5177 2.91667 18.8571 2.91667C23.1965 2.91667 26.7142 6.18126 26.7142 10.2083Z"
-                    stroke="#6D692E"
-                    strokeWidth="1.5"
-                    strokelinecap="round"
-                    strokelinejoin="round"
-                  />
-                </svg>
+                {user.email ? (
+                  <div
+                    className="avatar-name"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    {avatar ? (
+                      <img src={avatar} alt="Profile Avatar" />
+                    ) : (
+                      <img
+                        src="https://i.pinimg.com/736x/d4/f7/17/d4f71779dd981d9ce69fe08712805b23.jpg"
+                        alt="Default Avatar"
+                      />
+                    )}
+                    <p className={mode === "light" ? "" : "dark-name"}>
+                      {user.name}
+                    </p>
+                  </div>
+                ) : (
+                  <svg
+                    width={38}
+                    height={35}
+                    viewBox="0 0 38 35"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M32.3556 32.0833C32.3556 26.4396 26.3057 21.875 18.8571 21.875C11.4085 21.875 5.35852 26.4396 5.35852 32.0833M26.7142 10.2083C26.7142 14.2354 23.1965 17.5 18.8571 17.5C14.5177 17.5 10.9999 14.2354 10.9999 10.2083C10.9999 6.18126 14.5177 2.91667 18.8571 2.91667C23.1965 2.91667 26.7142 6.18126 26.7142 10.2083Z"
+                      stroke="#6D692E"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                )}
               </button>
+
               <Link to="/wishlist" className="wishlist-icon">
                 <p className="wish-count">{totalWishlistItems}</p>
                 <svg

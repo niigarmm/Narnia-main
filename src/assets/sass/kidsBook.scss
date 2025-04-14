@@ -170,3 +170,47 @@
 .seeMore span {
   pointer-events: auto !important;
 }
+@media(max-width:1220px){
+  .kids-book,.dark-kids-book{
+    .promo-video{
+      h1{
+        font-size: 20px !important;
+      }
+      p{
+        font-size: 15px !important;
+        margin: 0 !important;
+        margin-top: 20px !important;
+      }
+    }
+  }
+}
+@media(max-width:1102px){
+  .kids-book,.dark-kids-book{
+    .promo-video{
+      flex-direction: column !important;
+     
+    }
+  }
+}
+@media(max-width:992px){
+  .kids-book,.dark-kids-book{
+    .promo-video{
+      padding-inline: 20px !important;
+    }
+    #products{
+      padding-inline:20px !important;
+    }
+    .free-pdf{
+      padding-inline: 20px !important;
+      .free-books{
+        gap: 0 !important;
+        div{
+          margin: 0 !important;
+          img{
+            width: 80%;
+          }
+        }
+      }
+    }
+  }
+}

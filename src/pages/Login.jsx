@@ -12,13 +12,17 @@ import Footer from "../layout/Footer";
 import { ModeContext } from "../context/ModeContext";
 import Swal from "sweetalert2/dist/sweetalert2.js";
 import "sweetalert2/src/sweetalert2.scss";
+import { useTranslation } from "react-i18next";
 const Login = () => {
   const [hidePlaceholder, setHidePlaceholder] = useState(false);
   const [hidePassword, setHidePassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode] = useContext(ModeContext);
+  const [wrongPop, setWrongPop] = useState(false);
+  const [emptySection, setEmptySection] = useState(false);
   const navigate = useNavigate();
+  const [showPass, setShowPass] = useState(false);
   const adminData = {
     name: "Admin",
     email: "admin@gmail.com",
@@ -31,7 +35,7 @@ const Login = () => {
       navigate("/account");
     }
   }, [navigate]);
-
+  const { t } = useTranslation();
   const loginSubmit = (e) => {
     e.preventDefault();
     const registeredUser =
@@ -52,17 +56,9 @@ const Login = () => {
       navigate("/account");
       window.location.reload();
     } else if (!email || !password) {
-      Swal.fire({
-        title: "Please enter both email and password",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      setEmptySection(true);
     } else {
-      Swal.fire({
-        title: "Invalid email or password",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
+      setWrongPop(true);
     }
   };
   return (
@@ -76,7 +72,7 @@ const Login = () => {
         <div className="cammon-div">
           <div className="signup-card animate__animated animate__slideInRight">
             <div className="inputs">
-              <h3>Login</h3>
+              <h3>{t("login")}</h3>
               <form style={{ width: "100%" }} onSubmit={loginSubmit}>
                 <div>
                   <input
@@ -88,19 +84,37 @@ const Login = () => {
                     onFocus={() => setHidePlaceholder(true)}
                     onBlur={() => setHidePlaceholder(false)}
                   />
-                  <input
-                    type="password"
-                    className="pass"
-                    onChange={(e) => setPassword(e.target.value)}
-                    value={password}
-                    placeholder={hidePassword ? "" : "password"}
-                    onFocus={() => setHidePassword(true)}
-                    onBlur={() => setHidePassword(false)}
-                  />
+                  <div className="pass">
+                    <input
+                      type={showPass === false ? "password" : "text"}
+                      className="pass"
+                      onChange={(e) => setPassword(e.target.value)}
+                      value={password}
+                      placeholder={hidePassword ? "" : t("password")}
+                      onFocus={() => setHidePassword(true)}
+                      onBlur={() => setHidePassword(false)}
+                    />
+                    <img
+                      onClick={() => {
+                        setShowPass(!showPass);
+                      }}
+                      style={{
+                        position: "absolute",
+                        right:"0",
+                        width: "20px",
+                        height: "20px",
+                      }}
+                      src={
+                        showPass === false
+                          ? "https://img.icons8.com/ios-glyphs/30/FFFFFF/invisible.png"
+                          : "https://img.icons8.com/ios-glyphs/30/FFFFFF/visible--v1.png"
+                      }
+                    />
+                  </div>
                   <button class="btn-shine">
-                    <span>Login</span>
+                    <span>{t("login")}</span>
                   </button>
-                  <p className="text">or login with</p>
+                  <p className="text">{t("or")}</p>
                   <div className="social-m">
                     <div className="google">
                       <FontAwesomeIcon icon={faGoogle} />
@@ -114,7 +128,7 @@ const Login = () => {
                   </div>
                   <div className="bottom-part">
                     <p className="login">
-                      Haven't an account? <Link to="/signup">Sign Up</Link>
+                      {t("havent")} <Link to="/signup">{t("create")}</Link>
                     </p>
                   </div>
                 </div>
@@ -127,6 +141,42 @@ const Login = () => {
             className="animate__animated animate__slideInLeft"
           />
         </div>
+        {wrongPop && (
+          <div className="wrong-pop">
+            <div className="wrong-card">
+              <img
+                src="https://i.pinimg.com/originals/ef/9d/d5/ef9dd5f6cd629b5b4d0e17a36103ab97.gif"
+                alt=""
+              />
+              <p>Password or email is incorrect</p>
+              <button
+                onClick={() => {
+                  setWrongPop(false);
+                }}
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        )}
+        {emptySection && (
+          <div className="wrong-pop">
+            <div className="wrong-card">
+              <img
+                src="https://i.pinimg.com/originals/ea/f6/b7/eaf6b73fc12fa5571ac59e1b325a3ae1.gif"
+                alt=""
+              />
+              <p>Please fill the gap</p>
+              <button
+                onClick={() => {
+                  setEmptySection(false);
+                }}
+              >
+                Ok
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       <Footer />
     </>

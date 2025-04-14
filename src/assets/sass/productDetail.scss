@@ -138,7 +138,7 @@
       }
       .back {
         margin-top: 20px;
-        button{
+        button {
           box-shadow: none !important;
         }
       }
@@ -146,7 +146,7 @@
         margin-block: 20px;
         display: flex;
         gap: 20px;
-        .add-button{
+        .add-button {
           background-color: transparent !important;
           border: none !important;
         }
@@ -165,8 +165,8 @@
     }
   }
 }
-.dark-detail-card{
-  .price{
+.dark-detail-card {
+  .price {
     margin-left: 15px;
   }
 }
@@ -210,7 +210,8 @@
       button {
         background-color: #354660 !important;
         box-shadow: 10px 5px 10px #d77056 !important;
-        .text,path {
+        .text,
+        path {
           stroke: white;
           color: white !important;
         }
@@ -222,7 +223,7 @@
         .text {
           color: #354660 !important;
         }
-        path{
+        path {
           fill: #354660;
         }
       }
@@ -265,42 +266,155 @@
     }
   }
 }
-@media(max-width:1113px){
-  .dark-detail-card,.detail-card{
-    .right-part{
-      h1{
+@media (max-width: 1113px) {
+  .dark-detail-card,
+  .detail-card {
+    .right-part {
+      h1 {
         font-size: 20px !important;
       }
-      .buttons{
-        button{
-          height: 30px !important;
-          width: 40% !important;
-          .text{
+      .price {
+        svg {
+          width: 20px !important;
+          margin-bottom: 4px !important;
+        }
+      }
+
+      .buttons {
+        flex-direction: column;
+        button {
+          height: 35px !important;
+          width: 60% !important;
+          .add-button {
+            width: 100% !important;
+          }
+          .text {
             font-size: 13px !important;
           }
         }
       }
-      .back{
-        height: 30px !important;
+      .back {
         width: 100% !important;
-        .text{
+        button {
+          width: 60% !important;
+          height: 35px !important;
+        }
+        .text {
           font-size: 13px !important;
         }
       }
     }
   }
 }
-@media(max-width:992px){
-  .dark-detail-card,.detail-card{
+@media (max-width: 992px) {
+  .dark-detail-card,
+  .detail-card {
     padding-inline: 20px !important;
-    .left-part{
-      img{
+    .left-part {
+      img {
         width: 300px !important;
         height: 440px !important;
       }
     }
-    .right-part{
+    .right-part {
       height: 440px !important;
+      .buttons{
+        .add-button{
+          font-size: 13px !important;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 800px) {
+  .detail-card,
+  .dark-detail-card {
+    .product-detail {
+      flex-direction: column !important;
+      img {
+        width: 100% !important;
+        height: auto !important;
+      }
+      .right-part {
+        h1 {
+          font-size: 45px !important;
+        }
+        .price {
+          margin: 0 !important;
+        }
+        .author {
+          p {
+            font-size: 25px !important;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 580px) {
+  .detail-card,
+  .dark-detail-card {
+    .product-detail {
+      .right-part {
+        h1 {
+          font-size: 35px !important;
+        }
+
+        .author {
+          p {
+            font-size: 20px !important;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 450px) {
+  .detail-card,
+  .dark-detail-card {
+    .product-detail {
+      .right-part {
+        h1 {
+          font-size: 28px !important;
+        }
+        .buttons {
+          button {
+            width: 90% !important;
+          }
+        }
+        .back {
+          button {
+            width: 90% !important;
+          }
+        }
+        .author {
+          p {
+            font-size: 17px !important;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 380px) {
+  .detail-card,
+  .dark-detail-card {
+    .product-detail {
+      .right-part {
+        .author{
+          width: 90% !important;
+        }
+        
+        .desc{
+          p{
+            font-size: 13px !important;
+          }
+        }
+        .detail{
+          flex-direction: column !important;
+          gap: 10px !important;
+        }
+      }
     }
   }
 }
