@@ -218,24 +218,27 @@ const SingleCard = ({ allitems }) => {
                         <h1
                           style={{
                             fontSize: "20px",
+                            margin:" 0",
                             textDecoration: "line-through",
                           }}
                         >
                           {allitems.price}
                         </h1>
                       </div>
-                      <h1>{discountedPrice.toString().slice(0, 4)}</h1>
+                      <h1 style={{margin:" 0"}}>{discountedPrice.toString().slice(0, 4)}</h1>
                     </div>
                   ) : (
                     <h1>{allitems.price}</h1>
                   )}
-                  <div>
+                
                     <svg
                       width="30"
-                      height="44"
+                      height="32"
                       viewBox="0 0 31 26"
+                      className="mt-2"
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
+                      
                     >
                       <g clipPath="url(#clip0_11_777)">
                         <path
@@ -251,7 +254,7 @@ const SingleCard = ({ allitems }) => {
                         </clipPath>
                       </defs>
                     </svg>
-                  </div>
+                  
                 </div>
               </div>
               <Link
