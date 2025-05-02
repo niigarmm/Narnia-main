@@ -80,7 +80,7 @@ const resources = {
         author:"Book's Author:",
         pages:"Book's Pages:",
         desc:"Book's Description:",
-        cat:"Book's Category:",
+        cat:"Category:",
         price:"Book's Price",
         lang2:"Book's Language:",
         dashboard:"Go to dashboard",

@@ -1,4 +1,5 @@
-.authors-div,.dark-authors-div {
+.authors-div,
+.dark-authors-div {
   padding-inline: 80px;
   display: flex;
   align-items: center;
@@ -16,8 +17,8 @@
     padding-block: 35px;
     flex-wrap: wrap;
     gap: 20px;
-    .not-found{
-      div{
+    .not-found {
+      div {
         display: flex;
         flex-direction: column !important;
       }
@@ -37,7 +38,7 @@
       perspective: 1000px;
       font-family: sans-serif;
       cursor: pointer;
-      img{
+      img {
         height: 230px;
         width: 190px;
         border-radius: 20px;
@@ -83,9 +84,9 @@
     }
   }
 }
-.dark-authors-div{
+.dark-authors-div {
   background-color: #354660;
-  .author-card{
+  .author-card {
     background-color: #f2f0e6b1;
   }
 }
@@ -110,7 +111,7 @@
     padding-inline: 20px;
     align-items: center;
     position: relative;
-    .close{
+    .close {
       position: absolute;
       top: 20px;
       background-color: #40420f8a;
@@ -122,67 +123,108 @@
       font-weight: 600;
       right: 50px;
     }
-    .right-part{
+    .right-part {
       height: 80vh;
       overflow: auto;
       padding-left: 30px;
       padding-right: 20px;
-      .fam-book{
+      .fam-book {
         display: flex;
         flex-direction: column;
         margin-top: 10px;
-        .book-list{
+        .book-list {
           display: flex;
+          flex-wrap: wrap;
           gap: 40px;
-          h3{
+          h3 {
             margin-top: 20px !important;
             font-size: 14px !important;
           }
-          
         }
-        img{
+        img {
           width: 180px;
           margin-top: 30px;
-          height: 250px !important;
+          height: 250px;
         }
-        h3{
+        h3 {
           font-size: 20px;
           margin: 0 !important;
           font-weight: 700;
           color: #40420f91;
         }
-        
       }
-      .year{
+      .year {
         display: flex;
         align-items: center;
         margin-top: 10px;
         gap: 10px;
-        h3{
+        h3 {
           font-size: 20px;
           margin: 0 !important;
           font-weight: 700;
           color: #40420f91;
         }
-        p{
+        p {
           font-size: 20px;
           font-weight: 700;
         }
       }
-      h1{
+      h1 {
         font-size: 30px;
         margin: 0;
         margin-bottom: 20px;
         color: #40420f;
       }
-      p{
+      p {
         color: #565816;
       }
     }
     .author-img {
       border-radius: 20px;
-      width: 400px !important;
+      width: 400px;
       height: 85vh;
+    }
+  }
+}
+@media (max-width: 998px) {
+  .pop-card {
+    height: 70vh !important;
+    .author-img {
+      height: 90% !important;
+      width: 260px !important;
+    }
+    .right-part {
+      height: 70vh !important;
+      padding-left: 10px;
+      padding-block: 20px;
+      padding-right: 10px;
+      .fam-book {
+        img {
+          width: 130px !important;
+          height: 170px !important;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 720px) {
+  .author-pop {
+    .pop-card {
+      height: 90vh !important;
+      overflow: scroll !important;
+      padding-top: 10px !important;
+      flex-direction: column;
+      align-items: start;
+      .close{
+        height: 25px !important;
+        width: 25px   !important;
+        right: 10px;
+        top: 10px;
+
+      }
+      .right-part{
+        padding-left: 0 !important;
+      }
     }
   }
 }

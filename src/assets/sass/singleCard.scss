@@ -38,7 +38,6 @@
     }
     .pop-cart {
       width: 70%;
-
       height: 90vh;
       z-index: 10000000000;
       position: relative;
@@ -470,11 +469,13 @@
   .pop-up,
   .dark-pop-up {
     .pop-cart {
+      height: 70vh !important;
       .desc {
         p {
           font-size: 13px !important;
         }
       }
+      
       .pop-price {
         margin: 0 !important;
       }
@@ -589,46 +590,16 @@
   }
 }
 @media (max-width: 830px) {
-  .dark-pop-up,
-  .pop-up {
-    .pop-cart {
-      gap: 0px !important;
-      padding: 0 !important;
-      overflow: auto;
-      .left-part {
-        width: 100% !important;
-      }
-      img {
-        width: 100% !important;
-      }
-      width: 300px !important;
-      flex-direction: column !important;
-      .left-part {
-        img {
-          display: none;
-        }
-      }
-      .right-part::-webkit-scrollbar {
-        width: 3px !important;
-        right: 0px !important;
-      }
-      .right-part {
-        width: 100% !important;
-        padding: 10px !important;
-        img {
-          display: flex !important;
-          height: auto !important;
-        }
-        .price-text {
-          display: flex;
-          align-items: center;
-          svg {
-            margin-bottom: 0 !important;
-          }
-        }
-      }
+  .single-card,.dark-single-card{
+    .see{
+      display: none !important;
     }
   }
+  .dark-pop-up,
+  .pop-up {
+    display: none !important;
+  }
+
 }
 @media (max-width: 530px) {
   .dark-single-card,
